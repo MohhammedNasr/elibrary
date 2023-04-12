@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/thymleaf")
+@RequestMapping("/library")
 public class DynamicController {
-    @GetMapping("searchs")
+    @GetMapping("search")
     public ModelAndView getBooks(){
         ModelAndView mav = new ModelAndView("search.html");
         return mav;
