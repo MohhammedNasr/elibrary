@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Search Books</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-    <h1>Search Books</h1>
+    <h1>Discover</h1>
     <form action="#" th:action="@{/books/search}" method="get">
-        <label for="query">Enter a search query:</label>
         <input type="text" id="query" name="query" required th:placeholder="'Book Name'"/>
         <button type="submit">Search</button>
     </form>
     <div th:if="${not #lists.isEmpty(books)}">
-        <h2>Search results:</h2>
-        <ul>
-            <li th:each="book : ${books}">
-                <h3 th:text="${book.title}"></h3>
-                <p th:text="${book.description}"></p>
-                <p th:text="'Author(s): ' + ${book.authors}"></p>
-                <img th:src="${book.ThumbnailUrl}" th:alt="${book.title}" />
-            </li>
-        </ul>
+        <h2>Results</h2>
+        <div class="row-list">
+            <ul>
+                <li th:each="book : ${books}">
+                    <img th:src="${book.ThumbnailUrl}" th:alt="${book.title}" class="book-image" />
+                    <h3 th:text="${book.title}"></h3>
+                    <p class="p3p" th:text="${book.authors}"></p>
+                </li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>
