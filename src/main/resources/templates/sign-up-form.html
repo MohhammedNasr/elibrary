@@ -9,7 +9,7 @@
     <br><br><br><br>
     <div style="width: 360px;height: 420px; margin: auto;background-color: white;border-radius: 5px; "><br>
         <h1 style="text-align: center;padding-top: 15px;color:#DDA379 ;">Sign Up</h><br><br>
-            <form th:action="@{/elibrary/save-user}" th:object="${user}" method="post">
+            <form th:action="@{/library/save-user}" th:object="${user}" method="post">
                 <div><input type="text" th:field="*{username}" name="username" placeholder="Enter username"
                         style="width : 70%;padding: 7px;border-radius: 6px;border: 1px solid gray;" /></div><br>
                 <div><input type="text" th:field="*{email}" name="email" placeholder="Enter email"
@@ -19,7 +19,7 @@
                 <button type="submit" style="width : 40%;height:27px;
                 background-color: #DDA379; border-radius: 6px;border: 1px #DDA379;"> Sign Up</button><br>
         </h1>
-        <h4 style="text-align: center; color:black;">Already have an account?<a href="/elibrary/login"
+        <h4 style="text-align: center; color:black;">Already have an account?<a href="/library/login"
                 style="color:#DDA379;"> Login </a>
         </h4>
 
