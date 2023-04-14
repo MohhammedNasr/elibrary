@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM user";
         List<User> userList = jdbcTemplate.query(sql, new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -28,7 +28,7 @@ public class UserDaoImpl implements UserDao {
                 user.setId(rs.getLong("id"));
                 user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
-                user.setProfilePic(rs.getString("profilePic"));
+                user.setProfilePic(rs.getString("profile_pic"));
                 user.setPassword(rs.getString("password"));
                 return user;
             }
@@ -38,7 +38,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByName(String name) {
-        String sql = "SELECT * FROM users WHERE username = ?";
+        String sql = "SELECT * FROM user WHERE username = ?";
         List<User> users = jdbcTemplate.query(sql, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
                 user.setId(rs.getLong("id"));
                 user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
-                user.setProfilePic(rs.getString("profilePic"));
+                user.setProfilePic(rs.getString("profile_pic"));
                 user.setPassword(rs.getString("password"));
                 return user;
             }
