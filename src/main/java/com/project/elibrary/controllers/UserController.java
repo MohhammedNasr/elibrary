@@ -47,7 +47,6 @@ public class UserController {
     }
 
 
-
     //for viewing users list (can be used by admins)
     @Autowired
     private UserDao userDao;
