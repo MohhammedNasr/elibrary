@@ -126,4 +126,18 @@ h3 {
     object-fit: cover;
 }
 
+.favorite-button {
+    display: block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #558CF8;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.favorite-button:hover {
+    background-color: #0069d9;
+}
 
