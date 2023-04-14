@@ -13,5 +13,4 @@ public class DynamicController {
         ModelAndView mav = new ModelAndView("search.html");
         return mav;
     }
-    
 }

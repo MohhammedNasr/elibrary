@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Profile - [[${user.username}]]</title>
+</head>
+<body>
+    <h1>Profile - [[${user.username}]]</h1>
+    <img th:src="@{|/images/profiles/${user.profilePic}|}" width="200" height="200" alt="Profile Picture">
+    <p>Email: [[${user.email}]]</p>
+    <p>Other user details here...</p>
+</body>
+</html>
