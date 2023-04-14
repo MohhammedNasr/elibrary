@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Profile - [[${user.username}]]</title>
+   <title>User List</title>
 </head>
 <body>
-    <h1>Profile - [[${user.username}]]</h1>
-    <img th:src="@{|/images/profiles/${user.profilePic}|}" width="200" height="200" alt="Profile Picture">
-    <p>Email: [[${user.email}]]</p>
-    <p>Other user details here...</p>
+   <h1 th:if="${isList}">User List</h1>
+   <h1 th:unless="${isList}" th:text="${user.username}"></h1>
+   <table th:if="${isList}">
+       <thead>
+           <tr>
+               <th>ID</th>
+               <th>Username</th>
+               <th>Email</th>
+               <th>Profile Picture</th>
+               <th>Password</th>
+           </tr>
+       </thead>
+       <tbody>
+           <tr th:each="user : ${users}">
+               <td th:text="${user.id}"></td>
+               <td th:text="${user.username}"></td>
+               <td th:text="${user.email}"></td>
+               <td><img th:src="${user.profilePic}" /></td>
+               <td th:text="${user.password}"></td>
+           </tr>
+       </tbody>
+   </table>
+   <div th:unless="${isList}">
+       <p th:text="${user.email}"></p>
+       <img th:src="${user.profilePic}" />
+   </div>
 </body>
 </html>

@@ -1,33 +1,45 @@
 package com.project.elibrary.entity;
 
 public class User {
-    private Long id;
-    public Long getId() {
+    private int id;
+    private String username;
+    private String email;
+    private String profilePic;
+    private String password;
+   
+    public int getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
-    private String name;
-    public String getName() {
-        return name;
+    
+    public String getUsername() {
+        return username;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
-    private String email;
+
     public String getEmail() {
         return email;
     }
     public void setEmail(String email) {
         this.email = email;
     }
-    private String profilePicUrl;
-    public String getProfilePicUrl() {
-        return profilePicUrl;
+
+    public String getProfilePic() {
+        return profilePic;
     }
-    public void setProfilePicUrl(String profilePicUrl) {
-        this.profilePicUrl = profilePicUrl;
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

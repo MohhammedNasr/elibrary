@@ -2,7 +2,7 @@ body {
     background-color: #f2f2f2;
 }
 
-h1 {
+.h1e {
     position: absolute;
 width: 210px;
 height: 56px;
@@ -15,7 +15,7 @@ font-weight: 600;
 font-size: 48px;
 line-height: 61px;
 
-color: #404040;
+color: #940c0c;
 }
 
 h2 {
