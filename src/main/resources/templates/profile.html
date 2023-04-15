@@ -29,6 +29,9 @@
    <div th:unless="${isList}">
        <p th:text="${user.email}"></p>
        <img th:src="${user.profilePic}" />
+       <form method="get" th:action="@{/library/edit-profile/{name}(name=${user != null ? user.username : ''})}">
+        <button type="submit">Edit Profile</button>
+       </form>
    </div>
 </body>
 </html>

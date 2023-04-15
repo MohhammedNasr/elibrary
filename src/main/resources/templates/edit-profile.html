@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Profile</title>
+</head>
+<body>
+    <h1>Edit Profile</h1>
+    <div th:if="${message}">
+        <p th:text="${message}" class="success-message"></p>
+     </div>
+    <form method="post" th:action="@{/library/update-username}">
+        <input type="hidden" name="oldUsername" th:value="${user.username}" />
+        <label>Username:</label>
+        <input type="text" name="newUsername" th:value="${user.username}" />
+        <button type="submit">Update Username</button>
+    </form>
+    <form method="post" th:action="@{/library/update-password}">
+        <input type="hidden" name="username" th:value="${user.username}" />
+        <label>New Password:</label>
+        <input type="password" name="newPassword" />
+        <button type="submit">Update Password</button>
+    </form>
+    <form method="post" th:action="@{/library/update-profile-pic}">
+        <input type="hidden" name="username" th:value="${user.username}" />
+        <label>Profile Picture:</label>
+        <input type="text" name="profilePic" th:value="${user.profilePic}" />
+        <button type="submit">Update Profile Picture</button>
+    </form>
+    <form method="get" th:action="@{/library/users/{name}(name=${user != null ? user.username : ''})}">
+        <button type="submit">Return to profile page</button>
+    </form>
+    <br />
+    <h2>Profile Pic Preview:</h2>
+    <img th:src="${user.profilePic}" />
+</body>
+</html>
+

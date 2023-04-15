@@ -59,4 +59,26 @@ public class UserDaoImpl implements UserDao {
         return users.isEmpty() ? null : users.get(0);
     }
 
+    //edit profile methods
+    @Override
+    public boolean updateProfilePic(String username, String profilePic) {
+        String sql = "UPDATE user SET profile_pic = ? WHERE username = ?";
+        int rowsAffected = jdbcTemplate.update(sql, profilePic, username);
+        return rowsAffected == 1;
+    }
+
+    @Override
+    public boolean updateUsername(String oldUsername, String newUsername) {
+        String sql = "UPDATE user SET username = ? WHERE username = ?";
+        int rowsAffected = jdbcTemplate.update(sql, newUsername, oldUsername);
+        return rowsAffected == 1; 
+    }
+
+    @Override
+    public boolean updatePassword(String username, String newPassword) {
+        String sql = "UPDATE user SET password = ? WHERE username = ?";
+        int rowsAffected = jdbcTemplate.update(sql, newPassword, username);
+        return rowsAffected == 1; 
+    }
+
 }

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.elibrary.dao.UserDao;
 import com.project.elibrary.models.User;
@@ -67,6 +69,47 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("isList", false);
         return "profile.html";
+    }
+
+    //for editing/updating user info 
+    @GetMapping("/edit-profile/{name}")
+    public String editProfile(@PathVariable String name, Model model) {
+        User user = userDao.getUserByName(name);
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "edit-profile";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/update-username")
+    public String updateUsername(@RequestParam String oldUsername, @RequestParam String newUsername, RedirectAttributes redirectAttributes) {
+        boolean success = userDao.updateUsername(oldUsername, newUsername);
+        if (success) {
+            redirectAttributes.addFlashAttribute("message", "Your user name has been changed successfully");
+            return "redirect:/library/edit-profile/" + newUsername;
+        } else {
+            return "redirect:/library/edit-profile/" + oldUsername;
+        }
+    }
+
+    @PostMapping("/update-password")
+    public String updatePassword(@RequestParam String username, @RequestParam String newPassword, RedirectAttributes redirectAttributes) {
+        boolean success = userDao.updatePassword(username, newPassword);
+        if(success) {
+            redirectAttributes.addFlashAttribute("message", "Your password has been changed successfully");
+        }
+        return "redirect:/library/edit-profile/" + username;
+    }
+
+    @PostMapping("/update-profile-pic")
+    public String updateProfilePic(@RequestParam String username, @RequestParam String profilePic, RedirectAttributes redirectAttributes) {
+        boolean success = userDao.updateProfilePic(username, profilePic);
+        if(success) {
+            redirectAttributes.addFlashAttribute("message", "Your profile picture has been updated successfully");
+        }
+        return "redirect:/library/edit-profile/" + username;
     }
 
 }
