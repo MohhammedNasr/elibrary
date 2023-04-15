@@ -1,0 +1,68 @@
+.edit-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .title-card {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .success-message {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    color: green;
+    margin-top: 20px;
+  }
+  
+  .edit-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+  
+  .edit-input-container, .profilePic-input-container {
+    display: flex;
+    align-items: center;
+  }
+  .profilePic-input-container{
+    margin-left: 15px;
+  }
+  .edit-input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+  }
+  
+  .update-edit-button, .return-button {
+    padding: 8px 18px;
+    background-color: #0d0c22;
+    border-radius: 5px;
+    color: #f3f3f3;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: -10px;
+  }
+  .update-edit-button:hover, .return-button:hover{
+    background-color: #414048;
+    color: #f3f3f3;
+  }
+.profilePic{
+    border-radius: 5px;
+}  
+.return-button{
+    margin-top: 10px;
+}
