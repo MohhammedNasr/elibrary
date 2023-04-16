@@ -1,9 +1,10 @@
-body {
+
+.background-search {
     background-color: #f2f2f2;
 }
 
-.h1e {
-    position: absolute;
+.title-name {
+position: absolute;
 width: 210px;
 height: 56px;
 left: 236px;
@@ -18,8 +19,8 @@ line-height: 61px;
 color: #940c0c;
 }
 
-h2 {
-    position: absolute;
+.results-h {
+position: absolute;
 width: 128px;
 height: 44px;
 left: 235px;
@@ -34,18 +35,12 @@ line-height: 46px;
 color: rgba(64, 64, 64, 0.82);
 }
 
-form {
+.input-form {
     margin: 20px auto;
     width: 50%;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-input[type="text"] {
+.input-box-search[type="text"] {
     position: absolute;
 width: 720px;
 height: 59px;
@@ -57,7 +52,7 @@ border-radius: 15px;
 border-color: transparent;
 }
 
-button[type="submit"] {
+.search-button[type="submit"] {
     position: absolute;
 width: 115px;
 height: 39px;
@@ -69,13 +64,13 @@ border-radius: 9px;
     cursor: pointer;
 }
 
-button[type="submit"]:hover {
+.search-button[type="submit"]:hover {
     background-color: #0069d9;
 }
 
 
 
-h3 {
+.book-title {
     margin-top: 0;
     margin-bottom: 10px;
     font-family: 'Euclid Circular B';

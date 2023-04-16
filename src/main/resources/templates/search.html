@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link href="https://fonts.cdnfonts.com/css/euclid-circular-b" rel="stylesheet">              
 <head>
     <meta charset="UTF-8">
     <title>Search Books</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/search.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body>
-    <h1 class="h1e">Discover</h1>
-    <form action="#" th:action="@{/books/search}" method="get">
-        <input type="text" id="query" name="query" required th:placeholder="'Book Name'"/>
-        <button type="submit">Search</button>
+<body class="background-search">
+    <h1 class="title-name">Discover</h1>
+    <form action="#" th:action="@{/books/search}" method="get" class="input-form">
+        <input class="input-box-search" type="text" id="query" name="query" required th:placeholder="'Book Name'"/>
+        <button type="submit" class="search-button">Search</button>
     </form>
     <div th:if="${not #lists.isEmpty(books)}">
-        <h2>Results</h2>
+        <h2 class="results-h">Results</h2>
         <div class="row-list">
             <ul>
                 <li th:each="book : ${books}">
                     <img th:src="${book.ThumbnailUrl}" th:alt="${book.title}" class="book-image" />
-                    <h3 th:text="${book.title}"></h3>
+                    <h3 th:text="${book.title}" class="book-title"></h3>
                     <p class="p3p" th:text="${book.authors}"></p>
                     <input type="hidden" id="book-id" name="book-id" th:value="${book.id}" />
                     <button type="button" class="favorite-btn">Favorite</button>

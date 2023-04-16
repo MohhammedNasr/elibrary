@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/css/profile.css">
+
 <head>
-   <title>User List</title>
+    <title>Profile</title>
 </head>
+
 <body>
-   <h1 th:if="${isList}">User List</h1>
-   <h1 th:unless="${isList}" th:text="${user.username}"></h1>
-   <table th:if="${isList}">
-       <thead>
-           <tr>
-               <th>ID</th>
-               <th>Username</th>
-               <th>Email</th>
-               <th>Profile Picture</th>
-               <th>Password</th>
-           </tr>
-       </thead>
-       <tbody>
-           <tr th:each="user : ${users}">
-               <td th:text="${user.id}"></td>
-               <td th:text="${user.username}"></td>
-               <td th:text="${user.email}"></td>
-               <td><img th:src="${user.profilePic}" /></td>
-               <td th:text="${user.password}"></td>
-           </tr>
-       </tbody>
-   </table>
-   <div th:unless="${isList}">
-       <p th:text="${user.email}"></p>
-       <img th:src="${user.profilePic}" />
-       <form method="get" th:action="@{/library/edit-profile/{name}(name=${user != null ? user.username : ''})}">
-        <button type="submit">Edit Profile</button>
-       </form>
-   </div>
+    <h1 th:if="${isList}">User List</h1>
+    <table th:if="${isList}">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Profile Picture</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td><img th:src="${user.profilePic}" /></td>
+                <td th:text="${user.password}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div th:unless="${isList}" class="profile-container">
+        <div class="background-gradient">
+            <img class="profilePic" th:src="${user.profilePic}" />
+        </div>
+        <form method="get" th:action="@{/library/edit-profile/{name}(name=${user != null ? user.username : ''})}">
+            <button type="submit" class="edit-button">Edit Profile</button>
+        </form>
+        <p class="profile-name" th:text="${user.username}">
+            </td>
+        <p th:text="${user.email}" class="profile-email"></p>
+    </div>
 </body>
+
 </html>

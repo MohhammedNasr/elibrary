@@ -1,37 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/css/edit-profile.css">
+
 <head>
     <title>Edit Profile</title>
 </head>
-<body>
-    <h1>Edit Profile</h1>
-    <div th:if="${message}">
-        <p th:text="${message}" class="success-message"></p>
-     </div>
-    <form method="post" th:action="@{/library/update-username}">
-        <input type="hidden" name="oldUsername" th:value="${user.username}" />
-        <label>Username:</label>
-        <input type="text" name="newUsername" th:value="${user.username}" />
-        <button type="submit">Update Username</button>
-    </form>
-    <form method="post" th:action="@{/library/update-password}">
-        <input type="hidden" name="username" th:value="${user.username}" />
-        <label>New Password:</label>
-        <input type="password" name="newPassword" />
-        <button type="submit">Update Password</button>
-    </form>
-    <form method="post" th:action="@{/library/update-profile-pic}">
-        <input type="hidden" name="username" th:value="${user.username}" />
-        <label>Profile Picture:</label>
-        <input type="text" name="profilePic" th:value="${user.profilePic}" />
-        <button type="submit">Update Profile Picture</button>
-    </form>
-    <form method="get" th:action="@{/library/users/{name}(name=${user != null ? user.username : ''})}">
-        <button type="submit">Return to profile page</button>
-    </form>
-    <br />
-    <h2>Profile Pic Preview:</h2>
-    <img th:src="${user.profilePic}" />
-</body>
-</html>
+<div class="edit-container">
 
+    <body>
+        <h1 class="title-card">Edit Profile</h1>
+        <div th:if="${message}">
+            <p th:text="${message}" class="success-message"></p>
+        </div>
+        <form method="post" th:action="@{/library/update-username}">
+            <input type="hidden" name="oldUsername" th:value="${user.username}" />
+            <label class="edit-label">Username:</label>
+            <div class="edit-input-container">
+                <input class="edit-input" type="text" name="newUsername" th:value="${user.username}" />
+                <button class="update-edit-button" type="submit">Update Username</button>
+            </div>
+        </form>
+        <form method="post" th:action="@{/library/update-password}">
+            <input type="hidden" name="username" th:value="${user.username}" />
+            <label class="edit-label">New Password:</label>
+            <div class="edit-input-container">
+                <input class="edit-input" type="password" name="newPassword" />
+                <button class="update-edit-button" type="submit">Update Password</button>
+            </div>
+        </form>
+        <form method="post" th:action="@{/library/update-profile-pic}">
+            <input type="hidden" name="username" th:value="${user.username}" />
+            <label class="edit-label">Profile Picture:</label>
+            <div class="profilePic-input-container">
+                <input class="edit-input" type="text" name="profilePic" th:value="${user.profilePic}" />
+                <button class="update-edit-button" type="submit">Update Profile Picture</button>
+            </div>
+        </form>
+        <form method="get" th:action="@{/library/users/{name}(name=${user != null ? user.username : ''})}">
+            <button class="return-button" type="submit">Return to profile page</button>
+        </form>
+        <br />
+        <h2>Profile Pic Preview:</h2>
+        <img class="profilePic" th:src="${user.profilePic}" />
+    </body>
+</div>
+
+</html>

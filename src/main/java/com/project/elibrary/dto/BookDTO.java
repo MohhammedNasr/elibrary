@@ -1,44 +1,26 @@
-package com.project.elibrary.models;
+package com.project.elibrary.dto;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class BookDTO {
 
-@Entity
-@Table(name = "books")
-public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
     private String title;
 
-    @Column(length = 10000)
     private String description;
 
-    @ElementCollection
     private List<String> authors;
 
-    @Column(name = "thumbnail_url")
     private String thumbnailUrl;
 
     private Boolean availability;
 
     // Constructors, getters, and setters
 
-    public Book() {
-        // Empty constructor needed by JPA
+    public BookDTO() {
+        // Empty constructor
     }
 
-    public Book(String title, String description, List<String> authors, String thumbnailUrl) {
+    public BookDTO(String title, String description, List<String> authors, String thumbnailUrl) {
         this.title = title;
         this.description = description;
         this.authors = authors;
@@ -52,14 +34,6 @@ public class Book {
     }
     public void setAvailability(Boolean availability) {
         this.availability = availability;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -94,3 +68,4 @@ public class Book {
         this.thumbnailUrl = thumbnailUrl;
     }
 }
+
