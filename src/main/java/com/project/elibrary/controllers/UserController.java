@@ -86,7 +86,7 @@ public class UserController {
         String email = user.getEmail();
         User userfinder = this.userRepo.findByEmail(email).orNull();
         if (userfinder == null) {
-            return "redirect:/library/rest-pass";
+            return "redirect:/library/reset-pass";
         }
         String pass = user.getPassword();
         userfinder.setPassword(pass);
