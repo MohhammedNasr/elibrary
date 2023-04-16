@@ -14,9 +14,13 @@
                 <div><input type="password" th:field="*{password}" name="password" placeholder="Enter password"
                         style="width : 70%;padding: 7px;border-radius: 6px;border: 1px solid gray;" /> </div><br>
                 <button type="submit" style="width : 40%;height:27px;
-               background-color: #DDA379; border-radius: 6px;border: 1px #DDA379;">Login</button><br>
+               background-color: #DDA379; border-radius: 6px;border: 1px #DDA379;">Login</button>
             </form>
         </h1>
+        <h6><a th:href="@{/library/reset-pass}" style="color:#DDA379;text-align: left; padding-left:200px;"> Forgot
+                your
+                password? </a></h6>
+
 
 
     </div>

@@ -62,7 +62,6 @@ public class UserController {
         String email = user.getEmail();
         User userfinder = this.userRepo.findByEmail(email).orNull();
         if (userfinder == null) {
-
             return "redirect:/library/login";
         }
         String pass = user.getPassword();
@@ -72,6 +71,28 @@ public class UserController {
         } else {
             return "redirect:/library/login";
         }
+    }
+
+    @GetMapping("reset-pass")
+    public ModelAndView getRestpassform() {
+        ModelAndView mav = new ModelAndView("reset-pass.html");
+        User newUser = new User();
+        mav.addObject("user", newUser);
+        return mav;
+    }
+
+    @PostMapping("change-pass")
+    public String changepass(@ModelAttribute User user) {
+        String email = user.getEmail();
+        User userfinder = this.userRepo.findByEmail(email).orNull();
+        if (userfinder == null) {
+            return "redirect:/library/rest-pass";
+        }
+        String pass = user.getPassword();
+        userfinder.setPassword(pass);
+        this.userRepo.save(userfinder);
+        return "redirect:/library/login";
+
     }
 
     // for viewing users list (can be used by admins)
