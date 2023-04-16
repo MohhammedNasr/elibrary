@@ -8,6 +8,9 @@ public class GoogleVolumeInfo {
     private List<String> authors;
     private String description;
     private GoogleImageLinks imageLinks;
+    private Integer pageCount;
+    private String publishedDate;
+    private Double averageRating;
     
     public String getTitle() {
         return title;
@@ -39,5 +42,29 @@ public class GoogleVolumeInfo {
     
     public void setImageLinks(GoogleImageLinks imageLinks) {
         this.imageLinks = imageLinks;
+    }
+
+    public Integer getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(Integer pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public String getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(String publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+    public Double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
     }
 }

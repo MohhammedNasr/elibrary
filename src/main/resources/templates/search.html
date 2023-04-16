@@ -18,43 +18,17 @@
         <div class="row-list">
             <ul>
                 <li th:each="book : ${books}">
+                  <a th:href="@{/books/details(bookName=${book.title})}">
                     <img th:src="${book.ThumbnailUrl}" th:alt="${book.title}" class="book-image" />
                     <h3 th:text="${book.title}" class="book-title"></h3>
                     <p class="p3p" th:text="${book.authors}"></p>
                     <input type="hidden" id="book-id" name="book-id" th:value="${book.id}" />
-                    <button type="button" class="favorite-btn">Favorite</button>
+                  </a>
                 </li>
             </ul>
         </div>
     </div>
 </body>
 </html>
-
-<script>
-  $(document).ready(function() {
-    $(".favorite-btn").click(function() {
-      var bookId = $(this).siblings("#book-id").val();
-      var bookTitle = $(this).siblings("h3").text();
-      var bookAuthors = $(this).siblings(".p3p").text();
-      var bookImage = $(this).siblings(".book-image").attr("src");
-      $.ajax({
-        type: "POST",
-        url: "/favorites",
-        data: {
-          id: bookId,
-          name: bookTitle,
-          authors: bookAuthors,
-          image: bookImage
-        },
-        success: function(response) {
-          alert("Book added to favorites!");
-        },
-        error: function(xhr) {
-          alert("Error adding book to favorites.");
-        }
-      });
-    });
-  });
-</script>
 
     

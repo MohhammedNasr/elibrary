@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.project.elibrary.models.Book;
 import com.project.elibrary.dao.BookService;
 import com.project.elibrary.googleBooks.GoogleBook;
@@ -49,6 +48,27 @@ public class BookController {
 
         model.addAttribute("books", books);
         return "search";
+    }
+
+    @GetMapping("/details")
+    public String showBookDetails(@RequestParam("bookName") String bookName, Model model) {
+      String url = "https://www.googleapis.com/books/v1/volumes?q={bookName}";
+      GoogleBooksResponse response = restTemplate.getForObject(url, GoogleBooksResponse.class, bookName);
+    
+      GoogleBook googleBook = response.getItems().get(0);
+      Book book = new Book();
+      book.setTitle(googleBook.getVolumeInfo().getTitle());
+      book.setDescription(googleBook.getVolumeInfo().getDescription());
+      book.setAuthors(googleBook.getVolumeInfo().getAuthors());
+      book.setThumbnailUrl(googleBook.getVolumeInfo().getImageLinks().getThumbnail());
+      
+      // Set the page count, published date, and average rating of the book
+      book.setPageCount(googleBook.getVolumeInfo().getPageCount());
+      book.setPublishedDate(googleBook.getVolumeInfo().getPublishedDate());
+      book.setAverageRating(googleBook.getVolumeInfo().getAverageRating());
+    
+      model.addAttribute("book", book);
+      return "bookDetails";
     }
 
     

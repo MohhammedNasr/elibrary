@@ -30,7 +30,17 @@ public class Book {
     @Column(name = "thumbnail_url")
     private String thumbnailUrl;
 
+    @Column(name = "availability")
     private Boolean availability;
+
+    @Column(name = "page_count")
+    private Integer pageCount;
+
+    @Column(name = "published_date")
+    private String publishedDate;
+
+    @Column(name = "average_rating")
+    private Double averageRating;
 
     // Constructors, getters, and setters
 
@@ -44,8 +54,6 @@ public class Book {
         this.authors = authors;
         this.thumbnailUrl = thumbnailUrl;
     }
-
-    // Getters and setters
 
     public Boolean getAvailability() {
         return availability;
@@ -92,5 +100,29 @@ public class Book {
 
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
+    }
+    
+    public Integer getPageCount() {
+    return pageCount;
+    }
+
+    public void setPageCount(Integer pageCount) {
+    this.pageCount = pageCount;
+    }
+
+    public String getPublishedDate() {
+    return publishedDate;
+    }
+
+    public void setPublishedDate(String publishedDate) {
+    this.publishedDate = publishedDate;
+    }
+
+    public Double getAverageRating() {
+    return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+    this.averageRating = averageRating;
     }
 }
