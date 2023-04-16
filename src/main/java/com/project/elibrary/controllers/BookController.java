@@ -48,22 +48,33 @@ public class BookController {
         return "search";
     }
 
-    //adding book manually (donating)
+    
     @Autowired
     private BookService bookService;
 
+    //adding book manually (donating)
     @PostMapping("/add")
-    public ResponseEntity<Book> createBook(@RequestBody BookDTO bookDTO) {
-        Book book = bookService.createBook(bookDTO.getTitle(), bookDTO.getDescription(), bookDTO.getAuthors(), bookDTO.getThumbnailUrl(), bookDTO.getAvailability());
-        return ResponseEntity.created(URI.create("/books/" + book.getId())).body(book);
+    public ResponseEntity<Book> createBook(Book book) {
+        book.setAvailability(true); //when any book get added its set to be available 
+        Book createdBook = bookService.createBook(book.getTitle(), book.getDescription(), book.getAuthors(), book.getThumbnailUrl(), book.getAvailability());
+        return ResponseEntity.created(URI.create("/books/" + createdBook.getId())).body(createdBook);
     }
+    
 
+    //view list of uploaded books/donated books/created books
     @GetMapping("/allbooks")
     public ModelAndView showBooks() {
         List<Book> books = bookService.getAllBooks();
         ModelAndView mav = new ModelAndView("books");
         mav.addObject("books", books);
         return mav;
+    }
+
+    //open donating form
+    @GetMapping("/donate")
+    public String getBookForm(Model model) {
+        model.addAttribute("book", new BookDTO());
+        return "donate-books";
     }
 
 }

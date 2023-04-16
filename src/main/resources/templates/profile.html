@@ -3,12 +3,11 @@
 <link rel="stylesheet" type="text/css" href="/css/profile.css">
 
 <head>
-    <title>User List</title>
+    <title>Profile</title>
 </head>
 
 <body>
     <h1 th:if="${isList}">User List</h1>
-    <h1 th:unless="${isList}" th:text="${user.username}"></h1>
     <table th:if="${isList}">
         <thead>
             <tr>
