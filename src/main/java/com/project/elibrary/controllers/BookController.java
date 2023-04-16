@@ -15,9 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.elibrary.models.Book;
 import com.project.elibrary.dao.BookService;
-import com.project.elibrary.dto.BookDTO;
 import com.project.elibrary.googleBooks.GoogleBook;
 import com.project.elibrary.googleBooks.GoogleBooksResponse;
+import com.project.elibrary.googleBooks.GoogleImageLinks;
+
 import org.springframework.ui.Model;
 
 @Controller
@@ -39,7 +40,10 @@ public class BookController {
             book.setTitle(googleBook.getVolumeInfo().getTitle());
             book.setDescription(googleBook.getVolumeInfo().getDescription());
             book.setAuthors(googleBook.getVolumeInfo().getAuthors());
-            book.setThumbnailUrl(googleBook.getVolumeInfo().getImageLinks().getThumbnail());
+            GoogleImageLinks imageLinks = googleBook.getVolumeInfo().getImageLinks();
+            if (imageLinks != null) {
+                book.setThumbnailUrl(imageLinks.getThumbnail());
+            }
             books.add(book);
         }
 
@@ -67,13 +71,6 @@ public class BookController {
         ModelAndView mav = new ModelAndView("books");
         mav.addObject("books", books);
         return mav;
-    }
-
-    //open donating form
-    @GetMapping("/donate")
-    public String getBookForm(Model model) {
-        model.addAttribute("book", new BookDTO());
-        return "donate-books";
     }
 
 }
