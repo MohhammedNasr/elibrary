@@ -18,7 +18,7 @@
         <div class="row-list">
             <ul>
                 <li th:each="book : ${books}">
-                  <a th:href="@{/books/details(bookName=${book.title})}">
+                  <a href="" class="book-details">
                     <img th:src="${book.ThumbnailUrl}" th:alt="${book.title}" class="book-image" />
                     <h3 th:text="${book.title}" class="book-title"></h3>
                     <p class="p3p" th:text="${book.authors}"></p>
@@ -28,7 +28,19 @@
             </ul>
         </div>
     </div>
+    <div id="book-details-container" style="display: none;"></div>
 </body>
 </html>
 
-    
+<script>
+    $(document).ready(function() {
+        $(".book-details").click(function(event) {
+            event.preventDefault();
+            var bookName = $(this).find(".book-title").text();
+            $.get("/books/details?bookName=" + bookName, function(data) {
+                $("#book-details-container").html(data);
+                $("#book-details-container").show();
+            });
+        });
+    });
+</script>

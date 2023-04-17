@@ -1,37 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<link href="https://fonts.cdnfonts.com/css/euclid-circular-b" rel="stylesheet">              
 <head>
-  <meta charset="UTF-8">
-  <title>Book Details</title>
-  <link rel="stylesheet" type="text/css" href="/css/bookDetails.css">
-  <link href="https://fonts.cdnfonts.com/css/euclid-circular-b" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/book-details.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body class="background-details">
-  <h1 class="title-name">Book details</h1>
-  <div class="book-details">
-    <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image" name="book-image" id="book-image" />
-    <div class="vertical-line"></div>
-    <div class="all-details">
-      <h2 name="title" id="title" th:text="${book.title}" class="book-title"></h2>
-      <p name="authors" id="authors" class="book-authors p3p" th:text="${book.authors}"></p>
-      <p class="book-description p3p" th:text="${book.description}"></p>
-      <p class="book-page-count p3p" th:text="'Page Count: ' + ${book.pageCount}"></p>
-      <p class="book-published-date p3p" th:text="'Published Date: ' + ${book.publishedDate}"></p>
-      <p class="book-average-rating p3p" th:text="'Average Rating: ' + ${book.averageRating}"></p>
-      <input type="hidden" id="book-id" name="book-id" th:value="${book.id}" />
-      <button type="button" class="favorite-btn">Favorite</button>
+    <h1 class="ti-name">About the book</h1>
+    <div class="book-details">
+        <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image" />
+        <h2 name="title" id="title" th:text="${book.title}" class="book-title"></h2>
+        <p name="authors" id="authors" class="p3p" th:text="${book.authors}"></p>
+        <p class="p3p" th:text="${book.description}"></p>
+        <p class="p3p" th:text="'Page Count: ' + ${book.pageCount}"></p>
+        <p class="p3p" th:text="'Published Date: ' + ${book.publishedDate}"></p>
+        <p class="p3p" th:text="'Average Rating: ' + ${book.averageRating}"></p>
+        <input type="hidden" id="book-id" name="book-id" th:value="${book.id}" />
+        <button type="button" class="favorite-btn">Favorite</button>
+        <a th:href="@{/books/mdetails(bookName=${book.title})}"> Details </a>  <!-- goes to bookmDetails.html -->
     </div>
-  </div>
-  <script>
-    $(document).ready(function () {
-      $(".favorite-btn").click(function () {
+</body>
+</html>
+
+<script>
+    $(document).ready(function() {
+      $(".favorite-btn").click(function() {
         var bookId = $(this).siblings("#book-id").val();
         var bookTitle = $(this).siblings("#title").text();
         var bookAuthors = $(this).siblings("#authors").text();
-        var bookImage = $(this).closest(".book-details").find("#book-image").attr("src"); //.closest is to find in the other div "book-details"
+        var bookImage = $(this).siblings(".book-image").attr("src");
         $.ajax({
           type: "POST",
           url: "/favorites",
@@ -41,16 +39,13 @@
             authors: bookAuthors,
             image: bookImage
           },
-          success: function (response) {
+          success: function(response) {
             alert("Book added to favorites!");
           },
-          error: function (xhr) {
+          error: function(xhr) {
             alert("Error adding book to favorites.");
           }
         });
       });
     });
   </script>
-</body>
-
-</html>

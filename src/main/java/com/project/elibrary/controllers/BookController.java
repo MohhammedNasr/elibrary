@@ -71,6 +71,29 @@ public class BookController {
       return "bookDetails";
     }
 
+
+    //to see the book page
+    @GetMapping("/mdetails")
+    public String showBookmDetails(@RequestParam("bookName") String bookName, Model model) {
+      String url = "https://www.googleapis.com/books/v1/volumes?q={bookName}";
+      GoogleBooksResponse response = restTemplate.getForObject(url, GoogleBooksResponse.class, bookName);
+    
+      GoogleBook googleBook = response.getItems().get(0);
+      Book book = new Book();
+      book.setTitle(googleBook.getVolumeInfo().getTitle());
+      book.setDescription(googleBook.getVolumeInfo().getDescription());
+      book.setAuthors(googleBook.getVolumeInfo().getAuthors());
+      book.setThumbnailUrl(googleBook.getVolumeInfo().getImageLinks().getThumbnail());
+      
+      // Set the page count, published date, and average rating of the book
+      book.setPageCount(googleBook.getVolumeInfo().getPageCount());
+      book.setPublishedDate(googleBook.getVolumeInfo().getPublishedDate());
+      book.setAverageRating(googleBook.getVolumeInfo().getAverageRating());
+    
+      model.addAttribute("book", book);
+      return "bookmDetails";
+    }
+
     
     @Autowired
     private BookService bookService;
