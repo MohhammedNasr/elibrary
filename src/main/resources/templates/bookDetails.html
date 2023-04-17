@@ -12,7 +12,7 @@
 <body class="background-details">
   <h1 class="title-name">Book details</h1>
   <div class="book-details">
-    <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image" />
+    <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image" name="book-image" id="book-image" />
     <div class="vertical-line"></div>
     <div class="all-details">
       <h2 name="title" id="title" th:text="${book.title}" class="book-title"></h2>
@@ -31,7 +31,7 @@
         var bookId = $(this).siblings("#book-id").val();
         var bookTitle = $(this).siblings("#title").text();
         var bookAuthors = $(this).siblings("#authors").text();
-        var bookImage = $(this).siblings(".book-image").attr("src");
+        var bookImage = $(this).closest(".book-details").find("#book-image").attr("src"); //.closest is to find in the other div "book-details"
         $.ajax({
           type: "POST",
           url: "/favorites",
