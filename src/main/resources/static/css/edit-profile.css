@@ -62,7 +62,11 @@
   }
 .profilePic{
     border-radius: 5px;
+    max-width: 400px;
 }  
 .return-button{
     margin-top: 10px;
+}
+.pfplbl{
+    margin-left: 18px;
 }

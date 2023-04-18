@@ -30,7 +30,7 @@
         </form>
         <form method="post" th:action="@{/library/update-profile-pic}">
             <input type="hidden" name="username" th:value="${user.username}" />
-            <label class="edit-label">Profile Picture:</label>
+            <label class="edit-label pfplbl">Profile Picture:</label>
             <div class="profilePic-input-container">
                 <input class="edit-input" type="text" name="profilePic" th:value="${user.profilePic}" />
                 <button class="update-edit-button" type="submit">Update Profile Picture</button>
