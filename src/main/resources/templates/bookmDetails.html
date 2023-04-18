@@ -49,7 +49,34 @@
           }
         });
       });
-    });
+    });  
+   $(document).ready(function truncateDescription() {
+  var maxLength = 200;
+  var descriptions = document.getElementsByClassName("book-description");
+  for (var i = 0; i < descriptions.length; i++) {
+    (function(i) {
+      var descriptionText = descriptions[i].textContent.trim();
+      if (descriptionText.length > maxLength) {
+        var truncatedText = descriptionText.substr(0, maxLength) + "...";
+        descriptions[i].textContent = truncatedText;
+        var readMoreLink = document.createElement("a");
+        readMoreLink.textContent = "Read more";
+        readMoreLink.href = "#";
+        readMoreLink.addEventListener("click", function(event) {
+          event.preventDefault();
+          descriptions[i].textContent = descriptionText;
+          this.style.display = "none";
+        });
+        descriptions[i].appendChild(readMoreLink);
+      }
+    })(i);
+  }
+});
+
+
+  document.addEventListener("DOMContentLoaded", function() {
+    truncateDescription();
+  });
   </script>
 </body>
 
