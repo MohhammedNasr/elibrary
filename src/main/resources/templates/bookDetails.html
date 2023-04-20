@@ -6,21 +6,25 @@
     <link rel="stylesheet" type="text/css" href="/css/book-details.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+<div class="everything-details">
 <body class="background-details">
     <h1 class="ti-name">About the book</h1>
     <div class="book-details">
-        <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image" />
-        <h2 name="title" id="title" th:text="${book.title}" class="book-title"></h2>
-        <p name="authors" id="authors" class="p3p" th:text="${book.authors}"></p>
-        <p class="p3p" th:text="${book.description}"></p>
-        <p class="p3p" th:text="'Page Count: ' + ${book.pageCount}"></p>
-        <p class="p3p" th:text="'Published Date: ' + ${book.publishedDate}"></p>
-        <p class="p3p" th:text="'Average Rating: ' + ${book.averageRating}"></p>
+        <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image-details" />
+        <h2 name="title" id="title" th:text="${book.title}" class="book-title-details"></h2>
+        <p name="authors" id="authors" class="p3p book-author-details" th:text="${book.authors}"></p>
+        <div class="details-box">
+        <p class="p3p-details" th:text="' Rating: ' + ${book.averageRating}"></p>
+        <p class="p3p-details" th:text="'Pages : ' + ${book.pageCount}"></p>
+        </div>
+        <p class="p3p-details description-details" th:text="${book.description}"></p>
+        <p class="p3p-details" th:text="'Published Date: ' + ${book.publishedDate}"></p>
         <input type="hidden" id="book-id" name="book-id" th:value="${book.id}" />
         <button type="button" class="favorite-btn">Favorite</button>
         <a th:href="@{/books/mdetails(bookName=${book.title})}"> Details </a>  <!-- goes to bookmDetails.html -->
     </div>
 </body>
+</div>
 </html>
 
 <script>

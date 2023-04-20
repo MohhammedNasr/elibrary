@@ -1,0 +1,81 @@
+ @import url('https://fonts.cdnfonts.com/css/inter');
+                
+.everything-details {
+    background-color: #121421;
+    color: white;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+}
+
+.book-details-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.p3p-details {
+    margin: 3px;
+}
+.details-box{
+    background-color: #1B1D2A;
+    width: 70%;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.p3p-details:nth-child(odd) {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.p3p-details:nth-child(even) {
+    display: inline-block;
+}
+
+.book-image-details {
+    margin-right: 20px;
+    width: 200px;
+    height: 300px;
+    border-radius: 18px;
+}
+
+.favorite-btn {
+    margin: 20px;
+    padding: 10px;
+    background-color: white;
+    color: #121421;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.favorite-btn:hover {
+    background-color: #121421;
+    color: white;
+}
+
+.book-title-details {
+    font-size: 30px;
+    font-weight: bold;
+}
+.book-author-details{
+    font-size: 20px;
+    font-weight: bold;
+    color: aliceblue;
+}
+.description-details{
+    font-size: 15px;
+    margin: 0 auto;
+    width: 80%;
+}
+.ti-name{
+    font-size: 25px;
+    font-weight: bold;
+    color: aliceblue;
+}
