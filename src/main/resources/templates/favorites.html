@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorites</title>
+</head>
+<body>
+    <h1>Favorites for <span th:text="${username}"></span></h1>
+    <table>
+        <tr>
+            <th>Book Name</th>
+            <th>Authors</th>
+            <th>Image</th>
+        </tr>
+        <tr th:each="favorite : ${favorites}">
+            <td th:text="${favorite.bookName}"></td>
+            <td th:text="${favorite.authors}"></td>
+            <td>
+                <img th:src="${favorite.image}" alt="book cover" height="100px" />
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(favorites)}">
+            <td colspan="4">No favorites found.</td>
+        </tr>
+    </table>
+</body>
+</html>

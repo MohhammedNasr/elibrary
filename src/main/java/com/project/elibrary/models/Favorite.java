@@ -26,6 +26,9 @@ public class Favorite {
     @Column(name = "image")
     private String image;
 
+    @Column(name = "userName")
+    private String username;
+
     // getters and setters
     public String getAuthors() {
         return authors;
@@ -65,5 +68,13 @@ public class Favorite {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

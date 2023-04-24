@@ -34,7 +34,7 @@
         var bookImage = $(this).closest(".book-details").find("#book-image").attr("src"); //.closest is to find in the other div "book-details"
         $.ajax({
           type: "POST",
-          url: "/favorites",
+          url: "/favorites/add",
           data: {
             id: bookId,
             name: bookTitle,

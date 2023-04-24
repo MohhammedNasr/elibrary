@@ -41,14 +41,16 @@
         var bookTitle = $(this).siblings("#title").text();
         var bookAuthors = $(this).siblings("#authors").text();
         var bookImage = $(this).siblings(".book-image-details").attr("src");
+        var userName = "testingUSERNAME"; //should be changed to the current username who is using the website.
         $.ajax({
           type: "POST",
-          url: "/favorites",
+          url: "/favorites/add",
           data: {
             id: bookId,
             name: bookTitle,
             authors: bookAuthors,
-            image: bookImage
+            image: bookImage,
+            userName: userName
           },
           success: function(response) {
             alert("Book added to favorites!");

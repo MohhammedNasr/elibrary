@@ -35,6 +35,9 @@
         <form method="get" th:action="@{/library/edit-profile/{name}(name=${user != null ? user.username : ''})}">
             <button type="submit" class="edit-button">Edit Profile</button>
         </form>
+        <form method="get" th:action="@{/favorites/{name}(name=${user != null ? user.username : ''})}">
+            <button type="submit" class="edit-button">Favorites</button>
+        </form>
         <p class="profile-name" th:text="${user.username}">
             </td>
         <p th:text="${user.email}" class="profile-email"></p>
