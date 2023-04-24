@@ -6,6 +6,7 @@
     text-align: center;
     height: 100%;
     width: 100%;
+    margin: 0 auto;
     font-family: 'Inter', sans-serif;
 }
 
@@ -22,9 +23,11 @@
     margin: 3px;
 }
 .details-box{
-    background-color: #1B1D2A;
+    background-color: #262839;
     width: 70%;
     margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
     border-radius: 10px;
     padding: 15px;
 }
@@ -39,20 +42,24 @@
 }
 
 .book-image-details {
-    margin-right: 20px;
+    margin: 0 auto;
     width: 200px;
     height: 300px;
     border-radius: 18px;
 }
 
 .favorite-btn {
-    margin: 20px;
-    padding: 10px;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 11px 20px;
     background-color: white;
     color: #121421;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .favorite-btn:hover {
@@ -62,20 +69,42 @@
 
 .book-title-details {
     font-size: 30px;
+    margin: 0 auto;
     font-weight: bold;
 }
 .book-author-details{
     font-size: 20px;
     font-weight: bold;
     color: aliceblue;
+    margin: 0 auto;
 }
 .description-details{
     font-size: 15px;
     margin: 0 auto;
+    margin-bottom: 10px;
+    margin-left:20px;
     width: 80%;
 }
 .ti-name{
     font-size: 25px;
     font-weight: bold;
     color: aliceblue;
+    margin: 0 auto;
 }
+.details-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: white;
+    color: #121421;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .details-button:hover {
+    background-color: #121421;
+    color: white;
+  }
+  

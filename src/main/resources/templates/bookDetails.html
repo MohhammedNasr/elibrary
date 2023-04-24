@@ -7,7 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <div class="everything-details">
-<body class="background-details">
+<body class="background-details" >
     <h1 class="ti-name">About the book</h1>
     <div class="book-details">
         <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image-details" />
@@ -21,7 +21,7 @@
         <p class="p3p-details" th:text="'Published Date: ' + ${book.publishedDate}"></p>
         <input type="hidden" id="book-id" name="book-id" th:value="${book.id}" />
         <button type="button" class="favorite-btn">Favorite</button>
-        <a th:href="@{/books/mdetails(bookName=${book.title})}"> Details </a>  <!-- goes to bookmDetails.html -->
+        <a class="details-button" th:href="@{/books/mdetails(bookName=${book.title})}"> Details </a>  <!-- goes to bookmDetails.html -->
     </div>
 </body>
 </div>
