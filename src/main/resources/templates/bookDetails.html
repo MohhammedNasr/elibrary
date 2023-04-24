@@ -40,7 +40,7 @@
         var bookId = $(this).siblings("#book-id").val();
         var bookTitle = $(this).siblings("#title").text();
         var bookAuthors = $(this).siblings("#authors").text();
-        var bookImage = $(this).siblings(".book-image").attr("src");
+        var bookImage = $(this).siblings(".book-image-details").attr("src");
         $.ajax({
           type: "POST",
           url: "/favorites",
@@ -59,18 +59,19 @@
         });
       });
     });
-    $(document).ready(function truncateDescription() {
-  var maxLength = 200;
-  var descriptions = document.getElementsByClassName("description-details");
-  for (var i = 0; i < descriptions.length; i++) {
-    (function(i) {
-      var descriptionText = descriptions[i].textContent.trim();
-      if (descriptionText.length > maxLength) {
-        var truncatedText = descriptionText.substr(0, maxLength) + "...";
-        descriptions[i].textContent = truncatedText;
-        descriptions[i].appendChild(readMoreLink);
-      }
-    })(i);
-  }
-});
-  </script>
+
+  $(document).ready(function truncateDescription() {
+    var maxLength = 200;
+    var descriptions = document.getElementsByClassName("description-details");
+    for (var i = 0; i < descriptions.length; i++) {
+     (function(i) {
+        var descriptionText = descriptions[i].textContent.trim();
+        if (descriptionText.length > maxLength) {
+         var truncatedText = descriptionText.substr(0, maxLength) + "...";
+         descriptions[i].textContent = truncatedText;
+         descriptions[i].appendChild(readMoreLink);
+        }
+      })(i);
+    }
+  });
+</script>

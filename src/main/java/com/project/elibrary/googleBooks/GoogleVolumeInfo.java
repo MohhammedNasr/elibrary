@@ -29,7 +29,13 @@ public class GoogleVolumeInfo {
     }
     
     public String getDescription() {
-        return description;
+        if(description == null || description == ""){
+            return "There is no description for this book :(";
+        }
+        else{
+            return description;
+        }
+        
     }
     
     public void setDescription(String description) {
@@ -45,7 +51,12 @@ public class GoogleVolumeInfo {
     }
 
     public Integer getPageCount() {
-        return pageCount;
+        if(pageCount == null || pageCount == 0){
+            return 0;
+        }
+        else{
+            return pageCount;
+        }
     }
 
     public void setPageCount(Integer pageCount) {
@@ -61,7 +72,13 @@ public class GoogleVolumeInfo {
     }
 
     public Double getAverageRating() {
-        return averageRating;
+        if(averageRating == null || averageRating == 0){
+            return 0.0;
+        }
+        else{
+            return averageRating;
+        }
+        
     }
 
     public void setAverageRating(Double averageRating) {
