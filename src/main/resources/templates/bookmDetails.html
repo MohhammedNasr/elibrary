@@ -50,28 +50,40 @@
         });
       });
     });  
-   $(document).ready(function truncateDescription() {
-  var maxLength = 200;
-  var descriptions = document.getElementsByClassName("book-description");
-  for (var i = 0; i < descriptions.length; i++) {
-    (function(i) {
-      var descriptionText = descriptions[i].textContent.trim();
-      if (descriptionText.length > maxLength) {
-        var truncatedText = descriptionText.substr(0, maxLength) + "...";
-        descriptions[i].textContent = truncatedText;
-        var readMoreLink = document.createElement("a");
-        readMoreLink.textContent = "Read more";
-        readMoreLink.href = "#";
-        readMoreLink.addEventListener("click", function(event) {
-          event.preventDefault();
-          descriptions[i].textContent = descriptionText;
-          this.style.display = "none";
-        });
-        descriptions[i].appendChild(readMoreLink);
-      }
-    })(i);
-  }
-});
+   
+
+
+    $(document).ready(function() {
+      var maxLength = 200;
+      $('.book-description').each(function() {
+        var descriptionText = $(this).text().trim();
+        if (descriptionText.length > maxLength) {
+          var truncatedText = descriptionText.substr(0, maxLength) + "...";
+          var fullText = $('<span>').addClass('full-text').text(descriptionText);
+          var readMoreLink = $('<a>').addClass('read-more').text('Read more').attr('href', '#');
+          var readLessLink = $('<a>').addClass('read-less').text('Read less').attr('href', '#');
+          
+          $(this).text(truncatedText).append(readMoreLink).append(fullText).append(readLessLink);
+          fullText.hide();
+          readLessLink.hide();
+    
+          readMoreLink.on('click', function(event) {
+            event.preventDefault();
+            fullText.show();
+            readMoreLink.hide();
+            readLessLink.show();
+          });
+    
+          readLessLink.on('click', function(event) {
+            event.preventDefault();
+            fullText.hide();
+            readMoreLink.show();
+            readLessLink.hide();
+          });
+        }
+      });
+    });
+    
 
 
   document.addEventListener("DOMContentLoaded", function() {
