@@ -23,8 +23,8 @@ public class ExceptionsAspect {
             Object result = joinPoint.proceed();
             return result;
         } catch (Throwable e){
-            Map res = new HashMap<>();
-            res.put("website die",404);
+            Map<String, Integer> res = new HashMap<>();
+            res.put("website die", 404);
             return new ResponseEntity<>(res,HttpStatus.NOT_FOUND);
         }
     }
