@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" type="text/css" href="/css/profile.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <head>
     <title>Profile</title>
@@ -42,6 +43,23 @@
             </td>
         <p th:text="${user.email}" class="profile-email"></p>
     </div>
+
+    <div id="favorite-list-container" style="display: none;"></div>
+
 </body>
 
 </html>
+
+<script>
+    //showing favorites.html inside this profile.html
+    $(document).ready(function() {
+        var username = "";
+        if ($(".profile-name").length) {
+            username = $(".profile-name").text();
+        }
+        $.get("/favorites/" + username, function(data) {
+            $("#favorite-list-container").html(data);
+            $("#favorite-list-container").show();
+        });
+    });    
+</script>

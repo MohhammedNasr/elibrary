@@ -5,7 +5,6 @@
     <title>Favorites</title>
 </head>
 <body>
-    <h1>Favorites for <span th:text="${username}"></span></h1>
     <table>
         <tr>
             <th>Book Name</th>
@@ -20,7 +19,7 @@
                 <img th:src="${favorite.image}" alt="book cover" height="100px" />
             </td>
             <td>
-                <form th:id="'remove-form-' + ${row.index}" th:action="@{/favorites/remove/{username}/{bookName}(username=${username}, bookName=${favorite.bookName})}" th:method="post">
+                <form th:method="post" th:id="'remove-form-' + ${row.index}" th:action="@{/favorites/remove/{username}/{bookName}(username=${username}, bookName=${favorite.bookName})}">
                     <button type="submit">Remove</button>
                 </form>                             
             </td>
@@ -29,41 +28,41 @@
             <td colspan="4">No favorites found.</td>
         </tr>
     </table>
-
-    <script>
-        const forms = document.querySelectorAll('[id^="remove-form-"]');
-        forms.forEach((form) => {
-            form.addEventListener("submit", (event) => {
-                event.preventDefault();
-                const formData = new FormData(event.target);
-                const url = event.target.action;
-                fetch(url, {
-                    method: "POST",
-                    body: formData
-                })
-                .then((response) => {
-                    if (response.ok) {
-                        event.target.closest('tr').remove();
-                        return response.text();
-                    } else {
-                        throw new Error("Failed to remove book from favorites list");
-                    }
-                })
-                .then((message) => {
-                    const alert = document.createElement("div");
-                    alert.textContent = message;
-                    alert.classList.add("alert-success");
-                    document.body.appendChild(alert);
-                })
-                .catch((error) => {
-                    console.error(error);
-                    const alert = document.createElement("div");
-                    alert.textContent = "An error occurred while removing the book from the favorites list";
-                    alert.classList.add("alert-danger");
-                    document.body.appendChild(alert);
-                });
-            });
-        });
-    </script>
 </body>
 </html>
+
+<script>
+    const forms = document.querySelectorAll('[id^="remove-form-"]');
+    forms.forEach((form) => {
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const url = event.target.action;
+            fetch(url, {
+                method: "POST",
+                body: formData
+            })
+            .then((response) => {
+                if (response.ok) {
+                    event.target.closest('tr').remove();
+                    return response.text();
+                } else {
+                    throw new Error("Failed to remove book from favorites list");
+                }
+            })
+            .then((message) => {
+                const alert = document.createElement("div");
+                alert.textContent = message;
+                alert.classList.add("alert-success");
+                document.body.appendChild(alert);
+            })
+            .catch((error) => {
+                console.error(error);
+                const alert = document.createElement("div");
+                alert.textContent = "An error occurred while removing the book from the favorites list";
+                alert.classList.add("alert-danger");
+                document.body.appendChild(alert);
+            });
+        });
+    });
+</script>
