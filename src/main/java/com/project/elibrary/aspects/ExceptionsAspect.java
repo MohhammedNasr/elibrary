@@ -15,12 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExceptionsAspect {
     @Pointcut("within(com.project.elibrary.controllers.*)")
-<<<<<<< HEAD
     void controllersPointCut() {
     };
-=======
-    void controllersPointCut(){};
->>>>>>> 8962e4db0c153c380270c20d4a8987f711f2ab4d
 
     @Around("controllersPointCut()")
     Object exceptionHandler(ProceedingJoinPoint joinPoint) {
