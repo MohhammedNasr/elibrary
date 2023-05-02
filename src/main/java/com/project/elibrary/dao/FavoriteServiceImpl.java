@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -18,15 +19,18 @@ public class FavoriteServiceImpl implements FavoriteService {
     private FavoriteRepository favoriteRepository;
 
     @Override
-    public void saveFavorite(String bookId, String bookName, String authors, String image,String userName) {
-        Favorite favorite = new Favorite();
-        favorite.setBookId(bookId);
-        favorite.setBookName(bookName);
-        favorite.setAuthors(authors);
-        favorite.setImage(image);
-        favorite.setUsername(userName);
+    public void saveFavorite(String bookId, String bookName, String authors, String image, String username) {
+        Optional<Favorite> favoriteOptional = favoriteRepository.findByUsernameAndBookName(username, bookName); //checking if the book is already added or not
+        if (!favoriteOptional.isPresent()) {
+            Favorite favorite = new Favorite();
+            favorite.setBookId(bookId);
+            favorite.setBookName(bookName);
+            favorite.setAuthors(authors);
+            favorite.setImage(image);
+            favorite.setUsername(username);
 
-        favoriteRepository.save(favorite);
+            favoriteRepository.save(favorite);
+        }
     }
 
     @Autowired
@@ -55,4 +59,16 @@ public class FavoriteServiceImpl implements FavoriteService {
         });
         return favorites;
     }
+
+    @Override
+    public boolean removeFavorite(String username, String bookName) {
+        Optional<Favorite> favorite = favoriteRepository.findByUsernameAndBookName(username, bookName);
+        if (favorite.isPresent()) {
+            favoriteRepository.delete(favorite.get());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
