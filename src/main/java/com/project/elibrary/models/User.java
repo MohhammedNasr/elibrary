@@ -78,11 +78,10 @@ public class User implements UserDetails {
         this.profilePic = profilePic;
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList(Arrays.asList(new SimpleGrantedAuthority(this.role)));
+        return new ArrayList<GrantedAuthority>(Arrays.asList(new SimpleGrantedAuthority(this.role)));
     }
-
+    
     @Override
     public boolean isAccountNonExpired() {
         return true;
