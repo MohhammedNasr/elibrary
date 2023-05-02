@@ -14,18 +14,19 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class ExceptionsAspect {
-    @Pointcut("within(com.project.elibrary.controllers)")
-    void controllersPointCut(){};
+    @Pointcut("within(com.project.elibrary.controllers.*)")
+    void controllersPointCut() {
+    };
 
     @Around("controllersPointCut()")
-    Object exceptionHandler(ProceedingJoinPoint joinPoint){
-        try{
+    Object exceptionHandler(ProceedingJoinPoint joinPoint) {
+        try {
             Object result = joinPoint.proceed();
             return result;
-        } catch (Throwable e){
+        } catch (Throwable e) {
             Map<String, Integer> res = new HashMap<>();
             res.put("website die", 404);
-            return new ResponseEntity<>(res,HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
         }
     }
 }
