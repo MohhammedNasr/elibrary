@@ -7,6 +7,16 @@
   <link rel="stylesheet" type="text/css" href="/css/bookDetails.css">
   <link href="https://fonts.cdnfonts.com/css/euclid-circular-b" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script th:inline="javascript">
+    function getToken() {
+      var token = /*[[${_csrf.token}]]*/ 'default';
+      var header = /*[[${_csrf.headerName}]]*/ 'default';
+      return {
+        token: token,
+        header: header
+      };
+    }
+  </script>
 </head>
 
 <body class="background-details">
@@ -32,9 +42,14 @@
         var bookTitle = $(this).siblings("#title").text();
         var bookAuthors = $(this).siblings("#authors").text();
         var bookImage = $(this).closest(".book-details").find("#book-image").attr("src"); //.closest is to find in the other div "book-details"
+        var token = getToken().token;
+        var header = getToken().header;
         $.ajax({
           type: "POST",
           url: "/favorites/add",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+          },
           data: {
             id: bookId,
             name: bookTitle,

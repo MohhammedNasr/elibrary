@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,8 +39,10 @@ public class FavoriteController {
             @RequestParam(value ="name", required = false) String bookName,
             @RequestParam(value ="authors", required = false) String authors,
             @RequestParam(value ="image", required = false) String image, 
-            @RequestParam(value ="userName",required = false) String userName){
-        favoriteService.saveFavorite(bookId, bookName, authors, image,userName);
+            Authentication authentication 
+    ){
+        String username = authentication.getName(); //getting the current logged user's username
+        favoriteService.saveFavorite(bookId, bookName, authors, image, username);
         return ResponseEntity.ok().build();
     }
 

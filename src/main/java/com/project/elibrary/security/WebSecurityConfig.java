@@ -27,7 +27,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
         http.userDetailsService(userservice)
                 .authorizeRequests()
-                .antMatchers("/library/", "/library/save-user", "/library/reset-pass").permitAll()  // /library/ to access register page
+                .antMatchers("/library", "/library/save-user", "/library/reset-pass").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
