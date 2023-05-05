@@ -14,9 +14,6 @@ public class Favorite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "book_id")
-    private String bookId;
-
     @Column(name = "book_name")
     private String bookName;
 
@@ -26,16 +23,15 @@ public class Favorite {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "userName")
-    private String username;
+    // @Column(name = "userName")
+    // private String username;
+
+    @Column(name = "user_ID")
+    private Long userID;
 
     // getters and setters
     public String getAuthors() {
         return authors;
-    }
-
-    public String getBookId() {
-        return bookId;
     }
 
     public String getBookName() {
@@ -58,10 +54,6 @@ public class Favorite {
         this.authors = authors;
     }
 
-    public void setBookId(String bookId) {
-        this.bookId = bookId;
-    }
-
     public void setBookName(String bookName) {
         this.bookName = bookName;
     }
@@ -70,11 +62,19 @@ public class Favorite {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
+    // public String getUsername() {
+    //     return username;
+    // }
     
-    public void setUsername(String username) {
-        this.username = username;
+    // public void setUsername(String username) {
+    //     this.username = username;
+    // }
+
+    public Long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
     }
 }

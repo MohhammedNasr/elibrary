@@ -36,7 +36,6 @@
         </div>
         <h1 class="details-h1">Description</h1>
         <p class="p3p-details description-details" th:text="${book.description}"></p>
-        <input type="hidden" id="book-id" name="book-id" th:value="${book.id}" />
         <button type="button" class="favorite-btn">Favorite</button>
         <a class="details-button" th:href="@{/books/mdetails(bookName=${book.title})}"> Details </a>  <!-- goes to bookmDetails.html -->
     </div>
@@ -47,7 +46,6 @@
 <script>
     $(document).ready(function() {
       $(".favorite-btn").click(function() {
-        var bookId = $(this).siblings("#book-id").val();
         var bookTitle = $(this).siblings("#title").text();
         var bookAuthors = $(this).siblings("#authors").text();
         var bookImage = $(this).siblings(".book-image-details").attr("src");
@@ -60,7 +58,6 @@
             xhr.setRequestHeader(header, token);
           },
           data: {
-            id: bookId,
             name: bookTitle,
             authors: bookAuthors,
             image: bookImage

@@ -31,14 +31,12 @@
       <p class="book-page-count p3p" th:text="'Page Count: ' + ${book.pageCount}"></p>
       <p class="book-published-date p3p" th:text="'Published Date: ' + ${book.publishedDate}"></p>
       <p class="book-average-rating p3p" th:text="'Average Rating: ' + ${book.averageRating}"></p>
-      <input type="hidden" id="book-id" name="book-id" th:value="${book.id}" />
       <button type="button" class="favorite-btn">Favorite</button>
     </div>
   </div>
   <script>
     $(document).ready(function () {
       $(".favorite-btn").click(function () {
-        var bookId = $(this).siblings("#book-id").val();
         var bookTitle = $(this).siblings("#title").text();
         var bookAuthors = $(this).siblings("#authors").text();
         var bookImage = $(this).closest(".book-details").find("#book-image").attr("src"); //.closest is to find in the other div "book-details"
@@ -51,7 +49,6 @@
             xhr.setRequestHeader(header, token);
           },
           data: {
-            id: bookId,
             name: bookTitle,
             authors: bookAuthors,
             image: bookImage

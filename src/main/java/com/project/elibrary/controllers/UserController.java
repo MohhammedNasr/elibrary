@@ -147,11 +147,16 @@ public class UserController {
     }
 
     @PostMapping("/update-username")
-    public String updateUsername(@RequestParam String oldUsername, @RequestParam String newUsername,
-            RedirectAttributes redirectAttributes) {
+    public String updateUsername(@RequestParam String oldUsername, @RequestParam String newUsername, RedirectAttributes redirectAttributes) {
         boolean success = userDao.updateUsername(oldUsername, newUsername);
         if (success) {
             redirectAttributes.addFlashAttribute("message", "Your user name has been changed successfully");
+            User user = userDao.getUserByName(newUsername);
+            Authentication newAuthentication = new UsernamePasswordAuthenticationToken(
+                    user.getUsername(),
+                    user.getPassword(),
+                    user.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(newAuthentication);
             return "redirect:/library/edit-profile/" + newUsername;
         } else {
             return "redirect:/library/edit-profile/" + oldUsername;

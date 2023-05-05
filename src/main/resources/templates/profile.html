@@ -36,7 +36,7 @@
         <form method="get" th:action="@{/library/edit-profile/{name}(name=${user != null ? user.username : ''})}">
             <button type="submit" class="edit-button">Edit Profile</button>
         </form>
-        <form method="get" th:action="@{/favorites/{name}(name=${user != null ? user.username : ''})}">
+        <form method="get" th:action="@{/favorites/list}">
             <button type="submit" class="edit-button">Favorites</button>
         </form>
         <p class="profile-name" th:text="${user.username}">
@@ -53,11 +53,7 @@
 <script>
     //showing favorites.html inside this profile.html
     $(document).ready(function() {
-        var username = "";
-        if ($(".profile-name").length) {
-            username = $(".profile-name").text();
-        }
-        $.get("/favorites/" + username, function(data) {
+        $.get("/favorites/list", function(data) {
             $("#favorite-list-container").html(data);
             $("#favorite-list-container").show();
         });

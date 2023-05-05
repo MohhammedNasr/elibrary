@@ -19,15 +19,14 @@ public class FavoriteServiceImpl implements FavoriteService {
     private FavoriteRepository favoriteRepository;
 
     @Override
-    public void saveFavorite(String bookId, String bookName, String authors, String image, String username) {
-        Optional<Favorite> favoriteOptional = favoriteRepository.findByUsernameAndBookName(username, bookName); //checking if the book is already added or not
+    public void saveFavorite(String bookName, String authors, String image, Long userID) {
+        Optional<Favorite> favoriteOptional = favoriteRepository.findByUserIDAndBookName(userID, bookName); //checking if the book is already added or not
         if (!favoriteOptional.isPresent()) {
             Favorite favorite = new Favorite();
-            favorite.setBookId(bookId);
             favorite.setBookName(bookName);
             favorite.setAuthors(authors);
             favorite.setImage(image);
-            favorite.setUsername(username);
+            favorite.setUserID(userID);
 
             favoriteRepository.save(favorite);
         }
@@ -37,23 +36,22 @@ public class FavoriteServiceImpl implements FavoriteService {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<Favorite> getFavoritesByUsername(String username) {
-        String sql = "SELECT * FROM favorites WHERE user_name = ?";
+    public List<Favorite> getFavoritesByUserID(Long userID) {
+        String sql = "SELECT * FROM favorites WHERE user_id = ?";
         List<Favorite> favorites = jdbcTemplate.query(sql, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
-                ps.setString(1, username);
+                ps.setLong(1, userID);
             }
         }, new RowMapper<Favorite>() {
             @Override
             public Favorite mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Favorite favorite = new Favorite();
                 favorite.setId(rs.getLong("id"));
-                favorite.setBookId(rs.getString("book_id"));
                 favorite.setBookName(rs.getString("book_name"));
                 favorite.setAuthors(rs.getString("authors"));
                 favorite.setImage(rs.getString("image"));
-                favorite.setUsername(rs.getString("user_name"));
+                favorite.setUserID(userID);
                 return favorite;
             }
         });
@@ -61,8 +59,8 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public boolean removeFavorite(String username, String bookName) {
-        Optional<Favorite> favorite = favoriteRepository.findByUsernameAndBookName(username, bookName);
+    public boolean removeFavorite(Long userID, String bookName) {
+        Optional<Favorite> favorite = favoriteRepository.findByUserIDAndBookName(userID, bookName);
         if (favorite.isPresent()) {
             favoriteRepository.delete(favorite.get());
             return true;

@@ -19,7 +19,7 @@
                 <img th:src="${favorite.image}" alt="book cover" height="100px" />
             </td>
             <td>
-                <form th:method="post" th:id="'remove-form-' + ${row.index}" th:action="@{/favorites/remove/{username}/{bookName}(username=${username}, bookName=${favorite.bookName})}">
+                <form th:method="post" th:id="'remove-form-' + ${row.index}" th:action="@{/favorites/remove/{userID}/{bookName}(userID=${userID}, bookName=${favorite.bookName})}">
                     <button type="submit">Remove</button>
                 </form>                             
             </td>
