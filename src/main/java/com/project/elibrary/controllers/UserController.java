@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -125,7 +126,7 @@ public class UserController {
         return "profile.html";
     }
 
-    // for finding a specific user (showing profile page)
+    // for finding a specific user (showing profile page) (can be used by admins)
     @GetMapping("/users/{name}")
     public String getUserByName(@PathVariable String name, Model model) {
         User user = userDao.getUserByName(name);
@@ -134,10 +135,29 @@ public class UserController {
         return "profile.html";
     }
 
-    // for editing/updating user info
+    //showing logged in profile page
+    @GetMapping("/profile")
+    public String getUserByName(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("user", user);
+        model.addAttribute("isList", false);
+        return "profile.html";
+    }
+
+    // for editing/updating user info (admin)
     @GetMapping("/edit-profile/{name}")
     public String editProfile(@PathVariable String name, Model model) {
         User user = userDao.getUserByName(name);
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "edit-profile";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    // for editing/updating user info
+    @GetMapping("/edit-profile")
+    public String editProfile(@AuthenticationPrincipal User user, Model model) {
         if (user != null) {
             model.addAttribute("user", user);
             return "edit-profile";
@@ -158,9 +178,9 @@ public class UserController {
                     user.getAuthorities());
             SecurityContextHolder.clearContext();
             SecurityContextHolder.getContext().setAuthentication(newAuthentication);
-            return "redirect:/library/edit-profile/" + newUsername;
+            return "redirect:/library/edit-profile";
         } else {
-            return "redirect:/library/edit-profile/" + oldUsername;
+            return "redirect:/library/edit-profile";
         }
     }
 
@@ -171,17 +191,18 @@ public class UserController {
         if (success) {
             redirectAttributes.addFlashAttribute("message", "Your password has been changed successfully");
         }
-        return "redirect:/library/edit-profile/" + username;
+        return "redirect:/library/edit-profile";
     }
 
     @PostMapping("/update-profile-pic")
-    public String updateProfilePic(@RequestParam String username, @RequestParam String profilePic,
+    public String updateProfilePic(@AuthenticationPrincipal User user, @RequestParam String profilePic,
             RedirectAttributes redirectAttributes) {
-        boolean success = userDao.updateProfilePic(username, profilePic);
+                Long userID = user.getId();
+        boolean success = userDao.updateProfilePic(userID, profilePic);
         if (success) {
-            redirectAttributes.addFlashAttribute("message", "Your profile picture has been updated successfully");
+            redirectAttributes.addFlashAttribute("message", "Your profile picture has been updated successfully by id");
         }
-        return "redirect:/library/edit-profile/" + username;
+        return "redirect:/library/edit-profile";
     }
-
+    
 }

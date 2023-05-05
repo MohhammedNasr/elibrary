@@ -33,7 +33,7 @@
         <div class="background-gradient">
             <img class="profilePic" th:src="${user.profilePic}" />
         </div>
-        <form method="get" th:action="@{/library/edit-profile/{name}(name=${user != null ? user.username : ''})}">
+        <form method="get" th:action="@{/library/edit-profile}">
             <button type="submit" class="edit-button">Edit Profile</button>
         </form>
         <form method="get" th:action="@{/favorites/list}">

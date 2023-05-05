@@ -61,9 +61,9 @@ public class UserDaoImpl implements UserDao {
 
     //edit profile methods
     @Override
-    public boolean updateProfilePic(String username, String profilePic) {
-        String sql = "UPDATE user SET profile_pic = ? WHERE username = ?";
-        int rowsAffected = jdbcTemplate.update(sql, profilePic, username);
+    public boolean updateProfilePic(Long userID, String profilePic) {
+        String sql = "UPDATE user SET profile_pic = ? WHERE id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, profilePic, userID);
         return rowsAffected == 1;
     }
 
