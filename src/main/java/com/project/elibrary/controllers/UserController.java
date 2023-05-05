@@ -153,9 +153,10 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message", "Your user name has been changed successfully");
             User user = userDao.getUserByName(newUsername);
             Authentication newAuthentication = new UsernamePasswordAuthenticationToken(
-                    user.getUsername(),
+                    user,
                     user.getPassword(),
                     user.getAuthorities());
+            SecurityContextHolder.clearContext();
             SecurityContextHolder.getContext().setAuthentication(newAuthentication);
             return "redirect:/library/edit-profile/" + newUsername;
         } else {
