@@ -197,10 +197,19 @@ public class UserController {
     @PostMapping("/update-profile-pic")
     public String updateProfilePic(@AuthenticationPrincipal User user, @RequestParam String profilePic,
             RedirectAttributes redirectAttributes) {
-                Long userID = user.getId();
+        Long userID = user.getId();
         boolean success = userDao.updateProfilePic(userID, profilePic);
         if (success) {
-            redirectAttributes.addFlashAttribute("message", "Your profile picture has been updated successfully by id");
+            User updatedUser = userDao.getUserById(userID);
+            Authentication newAuthentication = new UsernamePasswordAuthenticationToken(
+                    updatedUser,
+                    updatedUser.getPassword(),
+                    updatedUser.getAuthorities());
+            SecurityContextHolder.clearContext();
+            SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+            redirectAttributes.addFlashAttribute("message", "Your profile picture has been updated successfully.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Failed to update your profile picture.");
         }
         return "redirect:/library/edit-profile";
     }

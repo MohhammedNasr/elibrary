@@ -37,6 +37,29 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User getUserById(Long id) {
+        String sql = "SELECT * FROM user WHERE id = ?";
+        List<User> users = jdbcTemplate.query(sql, new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                ps.setLong(1, id);
+            }
+        }, new RowMapper<User>() {
+            @Override
+            public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+                User user = new User();
+                user.setId(rs.getLong("id"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setProfilePic(rs.getString("profile_pic"));
+                user.setPassword(rs.getString("password"));
+                return user;
+            }
+        });
+        return users.isEmpty() ? null : users.get(0);
+    }
+
+    @Override
     public User getUserByName(String name) {
         String sql = "SELECT * FROM user WHERE username = ?";
         List<User> users = jdbcTemplate.query(sql, new PreparedStatementSetter() {
