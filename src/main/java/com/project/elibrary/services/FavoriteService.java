@@ -1,4 +1,4 @@
-package com.project.elibrary.dao;
+package com.project.elibrary.services;
 
 import java.util.List;
 import com.project.elibrary.models.Favorite;

@@ -1,14 +1,11 @@
-package com.project.elibrary.dao;
+package com.project.elibrary.services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.project.elibrary.models.Book;
 import com.project.elibrary.repositories.BookRepository;
 
-@Service
-public class BookService {
-
+public class BookServiceImpl implements BookService {
     @Autowired
     private BookRepository bookRepository;
 
@@ -21,5 +18,4 @@ public class BookService {
         book.setAvailability(availability);
         return bookRepository.save(book);
     }
-
 }

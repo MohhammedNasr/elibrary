@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import com.project.elibrary.models.Book;
-import com.project.elibrary.dao.BookService;
+import com.project.elibrary.services.BookService;
 import com.project.elibrary.googleBooks.GoogleBook;
 import com.project.elibrary.googleBooks.GoogleBooksResponse;
 import com.project.elibrary.googleBooks.GoogleImageLinks;

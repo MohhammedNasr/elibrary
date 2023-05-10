@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.project.elibrary.dao.FavoriteService;
+
 import com.project.elibrary.models.Favorite;
 import com.project.elibrary.models.User;
+import com.project.elibrary.services.FavoriteService;
 
 @Controller
 @RequestMapping("/favorites")
