@@ -185,9 +185,10 @@ public class UserController {
     }
 
     @PostMapping("/update-password")
-    public String updatePassword(@RequestParam String username, @RequestParam String newPassword,
+    public String updatePassword(@AuthenticationPrincipal User user, @RequestParam String newPassword,
             RedirectAttributes redirectAttributes) {
-        boolean success = userDao.updatePassword(username, newPassword);
+        Long userID = user.getId();
+        boolean success = userDao.updatePassword(userID, newPassword);
         if (success) {
             redirectAttributes.addFlashAttribute("message", "Your password has been changed successfully");
         }

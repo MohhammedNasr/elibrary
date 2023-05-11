@@ -18,6 +18,12 @@ public class DynamicController {
         return mav;
     }
 
+    @GetMapping("homepage")
+    public ModelAndView getHomePage() {
+        ModelAndView mav = new ModelAndView("homepage.html");
+        return mav;
+    }
+
     //open donating form
     @GetMapping("/donate")
     public String getBookForm(Model model) {
