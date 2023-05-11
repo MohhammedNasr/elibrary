@@ -39,6 +39,9 @@
         <form method="get" th:action="@{/favorites/list}">
             <button type="submit" class="edit-button">Favorites</button>
         </form>
+        <form method="get" th:action="@{/books/donated}">
+            <button type="submit" class="">Donated books</button>
+        </form>
         <p class="profile-name" th:text="${user.username}">
             </td>
         <p th:text="${user.email}" class="profile-email"></p>

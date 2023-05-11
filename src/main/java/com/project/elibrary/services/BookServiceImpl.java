@@ -15,9 +15,13 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAll();
     }
     
-    public Book createBook(String title, String description, List<String> authors, String thumbnailUrl, Boolean availability) {
-        Book book = new Book(title, description, authors, thumbnailUrl);
+    public Book createBook(String title, String description, List<String> authors, String thumbnailUrl, Boolean availability, Long userID) {
+        Book book = new Book(title, description, authors, thumbnailUrl, userID);
         book.setAvailability(availability);
         return bookRepository.save(book);
+    }
+
+    public List<Book> getBooksByUserID(Long userID) {
+        return bookRepository.findByUserID(userID);
     }
 }

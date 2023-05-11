@@ -1,7 +1,6 @@
 package com.project.elibrary.models;
 
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -43,17 +42,21 @@ public class Book {
     @Column(name = "average_rating")
     private Double averageRating;
 
+    @Column(name = "user_ID")
+    private Long userID;
+
     // Constructors, getters, and setters
 
     public Book() {
         // Empty constructor needed by JPA
     }
 
-    public Book(String title, String description, List<String> authors, String thumbnailUrl) {
+    public Book(String title, String description, List<String> authors, String thumbnailUrl, Long userID) {
         this.title = title;
         this.description = description;
         this.authors = authors;
         this.thumbnailUrl = thumbnailUrl;
+        this.userID = userID;
     }
 
     public Boolean getAvailability() {
@@ -125,5 +128,13 @@ public class Book {
 
     public void setAverageRating(Double averageRating) {
     this.averageRating = averageRating;
+    }
+
+    public Long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
     }
 }
