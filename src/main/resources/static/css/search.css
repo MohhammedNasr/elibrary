@@ -1,0 +1,151 @@
+
+.background-search {
+    background-color: #f2f2f2;
+}
+
+.title-name {
+position: absolute;
+width: 210px;
+height: 56px;
+left: 236px;
+top: 125px;
+
+font-family: 'Euclid Circular B';
+font-style: normal;
+font-weight: 600;
+font-size: 48px;
+line-height: 61px;
+
+color: #940c0c;
+}
+
+.results-h {
+position: absolute;
+width: 128px;
+height: 44px;
+left: 235px;
+top: 334px;
+
+font-family: 'Euclid Circular B';
+font-style: normal;
+font-weight: 500;
+font-size: 36px;
+line-height: 46px;
+
+color: rgba(64, 64, 64, 0.82);
+}
+
+.input-form {
+    margin: 20px auto;
+    width: 50%;
+}
+
+.input-box-search[type="text"] {
+    position: absolute;
+width: 720px;
+height: 59px;
+left: 236px;
+top: 221px;
+
+background: #EAEAEA;
+border-radius: 15px;
+border-color: transparent;
+}
+
+.search-button[type="submit"] {
+    position: absolute;
+width: 115px;
+height: 39px;
+left: 819px;
+top: 232px;
+border-color: transparent;
+background: #558CF8;
+border-radius: 9px;
+    cursor: pointer;
+}
+
+.search-button[type="submit"]:hover {
+    background-color: #0069d9;
+}
+
+
+
+.book-title {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-family: 'Euclid Circular B';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 30px;
+    color: #000000;
+}
+
+.p3p {
+    font-family: 'Euclid Circular B';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 25px;
+
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.row-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; 
+    margin-top: 398px; 
+    margin-left: 236px; 
+}
+
+.row-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.row-list li {
+    display: inline-block;
+    margin: 10px;
+    width: 256px;
+    height: 327px;
+    border-radius: 17px;
+    overflow: hidden;
+}
+
+.book-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.favorite-button {
+    display: block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #558CF8;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.favorite-button:hover {
+    background-color: #0069d9;
+}
+
+#book-details-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 15%;
+    height: 100%;
+    background-color: white;
+    padding: 1em;
+    overflow-y: scroll;
+    box-shadow: -4px 0px 4px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+  }
+  

@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Login</title>
+</head>
+
+<body style="background-color: #DDA379;">
+    <br><br><br><br>
+    <div style="width: 360px;height: 370px; margin: auto;background-color: white;border-radius: 5px; "><br>
+        <h1 style="text-align: center;padding-top: 15px;color:#DDA379 ;">Login<br><br>
+            <form th:action="@{/library/check-user}" th:object="${user}" method="POST">
+                <div><input type="text" th:field="*{email}" name="email" placeholder="Enter email"
+                        style="width : 70%;padding: 7px;border-radius: 6px;border: 1px solid gray;" /></div><br>
+                <div><input type="password" th:field="*{password}" name="password" placeholder="Enter password"
+                        style="width : 70%;padding: 7px;border-radius: 6px;border: 1px solid gray;" /> </div><br>
+                <button type="submit" style="width : 40%;height:27px;
+               background-color: #DDA379; border-radius: 6px;border: 1px #DDA379;">Login</button>
+            </form>
+        </h1>
+        <h6><a th:href="@{/library/reset-pass}" style="color:#DDA379;text-align: left; padding-left:200px;"> Forgot
+                your
+                password? </a></h6>
+
+
+
+    </div>
+</body>
+
+</html>

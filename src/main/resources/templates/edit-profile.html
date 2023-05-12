@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/css/edit-profile.css">
+
+<head>
+    <title>Edit Profile</title>
+</head>
+<div class="edit-container">
+
+    <body>
+        <h1 class="title-card">Edit Profile</h1>
+        <div th:if="${message}">
+            <p th:text="${message}" class="success-message"></p>
+        </div>
+        <form method="post" th:action="@{/library/update-username}">
+            <input type="hidden" name="oldUsername" th:value="${user.username}" />
+            <label class="edit-label">Username:</label>
+            <div class="edit-input-container">
+                <input class="edit-input" type="text" name="newUsername" th:value="${user.username}" />
+                <button class="update-edit-button" type="submit">Update Username</button>
+            </div>
+        </form>
+        <form method="post" th:action="@{/library/update-password}">
+            <input type="hidden" name="username" th:value="${user.username}" />
+            <label class="edit-label">New Password:</label>
+            <div class="edit-input-container">
+                <input class="edit-input" type="password" name="newPassword" />
+                <button class="update-edit-button" type="submit">Update Password</button>
+            </div>
+        </form>
+        <form method="post" th:action="@{/library/update-profile-pic}">
+            <label class="edit-label pfplbl">Profile Picture:</label>
+            <div class="profilePic-input-container">
+                <input class="edit-input" type="text" name="profilePic" th:value="${user.profilePic}" />
+                <button class="update-edit-button" type="submit">Update Profile Picture</button>
+            </div>
+        </form>
+        <form method="get" th:action="@{/library/profile}">
+            <button class="return-button" type="submit">Return to profile page</button>
+        </form>
+        <br />
+        <h2>Profile Pic Preview:</h2>
+        <img class="profilePic" th:src="${user.profilePic}" />
+    </body>
+</div>
+
+</html>

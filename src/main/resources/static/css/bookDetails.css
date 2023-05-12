@@ -1,0 +1,76 @@
+.background-details {
+    background-color: #F7F7F7;
+  }
+  
+  .title-name {
+    font-family: 'Euclid Circular B', sans-serif;
+    font-size: 36px;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .book-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    padding: 30px;
+    box-sizing: border-box;
+  }
+  
+  .book-image {
+    width: 50%;
+    max-width: 550px;
+    height: 100%;
+    object-fit: cover;
+    margin-right: 30px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  }
+  
+  .book-title {
+    font-family: 'Euclid Circular B', sans-serif;
+    font-size: 32px;
+    margin-top: 0;
+  }
+  
+  .p3p {
+    font-family: 'Euclid Circular B', sans-serif;
+    font-size: 26px;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .favorite-btn {
+    font-family: 'Euclid Circular B', sans-serif;
+    font-size: 32px;
+    background-color: #0E76BD;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .favorite-btn:hover {
+    background-color: #0B5A8A;
+  }
+  .all-details{
+    display: inline-block;
+    position: absolute;
+    max-width: 50%;
+    margin-left: 40vw;
+  }
+
+  .book-description{
+    font-family: 'Euclid Circular B', sans-serif;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  

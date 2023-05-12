@@ -1,0 +1,121 @@
+ @import url('https://fonts.cdnfonts.com/css/inter');
+
+ .everything-details {
+     background-color: #121421;
+     color: white;
+     text-align: center;
+     height: 100%;
+     width: 100%;
+     margin: 0 auto;
+     font-family: 'Inter', sans-serif;
+ }
+
+ .book-details-details {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+     max-width: 800px;
+     margin: 0 auto;
+ }
+
+ .p3p-details {
+     margin: 3px;
+ }
+
+ .row {
+     display: flex;
+     align-items: center;
+ }
+
+ .details-box {
+     background-color: #1B1D2A;
+     width: 70%;
+     margin: 0 auto;
+     margin-top: 10px;
+     margin-bottom: 10px;
+     border-radius: 10px;
+     padding: 10px;
+ }
+
+ .book-image-details {
+     margin: 0 auto;
+     width: 200px;
+     height: 300px;
+     border-radius: 18px;
+ }
+
+ .details-h1{
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 5px;
+ }
+ .zo2-ymeen{
+    margin:0 auto;
+ }
+ .favorite-btn {
+     display: inline-block;
+     margin-top: 20px;
+     padding: 11px 20px;
+     background-color: white;
+     color: #121421;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     text-decoration: none;
+ }
+
+ .favorite-btn:hover {
+     background-color: #121421;
+     color: white;
+ }
+
+ .book-title-details {
+     font-size: 30px;
+     margin: 0 auto;
+     font-weight: bold;
+     padding-top: 20px;
+ }
+
+ .book-author-details {
+     font-size: 20px;
+     font-weight: bold;
+     color: #ffffff53;
+     margin: 0 auto;
+     padding-bottom: 20px;
+ }
+
+ .description-details {
+     font-size: 15px;
+     margin: 0 auto;
+     margin-bottom: 10px;
+     margin-left: 20px;
+     width: 80%;
+     color: #ffffff53;
+ }
+
+ .ti-name {
+     font-size: 25px;
+     font-weight: bold;
+     color: aliceblue;
+     margin: 0 auto;
+     padding-bottom: 30px;
+     margin-top: 20px;
+ }
+
+ .details-button {
+     display: inline-block;
+     margin-top: 20px;
+     padding: 10px 20px;
+     background-color: white;
+     color: #121421;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     text-decoration: none;
+ }
+
+ .details-button:hover {
+     background-color: #121421;
+     color: white;
+ }

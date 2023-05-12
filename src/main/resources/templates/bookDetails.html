@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link href="https://fonts.cdnfonts.com/css/euclid-circular-b" rel="stylesheet">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/book-details.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:inline="javascript">
+      function getToken() {
+        var token = /*[[${_csrf.token}]]*/ 'default';
+        var header = /*[[${_csrf.headerName}]]*/ 'default';
+        return {
+          token: token,
+          header: header
+        };
+      }
+    </script>
+</head>
+<div class="everything-details">
+<body class="background-details" >
+    <h1 class="ti-name">About the book</h1>
+    <div class="book-details">
+        <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image-details" />
+        <h2 name="title" id="title" th:text="${book.title}" class="book-title-details"></h2>
+        <p name="authors" id="authors" class="p3p book-author-details" th:text="${book.authors}"></p>
+        <div class="details-box">
+          <div class="row">
+            <p class="p3p-details zo2-ymeen" th:text="${book.pageCount}"></p>
+            <p class="p3p-details zo2-ymeen" th:text="${book.averageRating}"></p>
+          </div>
+          <div class="row">
+            <p class="p3p-details zo2-ymeen" th:text="'Pages '" style="color: #ffffff53;"></p>
+            <p class="p3p-details zo2-ymeen" th:text="'Rating '" style="color: #ffffff53;"></p>
+          </div>
+        </div>
+        <h1 class="details-h1">Description</h1>
+        <p class="p3p-details description-details" th:text="${book.description}"></p>
+        <button type="button" class="favorite-btn">Favorite</button>
+        <a class="details-button" th:href="@{/books/mdetails(bookName=${book.title})}"> Details </a>  <!-- goes to bookmDetails.html -->
+    </div>
+</body>
+</div>
+</html>
+
+<script>
+    $(document).ready(function() {
+      $(".favorite-btn").click(function() {
+        var bookTitle = $(this).siblings("#title").text();
+        var bookAuthors = $(this).siblings("#authors").text();
+        var bookImage = $(this).siblings(".book-image-details").attr("src");
+        var token = getToken().token;
+        var header = getToken().header;
+        $.ajax({
+          type: "POST",
+          url: "/favorites/add",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          data: {
+            name: bookTitle,
+            authors: bookAuthors,
+            image: bookImage
+          },
+          success: function (response) {
+            alert("Book added to favorites!");
+          },
+          error: function (xhr) {
+            alert("Error adding book to favorites.");
+          }
+        });
+      });
+    });  
+
+  $(document).ready(function truncateDescription() {
+    var maxLength = 200;
+    var descriptions = document.getElementsByClassName("description-details");
+    for (var i = 0; i < descriptions.length; i++) {
+     (function(i) {
+        var descriptionText = descriptions[i].textContent.trim();
+        if (descriptionText.length > maxLength) {
+         var truncatedText = descriptionText.substr(0, maxLength) + "...";
+         descriptions[i].textContent = truncatedText;
+         descriptions[i].appendChild(readMoreLink);
+        }
+      })(i);
+    }
+  });
+</script>
