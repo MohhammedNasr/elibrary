@@ -1,5 +1,6 @@
 package com.project.elibrary.googleBooks;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class GoogleVolumeInfo {
@@ -13,7 +14,12 @@ public class GoogleVolumeInfo {
     private Double averageRating;
     
     public String getTitle() {
-        return title;
+        if(title == null || title == ""){
+            return "No title";
+        }
+        else{
+            return title;
+        }
     }
     
     public void setTitle(String title) {
@@ -21,7 +27,12 @@ public class GoogleVolumeInfo {
     }
     
     public List<String> getAuthors() {
-        return authors;
+        if(authors == null || authors.isEmpty()){
+            return Arrays.asList("No author info");
+        }
+        else{
+            return authors;
+        }
     }
     
     public void setAuthors(List<String> authors) {
@@ -35,7 +46,6 @@ public class GoogleVolumeInfo {
         else{
             return description;
         }
-        
     }
     
     public void setDescription(String description) {
@@ -64,7 +74,12 @@ public class GoogleVolumeInfo {
     }
 
     public String getPublishedDate() {
-        return publishedDate;
+        if(publishedDate == null || publishedDate == ""){
+            return "unknown publish date";
+        }
+        else{
+            return publishedDate;
+        }
     }
 
     public void setPublishedDate(String publishedDate) {
@@ -78,7 +93,6 @@ public class GoogleVolumeInfo {
         else{
             return averageRating;
         }
-        
     }
 
     public void setAverageRating(Double averageRating) {

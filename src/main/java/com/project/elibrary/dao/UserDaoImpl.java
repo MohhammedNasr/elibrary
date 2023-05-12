@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.project.elibrary.models.User;
@@ -97,10 +98,14 @@ public class UserDaoImpl implements UserDao {
         return rowsAffected == 1; 
     }
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
     @Override
-    public boolean updatePassword(String username, String newPassword) {
-        String sql = "UPDATE user SET password = ? WHERE username = ?";
-        int rowsAffected = jdbcTemplate.update(sql, newPassword, username);
+    public boolean updatePassword(Long userID, String newPassword) {
+        String sql = "UPDATE user SET password = ? WHERE id = ?";
+        String protectedNewPassword = bCryptPasswordEncoder.encode(newPassword);
+        int rowsAffected = jdbcTemplate.update(sql, protectedNewPassword, userID);
         return rowsAffected == 1; 
     }
 

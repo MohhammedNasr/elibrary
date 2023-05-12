@@ -10,6 +10,6 @@ public interface UserDao {
     public User getUserById(Long id);
     
     public boolean updateUsername(String oldUsername, String newUsername);
-    public boolean updatePassword(String username, String newPassword);
+    public boolean updatePassword(Long userID, String newPassword);
     public boolean updateProfilePic(Long userID, String profilePic);
 }
