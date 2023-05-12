@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" type="text/css" href="/css/favorites.css">
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>            
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css">
 
 
 <head>
     <meta charset="UTF-8">
     <title>Favorites</title>
 </head>
+
 <body>
     <div class="favorites-slider">
-        <table >
+        <table>
             <tr th:each="favorite, row : ${favorites}" class="favorites-insertnamehere">
                 <td>
-                    <div class="favorites-details">
-                        <div th:text="${favorite.bookName}"></div>
-                        <div th:text="${favorite.authors}"></div>
-                    </div>
-                </td>
-                <td>
-                    <img th:src="${favorite.image}" alt="book cover" height="100px" />
-                </td>
-                <td>
-                    <form th:method="post" th:id="'remove-form-' + ${row.index}" th:action="@{/favorites/remove/{userID}/{bookName}(userID=${userID}, bookName=${favorite.bookName})}">
-                        <button type="submit" class="dlt-btn">
+                    <div class="favorites-card">
+                        <div class="card-content">
+                          <img th:src="${favorite.image}" alt="book cover" height="140px" style="margin-top: 10px;" />
+                          <div class="favorites-details">
+                            <div th:text="${favorite.bookName}"></div>
+                            <div th:text="${favorite.authors}"></div>
+                          </div>
+                        </div>
+                        <form th:method="post" th:id="'remove-form-' + ${row.index}" th:action="@{/favorites/remove/{userID}/{bookName}(userID=${userID}, bookName=${favorite.bookName})}">
+                          <button type="submit" class="dlt-btn">
                             <i class='fa fa-trash img-trsh' style="font-size: 20px;"></i>
-                        </button>
-                    </form>                             
+                          </button>
+                        </form>
+                      </div>
+                      
                 </td>
             </tr>
+
+
             <tr th:if="${#lists.isEmpty(favorites)}">
                 <td colspan="4">No favorites found.</td>
             </tr>
         </table>
     </div>
 </body>
+
 </html>
 
 
@@ -49,27 +55,27 @@
                 method: "POST",
                 body: formData
             })
-            .then((response) => {
-                if (response.ok) {
-                    event.target.closest('tr').remove();
-                    return response.text();
-                } else {
-                    throw new Error("Failed to remove book from favorites list");
-                }
-            })
-            .then((message) => {
-                const alert = document.createElement("div");
-                alert.textContent = message;
-                alert.classList.add("alert-success");
-                document.body.appendChild(alert);
-            })
-            .catch((error) => {
-                console.error(error);
-                const alert = document.createElement("div");
-                alert.textContent = "An error occurred while removing the book from the favorites list";
-                alert.classList.add("alert-danger");
-                document.body.appendChild(alert);
-            });
+                .then((response) => {
+                    if (response.ok) {
+                        event.target.closest('tr').remove();
+                        return response.text();
+                    } else {
+                        throw new Error("Failed to remove book from favorites list");
+                    }
+                })
+                .then((message) => {
+                    const alert = document.createElement("div");
+                    alert.textContent = message;
+                    alert.classList.add("alert-success");
+                    document.body.appendChild(alert);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    const alert = document.createElement("div");
+                    alert.textContent = "An error occurred while removing the book from the favorites list";
+                    alert.classList.add("alert-danger");
+                    document.body.appendChild(alert);
+                });
         });
     });
 </script>

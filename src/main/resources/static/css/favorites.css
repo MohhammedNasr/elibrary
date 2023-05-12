@@ -1,17 +1,35 @@
 @import url('https://unpkg.com/css.gg@2.0.0/icons/css/trash.css');
+
 .favorites-slider {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
-    height: 150px;
+    height: 270px;
     margin-bottom: 20px;
     scroll-behavior: smooth;
-    background-color: #e6f7ff;
     margin-top: 30px;
 }
 
+.card-content {
+    position: relative;
+}
+
+.favorites-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-image: linear-gradient(to bottom, rgba(245, 245, 245, 0.966), rgba(255, 182, 169, 0.7) 70%, rgba(255, 207, 207, 0.8));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .favorites-insertnamehere {
-    width: calc(100% / 5); /* Display 5 rows at a time */
+    width: calc(100% / 5);
     display: inline-table;
     vertical-align: top;
     padding: 0 5px;
@@ -28,13 +46,15 @@
     background-color: #f5f5f5;
     padding: 10px;
     border-radius: 5px;
+    max-width: 90%;
+    margin: 0 auto;
 }
-
 
 .favorites-details div:first-child {
     font-weight: bold;
 }
-.dlt-btn{
+
+.dlt-btn {
     background-color: #f5f5f5;
     border: none;
     border-radius: 5px;
@@ -42,9 +62,11 @@
     cursor: pointer;
     font-size: 14px;
     margin-top: 10px;
-    width: 100%;
+    width: 90%;
     outline: none;
+    margin: 5px;
 }
-.dlt-btn:hover{
+
+.dlt-btn:hover {
     background-color: #f5b0b0;
 }
