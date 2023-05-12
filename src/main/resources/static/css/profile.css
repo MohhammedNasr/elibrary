@@ -48,6 +48,7 @@
     font-size: 1.3vw;
     margin-left: 83vw;
     margin-top: 3vh;
+    margin-bottom: -5vh;
     border: none;
     outline: none;
     cursor: pointer;
@@ -55,4 +56,19 @@
 .edit-button:hover{
     background-color: #383849;
     color: #f3f3f3;
+}
+.donated-button{
+    width: 9vw;
+    height: 5vh;
+    background-color: #0d0c22;
+    border-radius: 27px;
+    color: #f3f3f3;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1vw;
+    margin-left: 73vw;
+    position: absolute;
+    margin-top: -33px;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
