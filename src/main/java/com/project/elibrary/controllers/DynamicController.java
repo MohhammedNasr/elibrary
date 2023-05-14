@@ -24,6 +24,12 @@ public class DynamicController {
         return mav;
     }
 
+    @GetMapping("admin")
+    public ModelAndView getAdminPage() {
+        ModelAndView mav = new ModelAndView("admin-home-page.html");
+        return mav;
+    }
+
     //open donating form
     @GetMapping("/donate")
     public String getBookForm(Model model) {

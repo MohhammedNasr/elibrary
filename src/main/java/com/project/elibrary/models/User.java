@@ -103,4 +103,12 @@ public class User implements UserDetails {
         return true;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 }
