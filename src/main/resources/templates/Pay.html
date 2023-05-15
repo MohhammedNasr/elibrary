@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <link rel="stylesheet" type="text/css" href="/css/pay.css">
   <head>
     <meta charset="UTF-8">
     <title>Payment Form</title>
-    <link rel="stylesheet" href="Pay.css">
   </head>
   <body>
     <div class="container">
@@ -13,28 +13,28 @@
             <h3 class="title">Billing address</h3>
             <div class="inputBox">
               <span>Full name:</span>
-              <input type="text" th:field="*{fullName}" placeholder="John Doe" required>
+              <input type="text"  placeholder="John Doe" required>
             </div>
             <div class="inputBox">
               <span>Email address:</span>
-              <input type="text" th:field="*{email}" placeholder="john.doe@example.com" required>
+              <input type="text"  placeholder="john.doe@example.com" required>
             </div>
             <div class="inputBox">
               <span>Address:</span>
-              <input type="text" th:field="*{address}" placeholder="Apartment, Street" required>
+              <input type="text" placeholder="Apartment, Street" required>
             </div>
             <div class="inputBox">
               <span>City:</span>
-              <input type="text" th:field="*{city}" placeholder="Cairo" required>
+              <input type="text" placeholder="Cairo" required>
             </div>
             <div class="flex">
               <div class="inputBox">
                 <span>State:</span>
-                <input type="text" th:field="*{state}" placeholder="Egypt" required>
+                <input type="text" placeholder="Egypt" required>
               </div>
               <div class="inputBox">
                 <span>Zip code:</span>
-                <input type="text" th:field="*{zipCode}" placeholder="123 456" required>
+                <input type="text"  placeholder="123 456" required>
               </div>
             </div>
             <div class="payment-method">
