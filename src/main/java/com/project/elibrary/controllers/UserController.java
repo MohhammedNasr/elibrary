@@ -1,6 +1,5 @@
 package com.project.elibrary.controllers;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -114,45 +112,15 @@ public class UserController {
 
     }
 
-    // for viewing users list (can be used by admins)
     @Autowired
     private UserDao userDao;
 
-    @GetMapping("/users")
-    public String getUsers(Model model) {
-        List<User> userList = userDao.getAllUsers();
-        model.addAttribute("users", userList);
-        model.addAttribute("isList", true);
-        return "profile.html";
-    }
-
-    // for finding a specific user (showing profile page) (can be used by admins)
-    @GetMapping("/users/{name}")
-    public String getUserByName(@PathVariable String name, Model model) {
-        User user = userDao.getUserByName(name);
-        model.addAttribute("user", user);
-        model.addAttribute("isList", false);
-        return "profile.html";
-    }
-
-    //showing logged in profile page
+    // showing profile page
     @GetMapping("/profile")
     public String getUserByName(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("isList", false);
         return "profile.html";
-    }
-
-    // for editing/updating user info (admin)
-    @GetMapping("/edit-profile/{name}")
-    public String editProfile(@PathVariable String name, Model model) {
-        User user = userDao.getUserByName(name);
-        if (user != null) {
-            model.addAttribute("user", user);
-            return "edit-profile";
-        } else {
-            return "redirect:/";
-        }
     }
 
     // for editing/updating user info

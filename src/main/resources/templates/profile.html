@@ -33,15 +33,15 @@
         <div class="background-gradient">
             <img class="profilePic" th:src="${user.profilePic}" />
         </div>
-        <form method="get" th:action="@{/library/edit-profile}">
-            <button type="submit" class="edit-button">Edit Profile</button>
-        </form>
-        <form method="get" th:action="@{/favorites/list}">
-            <button type="submit" class="edit-button">Favorites</button>
-        </form>
-        <form method="get" th:action="@{/books/donated}">
-            <button type="submit" class="">Donated books</button>
-        </form>
+        <div class="button-container">
+            <form method="get" th:action="@{/library/edit-profile}">
+              <button type="submit" class="edit-button">Edit Profile</button>
+            </form>
+            <form method="get" th:action="@{/books/donated}">
+              <button type="submit" class="donated-button">Donated books</button>
+            </form>
+          </div>
+          
         <p class="profile-name" th:text="${user.username}">
             </td>
         <p th:text="${user.email}" class="profile-email"></p>
