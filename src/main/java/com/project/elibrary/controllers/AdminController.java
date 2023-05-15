@@ -2,11 +2,15 @@ package com.project.elibrary.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.project.elibrary.dao.UserDao;
 import com.project.elibrary.models.User;
 
@@ -45,4 +49,14 @@ public class AdminController {
             return "redirect:/";
         }
     }
+
+    @PostMapping("/edit/{id}")
+    public ResponseEntity<String> editUserDetails(@PathVariable("id") Long id,
+            @RequestParam(value = "username") String username,
+            @RequestParam(value = "profilePic") String profilePic,
+            @RequestParam(value = "role") String role) {
+        userDao.adminEditUser(id, username, profilePic, role);
+        return ResponseEntity.ok("User details updated successfully.");
+    }
+
 }

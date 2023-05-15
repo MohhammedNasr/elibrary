@@ -9,6 +9,8 @@ public interface UserDao {
     public User getUserByName(String name);
     public User getUserById(Long id);
     
+    public void adminEditUser(Long userID, String username, String role, String profile_picture);
+
     public boolean updateUsername(String oldUsername, String newUsername);
     public boolean updatePassword(Long userID, String newPassword);
     public boolean updateProfilePic(Long userID, String profilePic);

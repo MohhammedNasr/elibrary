@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
-
 import com.project.elibrary.models.User;
 
 @Repository
@@ -55,6 +54,7 @@ public class UserDaoImpl implements UserDao {
                 user.setEmail(rs.getString("email"));
                 user.setProfilePic(rs.getString("profile_pic"));
                 user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
                 return user;
             }
         });
@@ -108,6 +108,12 @@ public class UserDaoImpl implements UserDao {
         String protectedNewPassword = bCryptPasswordEncoder.encode(newPassword);
         int rowsAffected = jdbcTemplate.update(sql, protectedNewPassword, userID);
         return rowsAffected == 1; 
+    }
+
+    @Override
+    public void adminEditUser(Long userID, String username, String profile_picture, String role) {
+        String sql = "UPDATE user SET username = ?, profile_pic = ?, role = ? WHERE id = ?";
+        jdbcTemplate.update(sql, username, profile_picture, role, userID);
     }
 
 }

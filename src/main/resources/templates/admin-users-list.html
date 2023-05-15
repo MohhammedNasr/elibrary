@@ -1,26 +1,139 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:inline="javascript">
+      function getToken() {
+        var token = /*[[${_csrf.token}]]*/ "default";
+        var header = /*[[${_csrf.headerName}]]*/ "default";
+        return {
+          token: token,
+          header: header,
+        };
+      }
+    </script>
+
+    <meta charset="UTF-8" />
     <title>Users List</title>
-</head>
-<body>
+    <style>
+      .editable {
+        border: 1px solid #ccc;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
     <h1>All Registered Users</h1>
     <table>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Profile Picture</th>
-            <th>Role</th>
-        </tr>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.profilePic}"></td>
-            <td th:text="${user.role}"></td>
-        </tr>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Profile Picture</th>
+        <th>Role</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+      <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.profilePic}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+          <button
+            class="edit-button"
+            onclick="makeEditable(this.parentNode.parentNode)"
+          >
+            Edit
+          </button>
+        </td>
+      </tr>
     </table>
-</body>
+  </body>
 </html>
+
+<script>
+  function makeEditable(row) {
+    var cells = row.cells;
+    for (var i = 1; i < cells.length - 2; i++) {
+      // Skip the first and last two columns
+      var cell = cells[i];
+      if (i === 3) {
+        // Role column
+        var currentRole = cell.innerText.trim();
+        var select = document.createElement("select");
+        select.className = "editable";
+        var optionUser = document.createElement("option");
+        optionUser.value = "User";
+        optionUser.text = "User";
+        optionUser.selected = currentRole === "User";
+        var optionAdmin = document.createElement("option");
+        optionAdmin.value = "Admin";
+        optionAdmin.text = "Admin";
+        optionAdmin.selected = currentRole === "Admin";
+        select.appendChild(optionUser);
+        select.appendChild(optionAdmin);
+        cell.innerHTML = "";
+        cell.appendChild(select);
+      } else {
+        // Other columns
+        var text = cell.innerText;
+        cell.innerHTML =
+          '<input type="text" class="editable" value="' + text + '">';
+      }
+    }
+
+    var editButton = row.querySelector(".edit-button");
+    editButton.innerHTML = "Save";
+    editButton.onclick = function () {
+      saveRow(row);
+    };
+  }
+
+  function saveRow(row) {
+    var cells = row.cells;
+    var userId = row.cells[0].innerText;
+    var username = cells[1].querySelector("input").value;
+    var profilePic = cells[2].querySelector("input").value;
+    var role = cells[3].querySelector("select").value;
+
+    var token = getToken().token;
+    var header = getToken().header;
+
+    $.ajax({
+      url: "/admin/edit/" + userId,
+      type: "POST",
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader(header, token);
+      },
+      data: {
+        username: username,
+        profilePic: profilePic,
+        role: role,
+      },
+    });
+
+    // Update the row with the saved values
+    for (var i = 1; i < cells.length - 2; i++) {
+      // Skip the first and last two columns
+      var cell = cells[i];
+      if (i === 3) {
+        // Role column
+        var select = cell.querySelector("select");
+        var selectedOption = select.options[select.selectedIndex];
+        cell.innerHTML = selectedOption.value;
+      } else {
+        // Other columns
+        var input = cell.querySelector("input");
+        var text = input.value;
+        cell.innerHTML = text;
+      }
+    }
+
+    var editButton = row.querySelector(".edit-button");
+    editButton.innerHTML = "Edit";
+    editButton.onclick = function () {
+      makeEditable(row);
+    };
+  }
+</script>
