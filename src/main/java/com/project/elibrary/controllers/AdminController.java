@@ -3,8 +3,10 @@ package com.project.elibrary.controllers;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,5 +60,21 @@ public class AdminController {
         userDao.adminEditUser(id, username, profilePic, role);
         return ResponseEntity.ok("User details updated successfully.");
     }
+
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<String> removeUser(@PathVariable("id") Long id, @AuthenticationPrincipal User loggedUser) {
+        if (loggedUser.getId().equals(id)) {
+            return ResponseEntity.badRequest().body("You are not allowed to delete your own account.");
+        }
+
+        User user = userDao.getUserById(id);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        userDao.adminRemoveUser(id);
+        return ResponseEntity.ok("User details updated successfully.");
+    }
+
 
 }

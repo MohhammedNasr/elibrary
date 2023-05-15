@@ -116,4 +116,10 @@ public class UserDaoImpl implements UserDao {
         jdbcTemplate.update(sql, username, profile_picture, role, userID);
     }
 
+    @Override
+    public void adminRemoveUser(Long id) {
+        String sql = "DELETE FROM user WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
+
 }
