@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>Payment Form</title>
+    <link rel="stylesheet" href="Pay.css">
+  </head>
+  <body>
+    <div class="container">
+      <form action="#" th:action="@{/payments/processPayment}" th:object="${pay}" method="post">
+        <div class="row">
+          <div class="col">
+            <h3 class="title">Billing address</h3>
+            <div class="inputBox">
+              <span>Full name:</span>
+              <input type="text" th:field="*{fullName}" placeholder="John Doe" required>
+            </div>
+            <div class="inputBox">
+              <span>Email address:</span>
+              <input type="text" th:field="*{email}" placeholder="john.doe@example.com" required>
+            </div>
+            <div class="inputBox">
+              <span>Address:</span>
+              <input type="text" th:field="*{address}" placeholder="Apartment, Street" required>
+            </div>
+            <div class="inputBox">
+              <span>City:</span>
+              <input type="text" th:field="*{city}" placeholder="Cairo" required>
+            </div>
+            <div class="flex">
+              <div class="inputBox">
+                <span>State:</span>
+                <input type="text" th:field="*{state}" placeholder="Egypt" required>
+              </div>
+              <div class="inputBox">
+                <span>Zip code:</span>
+                <input type="text" th:field="*{zipCode}" placeholder="123 456" required>
+              </div>
+            </div>
+            <div class="payment-method">
+              <h2>Payment Method</h2>
+              <div class="input-group">
+                <input type="radio" id="cash-on-delivery" name="payment-method" value="cash-on-delivery">
+                <label for="cash-on-delivery">Cash on delivery</label>
+              </div>
+              <div class="input-group">
+                <input type="radio" id="payment-via-visa" name="payment-method" value="payment-via-visa">
+                <label for="payment-via-visa">Payment via Visa</label>
+              </div>
+            </div>
+            <input type="submit" value="Confirm" class="submit-btn">
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

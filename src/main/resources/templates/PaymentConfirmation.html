@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>Payment Confirmation</title>
+    <link rel="stylesheet" href="PayConfirm.css">
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="title">Payment Confirmation</h2>
+      <p>Thank you for your payment!</p>
+      <p>Your payment has been processed successfully.</p>
+      <p>Here are the details of your payment:</p>
+      <ul>
+        <li><strong>Full Name:</strong> <span th:text="${payment.fullName}"></span></li>
+        <li><strong>Email:</strong> <span th:text="${payment.email}"></span></li>
+        <li><strong>Address:</strong> <span th:text="${payment.address}"></span></li>
+        <li><strong>City:</strong> <span th:text="${payment.city}"></span></li>
+        <li><strong>State:</strong> <span th:text="${payment.state}"></span></li>
+        <li><strong>Zip Code:</strong> <span th:text="${payment.zipCode}"></span></li>
+        <li><strong>Payment Method:</strong> <span th:text="${payment.paymentMethod}"></span></li>
+      </ul>
+    </div>
+  </body>
+</html>
+
