@@ -3,15 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <title>Library ADMIN</title>
+    <link rel="stylesheet" type="text/css" href="/css/admin-hp.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
-    <nav>
-        <ul>
-            <li><a th:href="@{/admin/users}">Users list</a></li>
-            <li><a th:href="@{/admin/users/test}">Specific user called test</a></li>
-            <li><a th:href="@{/admin/edit-profile/test}">Edit specific user called test</a></li>
-            <li><a th:href="@{/books/allbooks}">All Donated books</a></li>
+<body class="admin-body-side-menu">
+    <nav class="admin-side-menu">
+        <button id="toggle-menu-button" class="toggle-menu-button"><i class="fas fa-bars" style="font-size: 25px;"></i></button>
+        <ul style="margin-top: 60px;">
+            <li style="text-align: center; color: aliceblue;"><img src="https://easydrawingguides.com/wp-content/uploads/2017/01/how-to-draw-batmans-head-featured-image-1200.png" class="admin-pfp">Batman</i></li>
+            <li><a class="admin-menu-link" th:href="@{/admin/users}">Users list</a></li>
+            <li><a class="admin-menu-link" th:href="@{/admin/users/test}">Specific user called test</a></li>    
+            <li><a class="admin-menu-link" th:href="@{/admin/edit-profile/test}">Edit specific user called test</a></li>
+            <li><a class="admin-menu-link" th:href="@{/books/allbooks}">All Donated books</a></li>
         </ul>
     </nav>
+
+    <div class="admin-main-content">
+        <a th:href="@{/admin/users}" class="box-a box">
+            <i style='font-size:60px;color:orange;' class='fas'>&#xf406;</i>
+            <h3>Number of Users</h3>
+            <p>100</p>
+        </a>
+        <div class="box">
+            <i style="font-size:60px;color: blue;" class="fa">&#xf02d;</i>
+            <h3>Number of Donated Books</h3>
+            <p>500</p>
+        </div>
+        <div class="box">
+            <i style="font-size:60px;color:green;" class="fa">&#xf53a;</i>
+            <h3>Purchased</h3>
+            <p>20</p>
+        </div>
+        <div class="box">
+            <i style="font-size:60px;color: rgb(196, 231, 112);" class="fa">&#xf303;</i>
+            <h3>Waiting for Review</h3>
+            <p>480</p>
+        </div>
+        <div class="bigger-chart-container">
+            <h1> Breakdown Chart</h1>
+            <hr class="custom-line">
+            <div class="chart-container">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#toggle-menu-button").click(function() {
+                $("body").toggleClass("hide-menu");
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Your existing code
+            
+            // Chart.js code
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Users', 'Donated Books', 'Purchased', 'Waiting for Review'],
+                    datasets: [{
+                        label: 'Chart',
+                        data: [100, 500, 20, 480],
+                        fill: false,
+                        borderColor: 'rgba(0, 123, 255, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    
 </body>
 </html>
