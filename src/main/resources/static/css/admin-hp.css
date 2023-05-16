@@ -151,10 +151,7 @@
     margin-top: 50px;
     background-color: #fff;
 }
-.chart-container:hover {
-    transform: scale(1.05);
-    animation: pulse 1s;
-}
+
 .bigger-chart-container{
     background-color: #fff;
     margin: auto;

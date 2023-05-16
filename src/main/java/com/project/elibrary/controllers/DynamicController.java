@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.project.elibrary.dto.BookDTO;
+import com.project.elibrary.models.User;
 
 @Controller
 @RequestMapping("/library")
@@ -24,9 +25,11 @@ public class DynamicController {
         return mav;
     }
 
-    @GetMapping("admin")
+    @GetMapping("adminHomePage")
     public ModelAndView getAdminPage() {
         ModelAndView mav = new ModelAndView("admin-home-page.html");
+        User newUser = new User();
+        mav.addObject("user", newUser);
         return mav;
     }
 

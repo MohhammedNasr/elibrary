@@ -3,12 +3,10 @@ package com.project.elibrary.models;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.ArrayList;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,14 +22,6 @@ public class User implements UserDetails {
     private String password;
     private String profilePic;
     private String role;
-
-    public String getRole() {
-        return this.role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public User() {
         this.role = "User";

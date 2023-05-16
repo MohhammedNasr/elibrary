@@ -18,7 +18,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
             Authentication authentication) throws IOException, ServletException {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         if (authorities.stream().anyMatch(authority -> authority.getAuthority().equals("Admin"))) {
-            response.sendRedirect("/library/adminHomepage");
+            response.sendRedirect("/library/adminHomePage");
         } else {
             response.sendRedirect("/library/homepage");
         }
