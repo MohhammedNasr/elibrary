@@ -73,7 +73,12 @@ public class UserController {
                 user.getAuthorities());
         Authentication authenticated = this.authservice.authenticate(authentication);
         SecurityContextHolder.getContext().setAuthentication(authenticated);
-        return "redirect:/library/homepage";
+        boolean isAdmin = user.getRole().equals("Admin");
+        if (isAdmin) {
+            return "redirect:/library/adminHomepage";
+        } else {
+            return "redirect:/library/homepage";
+        }
         /*
          * String email = user.getEmail();
          * User userfinder = this.userRepo.findByEmail(email).orNull();
@@ -115,6 +120,24 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
+
+    @GetMapping("/users")
+    public String getUsers(Model model) {
+        List<User> userList = userDao.getAllUsers();
+        model.addAttribute("users", userList);
+        model.addAttribute("isList", true);
+        return "profile.html";
+    }
+
+    // for finding a specific user (showing profile page) (can be used by admins)
+    @GetMapping("/users/{name}")
+    public String getUserByName(@PathVariable String name, Model model) {
+        User user = userDao.getUserByName(name);
+        model.addAttribute("user", user);
+        model.addAttribute("isList", false);
+        return "profile.html";
+    }
+
     // showing profile page
     @GetMapping("/profile")
     public String getUserByName(@AuthenticationPrincipal User user, Model model) {
@@ -135,7 +158,8 @@ public class UserController {
     }
 
     @PostMapping("/update-username")
-    public String updateUsername(@RequestParam String oldUsername, @RequestParam String newUsername, RedirectAttributes redirectAttributes) {
+    public String updateUsername(@RequestParam String oldUsername, @RequestParam String newUsername,
+            RedirectAttributes redirectAttributes) {
         boolean success = userDao.updateUsername(oldUsername, newUsername);
         if (success) {
             redirectAttributes.addFlashAttribute("message", "Your user name has been changed successfully");
@@ -182,5 +206,5 @@ public class UserController {
         }
         return "redirect:/library/edit-profile";
     }
-    
+
 }

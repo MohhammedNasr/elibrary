@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.project.elibrary.services.UserService;
 
@@ -27,13 +28,14 @@ public class WebSecurityConfig {
         http.userDetailsService(userservice)
                 .authorizeRequests()
                 .antMatchers("/library", "/library/save-user", "/library/reset-pass").permitAll()
+                .antMatchers("/library/adminHomepage").hasAuthority("Admin")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/library/login")
                 .usernameParameter("email")
                 .loginProcessingUrl("/library/check-user")
-                .defaultSuccessUrl("/library/homepage")
+                .successHandler(new MyAuthenticationSuccessHandler())
                 .permitAll()
                 .and()
                 .logout()

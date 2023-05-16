@@ -25,6 +25,14 @@ public class User implements UserDetails {
     private String profilePic;
     private String role;
 
+    public String getRole() {
+        return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public User() {
         this.role = "User";
     }
@@ -81,7 +89,7 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<GrantedAuthority>(Arrays.asList(new SimpleGrantedAuthority(this.role)));
     }
-    
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
