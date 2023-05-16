@@ -1,18 +1,17 @@
 <html  xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" type="text/css" href="/css/visa.css">
     <head>
         <meta charset="Utf-8">
-        
-        <link rel="stylesheet" href="Visa.css">
     </head>
     <div class="container">
-        <form form th:action= "{@/elibrary/save-payment}"  th:object="${pay}" method="post">
+        <form form th:action= "{@/library/save-payment}"  th:object="${pay}" method="post">
           <div class="row">
               
     <div class="col">
         <h3 class="title">Card Confirmation </h3>
         <div class="inputBox">
             <span> <strong>cards accepted :</strong>  </span>
-            <img  src="card_img.png" alt="">
+            <img  src="/css/card_img.png" alt="">
         </div>
         <div class="inputBox">
             <span> name on card : </span>
