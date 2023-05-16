@@ -11,10 +11,10 @@ import com.project.elibrary.repositories.PaymentRepository;
 @Service
 public class PayServices {
     @Autowired
-    private static PaymentRepository paymentRepository;
+    private  PaymentRepository paymentRepository;
 
     @Transactional
-    public static void savePay(Pay pay) {
+    public  void savePay(Pay pay) {
         paymentRepository.save(pay);
     }
 }

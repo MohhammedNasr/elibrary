@@ -3,6 +3,7 @@ package com.project.elibrary.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ import com.project.elibrary.repositories.PaymentRepository;
 import com.project.elibrary.services.PayServices;
 
 @Controller
-@RequestMapping("/payment")
+@RequestMapping("/library")
 public class PayController 
 {
     @Autowired
@@ -24,6 +25,8 @@ public class PayController
 
     @Autowired
     private PayServices payServices ; 
+  
+    
     
     @GetMapping("pay")
     public ModelAndView showPaymentForm(Model model) {
@@ -31,21 +34,17 @@ public class PayController
         return  mav; 
 
     }
-    @PostMapping("/submit-payment")
-    public String submitPayment(@ModelAttribute Pay pay) {
-        if (pay.getPaymentMethod().equals("payment-via-visa")) {
-            return "redirect:/PayVisa.html "; 
-        } else {
-            PayServices.savePay(pay); 
-            return "payment-confirmation.html"; 
+    @PostMapping("/library/save-payment")
+    public String savePay (@ModelAttribute Pay pay, Model model) {
+        paymentRepository.save(pay);
+        if (pay.getPaymentMethod().equals("cash-on-delivery")) {
+            return "paymentConfirmation";
+        } else if (pay.getPaymentMethod().equals("payment-via-visa")) {
+            return "payVisa";
         }
+        return "redirect:/";
     }
-
-    @GetMapping("/Visa-payment")
-    public String showCardPaymentPage() {
- 
-        return "PayVisa.html";
-    }
+   
 }
 
 

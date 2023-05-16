@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>Payment Form</title>
-    <link rel="stylesheet" href="Pay.css">
+    <link rel="stylesheet" href="/css/Pay.css">
   </head>
   <body>
     <div class="container">
-      <form action="#" th:action="@{/payments/processPayment}" th:object="${pay}" method="post">
+      <form th:action= "{@/elibrary/save-payment}"  th:object="${pay}" method="post">
         <div class="row">
           <div class="col">
             <h3 class="title">Billing address</h3>

@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="Visa.css">
     </head>
     <div class="container">
-        <form action="">
+        <form form th:action= "{@/elibrary/save-payment}"  th:object="${pay}" method="post">
           <div class="row">
               
     <div class="col">
@@ -30,11 +30,11 @@
         <div class = "flex ">
         <div class="inputBox">
             <span> exp year  : </span>
-            <input type = "text" placeholder="2018"required>
+            <input type = "number" placeholder="2018"required>
         </div>
         <div class="inputBox">
             <span> cvv: </span>
-            <input type = "text" placeholder="1234"required>
+            <input type = "number" placeholder="1234"required>
         </div>
         </div>
     </div>
