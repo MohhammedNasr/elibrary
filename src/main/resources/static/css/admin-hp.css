@@ -1,0 +1,181 @@
+.admin-body-side-menu {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+}
+
+.admin-side-menu {
+    background-color: #182A3E;
+    height: 100vh;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease;
+    z-index: 9999;
+}
+.admin-pfp{
+    width: 70px;
+    height: 70px;
+    background-color: #243b55;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 200px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    margin: auto;
+}
+.admin-side-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-side-menu li {
+    margin-top: 20px;
+    background-color: #243b55;
+    cursor: pointer;
+}
+.admin-side-menu a {
+    display: block;
+    padding: 10px;
+}
+.admin-menu-link {
+    color: #fff;
+    text-decoration: none;
+}
+.admin-menu-link:hover {
+    background-color: #0c151f;
+}
+
+.admin-main-content {
+    margin-left: 200px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.box {
+    background-color: #fff;
+    width: calc(22% - 10px);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 200px;
+    margin: auto;
+    box-shadow: 0 6px 9px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+.box-a{
+    color: inherit;
+    text-decoration: none;
+}
+.box:hover {
+    transform: scale(1.04);
+    animation: pulse 1s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.04);
+    }
+}
+.box h3 {
+    margin-top: 25px;
+}
+
+.box p {
+    margin-bottom: 0;
+}
+.admin-main-content {
+    margin-left: 200px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    transition: margin-left 0.3s ease;
+}
+.hide-menu .admin-main-content {
+    margin-left: 40px;
+}
+.hide-menu .admin-side-menu {
+    width: 0;
+}
+
+.hide-menu .admin-menu-link {
+    opacity: 0;
+    pointer-events: none;
+}
+.hide-menu li {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.toggle-menu-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #182A3E;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    z-index: 999;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 450px;
+    width: 1600px;
+    margin-left: 25px;
+    margin-top: 50px;
+    background-color: #fff;
+}
+.chart-container:hover {
+    transform: scale(1.05);
+    animation: pulse 1s;
+}
+.bigger-chart-container{
+    background-color: #fff;
+    margin: auto;
+    margin-top: 70px;
+    box-shadow: 0 6px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+.bigger-chart-container h1{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.custom-line {
+    border: none;
+    height: 2px;
+    width: 95%;
+    background-color: #00000056;
+}
+
+#myChart {
+    width: 80%; /* Adjust the width as desired */
+    height: 80%; /* Adjust the height as desired */
+    max-height: 600px; /* Set a maximum height if needed */
+}
