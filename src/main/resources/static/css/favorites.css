@@ -1,23 +1,49 @@
 @import url('https://unpkg.com/css.gg@2.0.0/icons/css/trash.css');
+
 .favorites-slider {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
-    height: 150px;
+    height: 270px;
     margin-bottom: 20px;
     scroll-behavior: smooth;
-    background-color: #e6f7ff;
     margin-top: 30px;
 }
 
+.card-content {
+    position: relative;
+}
+
+.favorites-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 220px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    overflow: hidden;
+    background-color: #f1c6c6;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.favorites-details div:first-child {
+    font-weight: bold;
+    white-space:pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .favorites-insertnamehere {
-    width: calc(100% / 5); /* Display 5 rows at a time */
+    width: calc(100% / 5);
     display: inline-table;
     vertical-align: top;
     padding: 0 5px;
     box-sizing: border-box;
     margin-right: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
@@ -25,26 +51,30 @@
     margin-top: 10px;
     font-size: 14px;
     text-align: center;
-    background-color: #f5f5f5;
     padding: 10px;
     border-radius: 5px;
+    max-width: 90%;
+    margin: 0 auto;
 }
-
 
 .favorites-details div:first-child {
     font-weight: bold;
 }
-.dlt-btn{
-    background-color: #f5f5f5;
+
+.dlt-btn {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    background-color: #f5f5f500;
     border: none;
     border-radius: 5px;
     padding: 5px;
     cursor: pointer;
     font-size: 14px;
-    margin-top: 10px;
-    width: 100%;
     outline: none;
+    z-index: 1;
 }
-.dlt-btn:hover{
-    background-color: #f5b0b0;
+
+.dlt-btn:hover {
+    background-color: #b0bdf5;
 }
