@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.project.elibrary.dao.UserDao;
+import com.project.elibrary.models.Book;
 import com.project.elibrary.models.User;
+import com.project.elibrary.services.BookService;
 
 @Controller
 @RequestMapping("/admin")
@@ -76,5 +79,33 @@ public class AdminController {
         return ResponseEntity.ok("User details updated successfully.");
     }
 
+
+
+    //boooooks
+    @Autowired
+    private BookService bookService;
+    
+    //view list of uploaded books/donated books
+    @GetMapping("/allbooks")
+    public ModelAndView showBooks() {
+        List<Book> books = bookService.getAllBooks();
+        ModelAndView mav = new ModelAndView("admin-donatedBooks-list");
+        mav.addObject("books", books);
+        return mav;
+    }
+
+    //accept donated book
+    @GetMapping("/acceptBook/{bookID}")
+    public String acceptBook(@PathVariable("bookID") Long bookID) {
+        bookService.acceptBook(bookID);
+        return "redirect:/admin/allbooks";
+    }
+
+    //reject donated book
+    @GetMapping("/rejectBook/{bookID}")
+    public String rejectBook(@PathVariable("bookID") Long bookID) {
+        bookService.rejectBook(bookID);
+        return "redirect:/admin/allbooks";
+    }
 
 }

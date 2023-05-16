@@ -33,6 +33,9 @@ public class Book {
     @Column(name = "availability")
     private Boolean availability;
 
+    @Column(name = "review")
+    private Boolean reviewed;
+
     @Column(name = "page_count")
     private Integer pageCount;
 
@@ -136,5 +139,13 @@ public class Book {
 
     public void setUserID(Long userID) {
         this.userID = userID;
+    }
+
+    public Boolean getReviewed() {
+        return reviewed;
+    }
+
+    public void setReviewed(Boolean reviewed) {
+        this.reviewed = reviewed;
     }
 }
