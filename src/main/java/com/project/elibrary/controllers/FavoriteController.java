@@ -24,7 +24,7 @@ public class FavoriteController {
     @Autowired
     private FavoriteService favoriteService;
 
-    //favorite list for a specific user
+    // favorite list for a specific user
     @GetMapping("/list")
     public String getFavoritesByUserID(@AuthenticationPrincipal User user, Model model) {
         Long userID = user.getId();
@@ -34,28 +34,27 @@ public class FavoriteController {
         return "favorites";
     }
 
-    //adding book to favorite list
+    // adding book to favorite list
     @PostMapping("/add")
     public ResponseEntity<Void> saveFavorite(
-            @RequestParam(value ="name", required = false) String bookName,
-            @RequestParam(value ="authors", required = false) String authors,
-            @RequestParam(value ="image", required = false) String image, 
-            @AuthenticationPrincipal User user
-    ){
+            @RequestParam(value = "name", required = false) String bookName,
+            @RequestParam(value = "authors", required = false) String authors,
+            @RequestParam(value = "image", required = false) String image,
+            @AuthenticationPrincipal User user) {
         Long userID = user.getId();
         favoriteService.saveFavorite(bookName, authors, image, userID);
         return ResponseEntity.ok().build();
     }
 
-    //removing book from favorite list
+    // removing book from favorite list
     @PostMapping("/remove/{userID}/{bookName}")
     public ResponseEntity<String> removeFavorite(@PathVariable Long userID, @PathVariable String bookName) {
         boolean removed = favoriteService.removeFavorite(userID, bookName);
         if (removed) {
             return ResponseEntity.ok("Removed successfully");
         } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Couldn't remove book from favorite list");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Couldn't remove book from favorite list");
         }
     }
 }
-

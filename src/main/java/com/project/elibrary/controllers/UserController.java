@@ -75,7 +75,12 @@ public class UserController {
                 user.getAuthorities());
         Authentication authenticated = this.authservice.authenticate(authentication);
         SecurityContextHolder.getContext().setAuthentication(authenticated);
-        return "redirect:/library/homepage";
+        boolean isAdmin = user.getRole().equals("Admin");
+        if (isAdmin) {
+            return "redirect:/library/adminHomepage";
+        } else {
+            return "redirect:/library/homepage";
+        }
         /*
          * String email = user.getEmail();
          * User userfinder = this.userRepo.findByEmail(email).orNull();
@@ -135,7 +140,7 @@ public class UserController {
         return "profile.html";
     }
 
-    //showing logged in profile page
+    // showing logged in profile page
     @GetMapping("/profile")
     public String getUserByName(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);
@@ -167,7 +172,8 @@ public class UserController {
     }
 
     @PostMapping("/update-username")
-    public String updateUsername(@RequestParam String oldUsername, @RequestParam String newUsername, RedirectAttributes redirectAttributes) {
+    public String updateUsername(@RequestParam String oldUsername, @RequestParam String newUsername,
+            RedirectAttributes redirectAttributes) {
         boolean success = userDao.updateUsername(oldUsername, newUsername);
         if (success) {
             redirectAttributes.addFlashAttribute("message", "Your user name has been changed successfully");
@@ -214,5 +220,5 @@ public class UserController {
         }
         return "redirect:/library/edit-profile";
     }
-    
+
 }
