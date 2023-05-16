@@ -23,6 +23,8 @@
   </head>
   <body>
     <h1>All Registered Users</h1>
+    <input type="text" id="search-input" placeholder="Search by username" />
+    <button id="search-button" onclick="searchUsers()">Search</button>
     <table>
       <tr>
         <th>ID</th>
@@ -166,4 +168,33 @@
       });
     }
   }
+
+  function searchUsers() {
+  var searchInput = document.getElementById("search-input");
+  var searchValue = searchInput.value.trim().toLowerCase();
+  var table = document.querySelector("table");
+  var rows = table.getElementsByTagName("tr");
+  var searchButton = document.getElementById("search-button");
+
+  if (searchButton.innerHTML === "Search") {
+    for (var i = 1; i < rows.length; i++) {
+      var username = rows[i].getElementsByTagName("td")[1].innerText.toLowerCase();
+      if (username.includes(searchValue)) {
+        rows[i].style.display = "";
+      } else {
+        rows[i].style.display = "none";
+      }
+    }
+    searchButton.innerHTML = "Clear";
+    searchInput.disabled = true;
+  } else {
+    for (var i = 1; i < rows.length; i++) {
+      rows[i].style.display = "";
+    }
+    searchButton.innerHTML = "Search";
+    searchInput.value = "";
+    searchInput.disabled = false;
+  }
+}
+
 </script>
