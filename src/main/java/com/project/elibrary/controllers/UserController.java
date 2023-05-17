@@ -123,7 +123,6 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-
     @GetMapping("/users")
     public String getUsers(Model model) {
         List<User> userList = userDao.getAllUsers();
