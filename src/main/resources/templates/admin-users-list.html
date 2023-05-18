@@ -1,66 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script th:inline="javascript">
-      function getToken() {
-        var token = /*[[${_csrf.token}]]*/ "default";
-        var header = /*[[${_csrf.headerName}]]*/ "default";
-        return {
-          token: token,
-          header: header,
-        };
-      }
-    </script>
-    <meta charset="UTF-8" />
-    <title>Users List</title>
-    <style>
-      .editable {
-        border: 1px solid #ccc;
-        padding: 5px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>All Registered Users</h1>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="/css/admin-user-list.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script th:inline="javascript">
+    function getToken() {
+      var token = /*[[${_csrf.token}]]*/ "default";
+      var header = /*[[${_csrf.headerName}]]*/ "default";
+      return {
+        token: token,
+        header: header,
+      };
+    }
+  </script>
+  <meta charset="UTF-8" />
+  <title>Users List</title>
+</head>
+
+<body>
+  <div class="search-container">
     <input type="text" id="search-input" placeholder="Search by username" />
-    <button id="search-button" onclick="searchUsers()">Search</button>
+    <button id="search-button" onclick="searchUsers()"><i style="font-size:24px;" class="fa">&#xf002;</i></button>
+    <button id="add-button" class="button add-button" onclick="addUser()">Add</button>
+  </div>
+
+  <div class="table-container">
     <table>
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Profile Picture</th>
-        <th>Role</th>
-        <th>Email</th>
-        <th>Action</th>
-      </tr>
       <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.profilePic}"></td>
-        <td th:text="${user.role}"></td>
-        <td th:text="${user.email}"></td>
-        <td>
-          <button
-            class="edit-button"
-            onclick="makeEditable(this.parentNode.parentNode)"
-          >
-            Edit
-          </button>
-        </td>
-        <td>
-          <button
-            class="remove-button"
-            onclick="deleteUser(this.parentNode.parentNode)"
-          >
-            Remove
-          </button>
-        </td>
+        <div>
+          <td th:text="${user.id}"></td>
+          <td>
+            <img class="profile-pic" th:src="${user.profilePic}" />
+          </td>
+          <td th:text="${user.username}"></td>
+          <td th:text="${user.role}"></td>
+          <td th:text="${user.email}"></td>
+          <td>
+            <button class="button edit-button" onclick="makeEditable(this.parentNode.parentNode)">
+              Edit
+            </button>
+          </td>
+          <td>
+            <button class="button remove-button" onclick="deleteUser(this.parentNode.parentNode)">
+              Remove
+            </button>
+          </td>
+        </div>
       </tr>
     </table>
-  </body>
-</html>
+  </div>
+</body>
 
+</html>
 <script>
   function makeEditable(row) {
     var cells = row.cells;
@@ -170,31 +163,31 @@
   }
 
   function searchUsers() {
-  var searchInput = document.getElementById("search-input");
-  var searchValue = searchInput.value.trim().toLowerCase();
-  var table = document.querySelector("table");
-  var rows = table.getElementsByTagName("tr");
-  var searchButton = document.getElementById("search-button");
+    var searchInput = document.getElementById("search-input");
+    var searchValue = searchInput.value.trim().toLowerCase();
+    var table = document.querySelector("table");
+    var rows = table.getElementsByTagName("tr");
+    var searchButton = document.getElementById("search-button");
 
-  if (searchButton.innerHTML === "Search") {
-    for (var i = 1; i < rows.length; i++) {
-      var username = rows[i].getElementsByTagName("td")[1].innerText.toLowerCase();
-      if (username.includes(searchValue)) {
-        rows[i].style.display = "";
-      } else {
-        rows[i].style.display = "none";
+    if (searchButton.innerHTML === "Search") {
+      for (var i = 1; i < rows.length; i++) {
+        var username = rows[i].getElementsByTagName("td")[1].innerText.toLowerCase();
+        if (username.includes(searchValue)) {
+          rows[i].style.display = "";
+        } else {
+          rows[i].style.display = "none";
+        }
       }
+      searchButton.innerHTML = "Clear";
+      searchInput.disabled = true;
+    } else {
+      for (var i = 1; i < rows.length; i++) {
+        rows[i].style.display = "";
+      }
+      searchButton.innerHTML = "Search";
+      searchInput.value = "";
+      searchInput.disabled = false;
     }
-    searchButton.innerHTML = "Clear";
-    searchInput.disabled = true;
-  } else {
-    for (var i = 1; i < rows.length; i++) {
-      rows[i].style.display = "";
-    }
-    searchButton.innerHTML = "Search";
-    searchInput.value = "";
-    searchInput.disabled = false;
   }
-}
 
 </script>
