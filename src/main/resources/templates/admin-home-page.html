@@ -14,7 +14,7 @@
         <ul style="margin-top: 60px;">
             <li style="text-align: center; color: aliceblue;"><a class="box-a" th:href="@{/library/profile}"><img th:src="${profilePicture}" class="admin-pfp"></i><p th:text="${username}">username</p></a></li>
             <li><a class="admin-menu-link" th:href="@{/admin/users}">Users list</a></li>
-            <li><a class="admin-menu-link" th:href="@{/books/allbooks}">All Donated books</a></li>
+            <li><a class="admin-menu-link" th:href="@{/admin/allbooks}">All Donated books</a></li>
         </ul>
     </nav>
 
@@ -24,7 +24,7 @@
             <h3>Number of Users</h3>
             <p id="userCount" th:text="${userCount}">0</p>
         </a>
-        <a th:href="@{/books/allbooks}" class="box-a box">
+        <a th:href="@{/admin/allbooks}" class="box-a box">
             <i style="font-size:60px;color: blue;" class="fa">&#xf02d;</i>
             <h3>Number of Donated Books</h3>
             <p id="donatedBooksCount" th:text="${donatedBooksCount}">0</p>

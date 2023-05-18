@@ -93,7 +93,6 @@ public class BookController {
       return "bookmDetails";
     }
 
-    
     @Autowired
     private BookService bookService;
 
@@ -101,20 +100,11 @@ public class BookController {
     @PostMapping("/add")
     public String createBook(Book book, @AuthenticationPrincipal User user) {
         book.setAvailability(true); // When any book gets added, it is set to be available 
+        book.setReviewed(false); // When any book gets added, it is set to be not reviewed and waiting for admin review
         Long userID = user.getId();
-        bookService.createBook(book.getTitle(), book.getDescription(), book.getAuthors(), book.getThumbnailUrl(), book.getAvailability(), userID);
+        bookService.createBook(book.getTitle(), book.getDescription(), book.getAuthors(), book.getThumbnailUrl(), book.getAvailability(), book.getReviewed(), userID);
         // Redirect to the profile.html page
         return "redirect:/library/profile";
-    }
-    
-    
-    //view list of uploaded books/donated books/created books (can be used by ADMIN or to show list of donated and available for borrowing books)
-    @GetMapping("/allbooks")
-    public ModelAndView showBooks() {
-        List<Book> books = bookService.getAllBooks();
-        ModelAndView mav = new ModelAndView("books");
-        mav.addObject("books", books);
-        return mav;
     }
 
      //view list of donated books by userID
@@ -122,7 +112,7 @@ public class BookController {
     public ModelAndView showBooks(@AuthenticationPrincipal User user) {
         Long userID = user.getId();
         List<Book> books = bookService.getBooksByUserID(userID);
-        ModelAndView mav = new ModelAndView("books");
+        ModelAndView mav = new ModelAndView("donatedBooks");
         mav.addObject("books", books);
         return mav;
     }
