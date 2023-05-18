@@ -1,139 +1,409 @@
-* {
-  box-sizing: border-box;
-}
-
-/* Style the body */
 body {
-  font-family:  'Times New Roman', Times, serif;
   margin: 0;
 }
 
-/* Header/logo Title */
-.header {
-  padding: 10px;
-  text-align: center;
-  background: #6651a692;
-  color: white;
-}
 .search-container {
-  display: box;
+  display: flex;
   align-items: center;
   justify-content: flex-end;
+  position: absolute;
+  padding: 20px;
 }
 
-#search-input {
+
+.input-box-search {
   border: none;
   border-radius: 55px;
-  margin-right: 90px;
   padding: 12px;
   font-size: 18px;
   width: 550px;
-  background-color: #fffefe;
+  background-color: #dfdfdf;
+  margin-right: 10px;
 }
-
-button[type="submit"] {
+.search-button{
+  background-color: #dfdfdf00;
   border: none;
-  background-color: transparent;
+  margin-left: -50px;
   cursor: pointer;
-  font-size: 16px;
-}
 
-.fa-search {
-  color: rgb(255, 252, 252);
 }
-/* Increase the font size of the heading */
-.header h1 {
-  font-size: 40px;
+.input-form {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin-right: 20px;
 }
-
-/* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
 .navbar {
   overflow: hidden;
-  background-color: rgb(50, 11, 63);
   position: sticky;
   padding: 20px;
   position: -webkit-sticky;
   top: 0;
 }
 
-/* Style the navigation bar links */
 .navbar a {
   float: left;
   display: block;
-  color: white;
+  color: rgb(0, 0, 0);
   text-align: center;
   padding: 14px 20px;
   text-decoration: none;
 }
 
-
-/* Right-aligned link */
-.navbar a.right {
-  float: right;
-}
-
-/* Change color on hover */
 .navbar a:hover {
   background-color: #ddd;
   color: rgb(255, 255, 255);
 }
 
-/* Active/current link */
 .navbar a.active {
-  background-color: rgb(9, 9, 9);
-  color: white;
+  border-bottom: 3px solid #0066ff;
 }
-
-/* Column container */
-.row {  
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
-}
-
-/* Create two unequal columns that sits next to each other */
-/* Sidebar/left column */
-.side {
-  -ms-flex: 30%; /* IE10 */
-  flex: 30%;
-  background-color: #6651a692;
-  padding: 20px;
-}
-
-/* Main column */
-.main {   
-  -ms-flex: 70%; /* IE10 */
-  flex: 70%;
-  background-color: white;
-  padding: 20px;
-}
-
-/* Fake image, just for this example */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
-}
-
-/* Footer */
 .footer {
   padding: 20px;
   text-align: center;
   background: rgb(50, 11, 63);
+  margin-left: -100px;
 }
 
-/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 700px) {
-  .row {   
+  .row {
     flex-direction: column;
   }
 }
 
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
 @media screen and (max-width: 400px) {
   .navbar a {
     float: none;
     width: 100%;
   }
+}
+.for-you-section {
+  padding: 20px;
+}
+
+.for-you-title {
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.book-box {
+  cursor: pointer;
+  text-decoration: none; /* Remove text decoration */
+}
+
+.book-box:hover {
+  background-color: #f5f5f5;
+}
+
+.book-title {
+  color: black; /* Change the color of the book title */
+}
+.book-container {
+  display: flex;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+.book-box {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  text-align: left;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  margin: auto;
+}
+.box:hover {
+    transform: scale(1.04);
+    animation: pulse 1s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.04);
+    }
+}
+.book-image {
+  width: 100px;
+  height: auto;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.book-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.book-author {
+  font-size: 16px;
+  color: #888;
+}
+
+.book-info {
+  display: flex;
+  margin: auto;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.book-info span {
+  font-size: 14px;
+  color: #888;
+}
+
+.open-button {
+  background-color: #5975b1;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  font-size: 26px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-left: auto;
+}
+
+.open-button:hover {
+  background-color: #45a049;
+}
+.book-section {
+  padding: 20px;
+}
+
+.book-section-title {
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.book-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.book-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 250px;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s;
+}
+.book-item:hover {
+  background-color: #dad9d9;
+}
+
+.book-cover {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.book-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.book-author {
+  font-size: 14px;
+  color: #888;
+}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+body {
+    margin: 0;
+    background: #eaeef6;
+}
+
+.MenuBox {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.TopBox {
+    width: 71px;
+    height: 5px;
+    margin: 0 auto;
+    background: #406ff3;
+    border-radius: 0 0 12px 12px;
+}
+
+.HoverBox {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto;
+    background: #406ff3;
+    border-radius: 10px;
+    position: absolute;
+    z-index: 0;
+    left: 15px;
+    top: 20px;
+    transition: 250ms;
+}
+
+.PageContact {
+    margin-left: 200px;
+    margin-right: 103px;
+    margin-top: 47px;
+}
+
+.MenuBox>ul>li>span {
+    position: absolute;
+    left: 80%;
+    opacity: 0;
+    top: 12px;
+    margin-left: 2rem;
+    color: #406ff3;
+    background: #fff;
+    transition: 250ms ease all;
+    border-radius: 17.5px;
+    line-height: 0;
+    padding: 16px 15px;
+    z-index: -1;
+}
+
+.MenuBox>ul>li {
+    display: block;
+    width: 55px;
+    height: 55px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 12px;
+    line-height: 68px;
+}
+
+.MenuBox:not(:hover),
+.MenuBox>ul>li:hover svg {
+    color: white;
+}
+
+.MenuBox>ul>li:hover span {
+    display: block;
+    left: 100%;
+    opacity: 1;
+}
+
+.Active>svg {
+    color: white;
+}
+
+.feather {
+    color: #6e6c6c;
+    width: 25px;
+    transition: 1s;
+}
+
+.MenuBox {
+    background: white;
+    position: absolute;
+    margin: 34px 12px;
+    height: 90%;
+    border-radius: 9px;
+    box-shadow: 0 0 40px 0 rgb(94 92 154 / 6%);
+}
+
+
+.MenuBox>ul {
+    padding: 0 15px;
+    margin-top: 15px;
+}
+
+.PageContact>div {
+    transition: .5s;
+}
+
+@keyframes Effect_0 {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(0.5, 1.5);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes Effect_1 {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(0.5, 1.5);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes Effect_2 {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(0.5, 1.5);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes Effect_3 {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(0.5, 1.5);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes Effect_4 {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(0.5, 1.5);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes Effect_5 {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(0.5, 1.5);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+.page-content{
+  margin-left: 100px;
 }
