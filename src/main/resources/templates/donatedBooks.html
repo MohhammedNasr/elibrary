@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="/css/donated-books.css">
     </head>
     <body>
-        <h1 class="main-dtitle">Donated Books List</h1>
+        <h1 class="main-dtitle">Donated Books List Available for borrowing </h1>
         <table class="donated-table">
             <thead>
                 <tr>
@@ -15,23 +15,35 @@
                     <th class="donated-category">Authors</th>
                     <th class="donated-category">Thumbnail</th>
                     <th class="donated-category">Availability</th>
+                    <th class="donated-category">Checkbox</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="book : ${books}">
+                  
+                   
                     <td th:text="${book.title}"></td>
                     <td th:text="${book.description}"></td>
-                    <td>
-                        <ul>
-                            <li th:each="author : ${book.authors}" th:text="${author}"></li>
-                        </ul>
+                    <td
+          th:each="author : ${book.authors}" th:text="${author}">
+                   
                     </td>
                     <td>
                         <img th:src="${book.thumbnailUrl}" alt="Thumbnail" height="100">
                     </td>
-                    <td th:text="${book.availability == true ? 'Available for borrowing' : 'Not available'}"></td>
+                    <td th:text="${book.availability == true ? 'Available for borrowing' : 'Not available'}">
+                    <td>
+                        <td><input type="checkbox" 
+                            th:field="*{bookIds}" th:value="${book.id}">
+                        </td>
+                    
                 </tr>
             </tbody>
         </table>
+        <form>
+            <button style="width: 10%; backgroundColor: #DDA379; border: 1px solid #DDA379; position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); text-align: center;">
+              <a th:href="@{/library/borrowdetails}">Borrow</a> 
+            </button>
+          </form>
     </body>
 </html>

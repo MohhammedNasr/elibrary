@@ -71,4 +71,5 @@ public class DynamicController {
         mav.addObject("books", books);
         return mav;
     }
+  
 }

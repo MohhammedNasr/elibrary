@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Donated Books List</title>
+        <link rel="stylesheet" type="text/css" href="/css/donated-books.css">
+    </head>
+    <body>
+        <h1 class="main-dtitle">borrowed  Books List</h1>
+        <table class="donated-table">
+            <thead>
+                <tr>
+                    <th class="donated-category">Title</th>
+                    <th class="donated-category">Description</th>
+                    <th class="donated-category">Authors</th>
+                    <th class="donated-category">borrowing_date</th>
+           
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${selectedBooks}">
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.description}"></td>
+                    <td th:text="${book.author}"></td> 
+              <td th:text="${book.borrowedDate}"></td>>
+                    </td>
+                  
+                   
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

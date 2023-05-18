@@ -23,6 +23,7 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findByReviewed(true);
     }
 
+
     @Override
     public Book createBook(String title, String description, List<String> authors, String thumbnailUrl, Boolean availability, Boolean reviewed, Long userID) {
         Book book = new Book(title, description, authors, thumbnailUrl, userID);
@@ -59,4 +60,6 @@ public class BookServiceImpl implements BookService {
             throw new IllegalArgumentException("Invalid book ID: " + bookID);
         }
     }
+
+   
 }
