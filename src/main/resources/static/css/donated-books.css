@@ -1,5 +1,23 @@
+body {
+    background-color: #f9f9f9;
+    background-image: url('path/to/your/background-pattern.jpg');
+    background-repeat: repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.donated-box {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 .donated-table {
-    border-collapse: collapse;
     width: 100%;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
@@ -8,14 +26,14 @@
     background-color: #f2f2f2;
     font-weight: bold;
     text-align: left;
-    padding: 8px;
+    padding: 10px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .donated-table td,
 .donated-table th {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 10px;
     text-align: left;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
@@ -24,10 +42,46 @@
     background-color: #f2f2f2;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-.main-dtitle{
+
+.main-dtitle {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 20px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.book-info {
+    display: flex;
+    align-items: center;
+}
+
+.book-image {
+    max-width: 120px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 10px;
+}
+
+.book-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.book-author {
+    color: #666;
+    font-size: 14px;
+}
+
+.purchase-button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.purchase-button:hover {
+    background-color: #45a049;
 }
