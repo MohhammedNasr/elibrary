@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script th:inline="javascript">
-      function getToken() {
-        var token = /*[[${_csrf.token}]]*/ "default";
-        var header = /*[[${_csrf.headerName}]]*/ "default";
-        return {
-          token: token,
-          header: header,
-        };
-      }
-    </script>
-    <meta charset="UTF-8" />
-    <title>Users List</title>
-    <style>
-      .editable {
-        border: 1px solid #ccc;
-        padding: 5px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>All Registered Users</h1>
-    <input type="text" id="search-input" placeholder="Search by username" />
-    <button id="search-button" onclick="searchUsers()">Search</button>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="/css/admin-user-list.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script th:inline="javascript">
+    function getToken() {
+      var token = /*[[${_csrf.token}]]*/ "default";
+      var header = /*[[${_csrf.headerName}]]*/ "default";
+      return {
+        token: token,
+        header: header,
+      };
+    }
+  </script>
+  <meta charset="UTF-8" />
+  <title>Users List</title>
+</head>
+
+<body>
+  <div class="navbar">
+    <a th:href="@{/library/adminHomePage}">Home</a>
+    <a href="#" class="active">User List</a>
+    <a th:href="@{/admin/allbooks}">All donated books</a>
+    </div>
+    <div class="content">
+  <div class="table-container">
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="Search by username" />
+      <button id="search-button" onclick="searchUsers()"><i style="font-size:24px;" class="fa">&#xf002;</i></button>
+      <button id="add-button" class="button add-button" onclick="addUser()"><i style="font-size:20px;" class="fa">&#xf067;</i> Add user</button>
+    </div>
+  
     <table>
       <tr>
         <th>ID</th>
@@ -41,24 +50,40 @@
         <td th:text="${user.role}"></td>
         <td th:text="${user.email}"></td>
         <td>
-          <button
-            class="edit-button"
-            onclick="makeEditable(this.parentNode.parentNode)"
-          >
-            Edit
+          <img class="profile-pic" th:src="${user.profilePic}" />
+        </td>
+        <td>
+          <div class="row-content" style="margin-left: -200px; margin-top: -15px;">
+            <span style="margin-bottom: -15px; font-weight: bold; margin-top: 15px;">Name</span>
+            <br/>
+            <span th:text="${user.username}" style="font-size: 19px;"></span>
+            <br/>
+            <span th:text="${user.email}" style="margin-top: -15px; color: rgba(0, 0, 0, 0.664);"></span>
+          </div>
+        </td>
+        <td>
+          <div class="row-content" style="margin-bottom: 26px;">
+            <span style="margin-bottom: -13px;"><strong>Role</strong></span>
+            <br/>
+            <span th:text="${user.role}"></span>
+          </div>
+        </td>
+        
+        <td>
+          <button class="button edit-button" onclick="makeEditable(this.parentNode.parentNode)">
+            <i style='font-size:24px; color: green;' class='fas'>&#xf044;</i>
           </button>
         </td>
         <td>
-          <button
-            class="remove-button"
-            onclick="deleteUser(this.parentNode.parentNode)"
-          >
-            Remove
+          <button class="button remove-button" onclick="deleteUser(this.parentNode.parentNode)">
+            <i style='font-size:24px; color: brown;' class='fas'>&#xf2ed;</i>
           </button>
         </td>
       </tr>
     </table>
-  </body>
+  </div>
+</body>
+</div>
 </html>
 
 <script>
