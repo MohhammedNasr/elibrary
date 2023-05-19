@@ -69,7 +69,14 @@ public class UserController {
     }
 
     @PostMapping("check-user")
-    public String checkUser(@ModelAttribute User user) {
+    public String checkUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+        String email = user.getEmail();
+        User userfinder = this.userRepo.findByEmail(email).orNull();
+        String pass = user.getPassword();
+        if (userfinder == null || !bCryptPasswordEncoder.matches(pass, userfinder.getPassword())) {
+            redirectAttributes.addAttribute("error", "true");
+            return "redirect:/library/login";
+        }
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 user.getEmail(),
                 user.getPassword(),
@@ -82,20 +89,6 @@ public class UserController {
         } else {
             return "redirect:/library/homepage";
         }
-        /*
-         * String email = user.getEmail();
-         * User userfinder = this.userRepo.findByEmail(email).orNull();
-         * if (userfinder == null) {
-         * return "redirect:/library/login";
-         * }
-         * String pass = user.getPassword();
-         * String Password = userfinder.getPassword();
-         * if (pass.equals(Password)) {
-         * return "redirect:/library/homepage";
-         * } else {
-         * return "redirect:/library/login";
-         * }
-         */
     }
 
     @GetMapping("reset-pass")
@@ -107,10 +100,11 @@ public class UserController {
     }
 
     @PostMapping("change-pass")
-    public String changepass(@ModelAttribute User user) {
+    public String changepass(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
         String email = user.getEmail();
         User userfinder = this.userRepo.findByEmail(email).orNull();
         if (userfinder == null) {
+            redirectAttributes.addFlashAttribute("error", "This email doesn't exist");
             return "redirect:/library/reset-pass";
         }
         String pass = user.getPassword();
@@ -122,7 +116,6 @@ public class UserController {
 
     @Autowired
     private UserDao userDao;
-
 
     @GetMapping("/users")
     public String getUsers(Model model) {

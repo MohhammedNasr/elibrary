@@ -1,10 +1,21 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Change password</title>
 </head>
 
 <body style="background-color: #DDA379;">
+    <div th:if="${error}">
+        <p th:text="${error}" style="
+			color: #D8000C;
+			background-color: #FFBABA;
+			background-image: url('https://i.imgur.com/GnyDvKN.png');
+            border: 1px solid;
+			margin: 10px 0px;
+			padding: 15px 10px 15px 50px;
+			background-repeat: no-repeat;
+			background-position: 10px center;"></p>
+    </div>
     <br><br><br><br>
     <div style="width: 360px;height: 420px; margin: auto;background-color: white;border-radius: 5px; "><br>
         <h1 style="text-align: center;padding-top: 15px;color:#DDA379 ;">Reset your password</h><br><br>
@@ -19,6 +30,8 @@
                 background-color: #DDA379; border-radius: 6px;border: 1px #DDA379;"> Reset </button><br>
 
             </form>
+            <h6><a th:href="@{/library/login}" style="color:#DDA379;text-align: left; padding-left:200px;"> Back to
+                    login </a></h6>
 </body>
 
 </html>
