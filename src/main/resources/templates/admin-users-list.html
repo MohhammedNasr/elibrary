@@ -33,7 +33,7 @@
         <button id="search-button" onclick="toggleSearch()">
           <i id="search-icon" class="fa fa-search" style="font-size: 24px;"></i>
         </button>
-        <button id="add-button" class="button add-button" onclick="addUser()"><i style="font-size:20px;" class="fa">&#xf067;</i> Add user</button>
+        <button id="add-button" class="button add-button" onclick="addUser()"><i style="font-size:20px;" class="fa">&#xf067;</i> User</button>
       </div>
 
       <table>
@@ -194,37 +194,49 @@
   }
 
   function toggleSearch() {
-  var searchInput = document.getElementById("search-input");
-  var searchIcon = document.getElementById("search-icon");
-
-  if (searchInput.value !== "") {
-    var searchText = searchInput.value.toLowerCase();
+    var searchInput = document.getElementById("search-input");
+    var searchValue = searchInput.value.trim().toLowerCase();
     var table = document.querySelector("table");
     var rows = table.getElementsByTagName("tr");
-
-    for (var i = 1; i < rows.length; i++) {
-      var username = rows[i].querySelector("td:nth-child(3) span").innerText.toLowerCase();
-      if (username.includes(searchText)) {
-        rows[i].style.display = "";
-      } else {
-        rows[i].style.display = "none";
+    var searchButton = document.getElementById("search-button");
+  
+    if (searchValue !== "") {
+      for (var i = 1; i < rows.length; i++) {
+        var username = rows[i].getElementsByTagName("td")[2].querySelector("span").innerText.toLowerCase();
+        if (username.includes(searchValue)) {
+          rows[i].style.display = "";
+        } else {
+          rows[i].style.display = "none";
+        }
       }
+      searchButton.innerHTML = '<i style="font-size: 24px;" class="fa fa-times"></i>';
+    } else {
+      for (var i = 1; i < rows.length; i++) {
+        rows[i].style.display = "";
+      }
+      searchButton.innerHTML = '<i style="font-size: 24px;" class="fa fa-search"></i>';
     }
-
-    // Reset search input and icon
-    searchInput.value = "";
-    searchIcon.classList.remove("fa-times");
-    searchIcon.classList.add("fa-search");
-  } else {
-    for (var i = 1; i < rows.length; i++) {
-      rows[i].style.display = "";
-    }
-
-    // Clear search input and toggle icon
-    searchInput.value = "";
-    searchIcon.classList.toggle("fa-search");
-    searchIcon.classList.toggle("fa-times");
   }
-}
+  
+  function searchUsers() {
+    var searchInput = document.getElementById("search-input");
+    var searchButton = document.getElementById("search-button");
+  
+    if (searchButton.innerHTML === '<i style="font-size: 24px;" class="fa fa-search"></i>') {
+      searchInput.disabled = true;
+      toggleSearch();
+    } else {
+      searchInput.disabled = false;
+      searchInput.value = "";
+      toggleSearch();
+    }
+  }
+  
+  document.getElementById("search-input").addEventListener("input", toggleSearch);
+  document.getElementById("search-button").addEventListener("click", searchUsers);
+  
+  
+  
+  
 </script>
 </html>

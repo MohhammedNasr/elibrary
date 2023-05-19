@@ -25,13 +25,13 @@ td div {
   margin-left: -200px;
 }
 th {
-  background-color: #6BA4D6;
+  background-color: #717e8d;
 }
 .user-list-username{
   font-size: 30px;
 }
 tr {
-  background-color: #6BA4D6;
+  background-color: #99aec7;
 }
 
 .profile-pic {
@@ -101,12 +101,12 @@ tr {
   margin-left: 185px;
 }
 #add-button:hover{
-  background-color: #817aff;
+  background-color: #427946;
   border-radius: 10px;
   color: white;
 }
 .button.add-button {
-  background-color: #635CFF;
+  background-color: #64b86b;
   width: 120px;
   height: 35px;
   font-size: large;
