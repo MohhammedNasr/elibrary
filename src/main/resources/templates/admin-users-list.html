@@ -134,6 +134,7 @@
     var token = getToken().token;
     var header = getToken().header;
 
+    if (confirm("Are you sure you want to edit this user?")) {
     $.ajax({
       url: "/admin/edit/" + userId,
       type: "POST",
@@ -145,7 +146,7 @@
         profilePic: profilePic,
         role: role,
       },
-    });
+    }); }
 
     // Update the row with the saved values
     var usernameCell = cells[2].querySelector("span");
@@ -187,7 +188,7 @@
         },
         error: function (xhr, status, error) {
           var errorMessage = xhr.responseText;
-          alert(errorMessage); //test
+          alert(errorMessage);
         },
       });
     }
