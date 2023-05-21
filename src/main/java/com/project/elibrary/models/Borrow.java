@@ -1,18 +1,15 @@
 package com.project.elibrary.models;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Objects;
+import com.project.elibrary.util.StringListConverter;
 
 @Entity
 @Table(name = "borrowedBooks")
@@ -27,7 +24,7 @@ public class Borrow {
     @Column(name = "book_name")
     private String bookName;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @Convert(converter = StringListConverter.class)
     @Column(name = "book_authors")
     private List<String> authors;
 
@@ -41,15 +38,16 @@ public class Borrow {
     private String description;
 
     @Column(name = "startDate")
-    private  LocalDate startDate;
+    private LocalDate startDate;
 
     @Column(name = "endDate")
-    private String endDate;
+    private LocalDate endDate;
 
     public Borrow() {
     }
 
-    public Borrow(Long id, Long bookId, String bookName, List<String> authors, String image, Long userID, String description, LocalDate startDate, String endDate) {
+    public Borrow(Long id, Long bookId, String bookName, List<String> authors, String image, Long userID,
+            String description, LocalDate startDate, LocalDate endDate) {
         this.id = id;
         this.bookId = bookId;
         this.bookName = bookName;
@@ -125,61 +123,11 @@ public class Borrow {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return this.endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-
-    public Borrow id(Long id) {
-        setId(id);
-        return this;
-    }
-
-    public Borrow bookId(Long bookId) {
-        setBookId(bookId);
-        return this;
-    }
-
-    public Borrow bookName(String bookName) {
-        setBookName(bookName);
-        return this;
-    }
-
-    public Borrow authors(List<String> authors) {
-        setAuthors(authors);
-        return this;
-    }
-
-    public Borrow image(String image) {
-        setImage(image);
-        return this;
-    }
-
-    public Borrow userID(Long userID) {
-        setUserID(userID);
-        return this;
-    }
-
-    public Borrow description(String description) {
-        setDescription(description);
-        return this;
-    }
-
-    public Borrow startDate(LocalDate startDate) {
-        setStartDate(startDate);
-        return this;
-    }
-
-    public Borrow endDate(String endDate) {
-        setEndDate(endDate);
-        return this;
-    }
-
-    
-    }
-
-
-
+}

@@ -23,9 +23,6 @@ public class Favorite {
     @Column(name = "image")
     private String image;
 
-    // @Column(name = "userName")
-    // private String username;
-
     @Column(name = "user_ID")
     private Long userID;
 
@@ -61,14 +58,6 @@ public class Favorite {
     public void setId(Long id) {
         this.id = id;
     }
-
-    // public String getUsername() {
-    //     return username;
-    // }
-    
-    // public void setUsername(String username) {
-    //     this.username = username;
-    // }
 
     public Long getUserID() {
         return userID;
