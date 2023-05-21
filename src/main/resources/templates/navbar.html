@@ -1,0 +1,17 @@
+<nav th:fragment="navbar">
+  <div class="navbar">
+    <a
+      th:href="@{/library/adminHomePage}"
+      th:class="${activePage == 'home' ? 'active' : ''}"
+      >Home</a
+    >
+    <a th:href="@{/admin/users}" th:class="${activePage == 'userList' ? 'active' : ''}"
+      >User List</a
+    >
+    <a
+      th:href="@{/admin/allbooks}"
+      th:class="${activePage == 'donatedBooks' ? 'active' : ''}"
+      >All donated books</a
+    >
+  </div>
+</nav>

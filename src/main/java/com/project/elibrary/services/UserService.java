@@ -20,6 +20,9 @@ public class UserService implements UserDetailsService { // 3shan a3rf l user el
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = this.userRepo.findByEmail(email).orNull();
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
         return user;
     }
 

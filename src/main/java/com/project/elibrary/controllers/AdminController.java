@@ -2,6 +2,7 @@ package com.project.elibrary.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.project.elibrary.dao.UserDao;
 import com.project.elibrary.models.Book;
 import com.project.elibrary.models.User;
@@ -92,6 +92,33 @@ public class AdminController {
         ModelAndView mav = new ModelAndView("admin-donatedBooks-list");
         mav.addObject("books", books);
         return mav;
+    }
+
+    //edit donated book
+    @PostMapping("/editBook/{bookId}")
+    public String editBook(@PathVariable("bookId") Long bookId,
+                           @RequestParam("thumbnail") String thumbnail,
+                           @RequestParam("title") String title,
+                           @RequestParam("description") String description,
+                           Model model) {
+        boolean bookUpdated = bookService.adminEditBook(bookId, thumbnail, title, description);
+        if (bookUpdated) {
+            model.addAttribute("message", "Book updated successfully.");
+        } else {
+            model.addAttribute("error", "Failed to update the book.");
+        }
+        return "redirect:/admin/allbooks";
+    }
+
+    //delete donated book
+    @DeleteMapping("/removeBook/{bookId}")
+    public ResponseEntity<String> removeBook(@PathVariable("bookId") Long bookId) {
+        boolean bookDeleted = bookService.adminDeleteBook(bookId);
+        if (bookDeleted) {
+            return ResponseEntity.ok("Book deleted successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete book.");
+        }
     }
 
     //accept donated book
