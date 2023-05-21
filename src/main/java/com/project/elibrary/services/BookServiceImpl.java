@@ -59,4 +59,10 @@ public class BookServiceImpl implements BookService {
             throw new IllegalArgumentException("Invalid book ID: " + bookID);
         }
     }
+    @Override 
+    public  Book getBookById(Long bookID)
+    {
+        return bookRepository.findById(bookID)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid book ID: " + bookID));
+    }
 }

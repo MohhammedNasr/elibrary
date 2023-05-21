@@ -10,5 +10,6 @@ public interface BookService {
     List<Book> getBooksByUserID(Long userID);
     void acceptBook(Long bookID);
     void rejectBook(Long bookID);
+    Book getBookById(Long bookID); 
 }
 
