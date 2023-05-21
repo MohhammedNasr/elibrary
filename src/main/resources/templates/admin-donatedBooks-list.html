@@ -1,46 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Books List</title>
-    <link rel="stylesheet" type="text/css" href="/css/donated-books.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin-donated-books.css">
 </head>
+
 <body>
-    <h1 class="main-dtitle">Books List</h1>
-    <table class="donated-table">
-        <thead>
-            <tr>
-                <th class="donated-category">Title</th>
-                <th class="donated-category">Description</th>
-                <th class="donated-category">Authors</th>
-                <th class="donated-category">Thumbnail</th>
-                <th class="donated-category">Availability</th>
-                <th class="donated-category">Reviewed</th>
-                <th class="donated-category">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="book : ${books}">
-                <td th:text="${book.title}"></td>
-                <td th:text="${book.description}"></td>
-                <td>
-                    <ul>
-                        <li th:each="author : ${book.authors}" th:text="${author}"></li>
-                    </ul>
-                </td>
-                <td>
-                    <img th:src="${book.thumbnailUrl}" alt="Thumbnail" height="100">
-                </td>
-                <td th:text="${book.availability == true ? 'Available for borrowing' : 'Not available'}"></td>
-                <td th:text="${book.reviewed == true ? 'Accepted' : 'Not accepted'}"></td>
-                <td>
-                    <a th:href="@{/admin/acceptBook/{bookID}(bookID=${book.id})}" class="accept-button">Accept</a>
-                </td> 
-                <td>
-                    <a th:href="@{/admin/rejectBook/{bookID}(bookID=${book.id})}" class="reject-button">Reject</a>
-                </td> 
-            </tr>
-        </tbody>
-    </table>
+    <div class="navbar">
+        <a th:href="@{/library/adminHomePage}">Home</a>
+        <a th:href="@{/admin/users}" >User List</a>
+        <a th:href="@{/admin/allbooks}" class="active">All donated books</a>
+    </div>
+    <div class="content">
+        <h1 class="main-dtitle">Books List</h1>
+        <div class="box-container">
+            <table class="donated-table">
+                <thead>
+                    <tr>
+                        <th class="donated-category">Book Preview</th>
+                        <th class="donated-category">Description</th>
+                        <th class="donated-category">Availability</th>
+                        <th class="donated-category">Reviewed</th>
+                        <th class="donated-category">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="book : ${books}">
+                        <td>
+                            <div class="book-info">
+                                <img th:src="${book.thumbnailUrl}" alt="Thumbnail" height="100" class="book-image">
+                                <div class="book-details">
+                                    <div class="book-title" th:text="${book.title}"></div>
+                                    <div th:each="author : ${book.authors}" th:text="${author}"></div>
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td th:text="${book.description}"></td>
+                        <td th:text="${book.availability == true ? 'Available for borrowing' : 'Not available'}"></td>
+                        <td th:text="${book.reviewed == true ? 'Accepted' : 'Not accepted'}"></td>
+                        <td>
+                            <div class="actions">
+                                <a th:href="@{/admin/acceptBook/{bookID}(bookID=${book.id})}"
+                                    class="accept-button">Accept</a>
+                                <a th:href="@{/admin/rejectBook/{bookID}(bookID=${book.id})}"
+                                    class="reject-button">Reject</a>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
 </body>
+</div>
+
 </html>
