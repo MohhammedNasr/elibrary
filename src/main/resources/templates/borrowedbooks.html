@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Borrowed Books</title>
+    <link rel="stylesheet" type="text/css" href="/css/borrowed-books.css" />
+  </head>
+
+  <body>
+    <div class="borrowed-books-container">
+      <h1 class="borrowed-books-title">Borrowed Books</h1>
+      <table class="borrowed-books-table">
+        <thead>
+          <tr>
+            <th>Book Name</th>
+            <th>Image</th>
+            <th>Authors</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="book : ${books}">
+            <td th:text="${book.bookName}"></td>
+            <td><img th:src="${book.image}" alt="Book Image" /></td>
+            <td>
+              <ul>
+                <li th:each="author : ${book.authors}" th:text="${author}"></li>
+              </ul>
+            </td>
+            <td th:text="${book.description}"></td>
+            <td th:text="${book.startDate}"></td>
+            <td th:text="${book.endDate}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

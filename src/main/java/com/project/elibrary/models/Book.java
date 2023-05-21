@@ -2,13 +2,13 @@ package com.project.elibrary.models;
 
 import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import com.project.elibrary.util.StringListConverter;
 
 @Entity
 @Table(name = "books")
@@ -18,13 +18,17 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "user_ID")
+    private Long userID;
+
     @Column(nullable = false)
     private String title;
 
     @Column(length = 10000)
     private String description;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @Convert(converter = StringListConverter.class)
+    @Column(name = "book_authors")
     private List<String> authors;
 
     @Column(name = "thumbnail_url")
@@ -33,7 +37,7 @@ public class Book {
     @Column(name = "availability")
     private Boolean availability;
 
-    @Column(name = "review")
+    @Column(name = "admin_review")
     private Boolean reviewed;
 
     @Column(name = "page_count")
@@ -44,9 +48,6 @@ public class Book {
 
     @Column(name = "average_rating")
     private Double averageRating;
-
-    @Column(name = "user_ID")
-    private Long userID;
 
     // Constructors, getters, and setters
 
@@ -65,6 +66,7 @@ public class Book {
     public Boolean getAvailability() {
         return availability;
     }
+
     public void setAvailability(Boolean availability) {
         this.availability = availability;
     }
@@ -108,29 +110,29 @@ public class Book {
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
-    
+
     public Integer getPageCount() {
-    return pageCount;
+        return pageCount;
     }
 
     public void setPageCount(Integer pageCount) {
-    this.pageCount = pageCount;
+        this.pageCount = pageCount;
     }
 
     public String getPublishedDate() {
-    return publishedDate;
+        return publishedDate;
     }
 
     public void setPublishedDate(String publishedDate) {
-    this.publishedDate = publishedDate;
+        this.publishedDate = publishedDate;
     }
 
     public Double getAverageRating() {
-    return averageRating;
+        return averageRating;
     }
 
     public void setAverageRating(Double averageRating) {
-    this.averageRating = averageRating;
+        this.averageRating = averageRating;
     }
 
     public Long getUserID() {

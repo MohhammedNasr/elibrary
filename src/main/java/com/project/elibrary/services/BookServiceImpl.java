@@ -34,6 +34,13 @@ public class BookServiceImpl implements BookService {
     public List<Book> getBooksByUserID(Long userID) {
         return bookRepository.findByUserID(userID);
     }
+  
+    @Override 
+    public  Book getBookById(Long bookID)
+    {
+        return bookRepository.findById(bookID)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid book ID: " + bookID));
+    }
 
     //admin
     @Override
