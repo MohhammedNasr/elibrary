@@ -7,7 +7,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.project.elibrary.dto.BookDTO;
 import com.project.elibrary.models.Book;
@@ -70,5 +72,15 @@ public class DynamicController {
         ModelAndView mav = new ModelAndView("donatedBooks");
         mav.addObject("books", books);
         return mav;
+    }
+   @PostMapping("/borrow")
+    public String confirmBorrow(@RequestParam("bookId") Long bookId, Model model) {
+        // Retrieve the book details based on the bookId
+        Book book = bookService.getBookById(bookId);
+
+        // Pass the book details to the "Confirm Borrow" page
+        model.addAttribute("book", book);
+
+        return "borrow-details";
     }
 }
