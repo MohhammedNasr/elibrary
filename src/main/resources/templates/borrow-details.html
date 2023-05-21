@@ -17,15 +17,12 @@
             Description: <p class="book-description" th:text="${book.description}"></p>
             Borrow-Date: <input type="date" id="date" name="date"
                 th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" readonly>
-            <label for="returnDate">Return Date:</label>
-            <input type="date" id="returnDate" name="endDate">
-
         </div>
 
         <form th:action="@{/borrow/add}" method="post">
            
             <input type="hidden" name="bookId" th:value="${book.id}"/>
-   
+            Return Date: <input type="date" id="returnDate" name="endDate" th:value="${endDate}" required>
             <input type="hidden" name="endDate" th:value="test" />
             <button type="submit">Borrow</button>
         </form>
