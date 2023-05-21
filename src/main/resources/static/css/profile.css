@@ -76,3 +76,24 @@
     background-color: #383849;
     color: #f3f3f3;
 }
+.borrow-button {
+    display: block;
+    float: right;
+    margin-left: 10px; /* Adjust this value to change the spacing between the buttons */
+    padding: 8px 18px;
+    background-color: #0d0c22;
+    border-radius: 5px;
+    color: #f3f3f3;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-top: 2vh;
+  }
+  
+  .borrow-button:hover{
+    background-color: #3d3d3d;
+    color: #f3f3f3;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
