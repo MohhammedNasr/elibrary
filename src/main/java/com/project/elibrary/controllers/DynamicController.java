@@ -1,7 +1,6 @@
 package com.project.elibrary.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.project.elibrary.dto.BookDTO;
 import com.project.elibrary.models.Book;
+import com.project.elibrary.models.Borrow;
 import com.project.elibrary.models.User;
 import com.project.elibrary.repositories.BookRepository;
 import com.project.elibrary.repositories.UserRepo;
 import com.project.elibrary.services.BookService;
+import com.project.elibrary.services.BorrowService;
 
 @Controller
 @RequestMapping("/library")
@@ -64,7 +65,10 @@ public class DynamicController {
 
     @Autowired
     private BookService bookService;
-    
+
+    @Autowired
+    private BorrowService borrowService;
+
     //list of donated books that shows available approved by admin books for borrowing
     @GetMapping("/donatedbooks")
     public ModelAndView getDonatedBooksList(Model model) {
@@ -82,5 +86,15 @@ public class DynamicController {
         model.addAttribute("book", book);
 
         return "borrow-details";
+    }
+
+    //view list of borrowed books
+    @GetMapping("/borrowed")
+    public ModelAndView showBooks(@AuthenticationPrincipal User user) {
+        Long userID = user.getId();
+        List<Borrow> books = borrowService.getborrowedBooksByUserID(userID);
+        ModelAndView mav = new ModelAndView("borrowedbooks");
+        mav.addObject("books", books);
+        return mav;
     }
 }
