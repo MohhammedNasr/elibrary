@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "books")
 public class Book {
@@ -48,6 +49,9 @@ public class Book {
     @Column(name = "user_ID")
     private Long userID;
 
+    @Column(name = "borrowed")
+    private  boolean IsBorrowed ;
+
     // Constructors, getters, and setters
 
     public Book() {
@@ -61,7 +65,12 @@ public class Book {
         this.thumbnailUrl = thumbnailUrl;
         this.userID = userID;
     }
-
+public void setIsBorrowed(boolean isBorrowed) {
+    IsBorrowed = isBorrowed;
+}
+public boolean isIsBorrowed() {
+    return IsBorrowed;
+}
     public Boolean getAvailability() {
         return availability;
     }
