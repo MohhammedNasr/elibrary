@@ -39,7 +39,13 @@
             </form>
             <form method="get" th:action="@{/books/donated}">
               <button type="submit" class="donated-button">Donated books</button>
+              
             </form>
+        </form>
+        <form method="get" th:action="@{/borrow/borrowed}">
+          <button type="submit" class="borrow-button">borrowed books</button>
+          
+        </form>
           </div>
           
         <p class="profile-name" th:text="${user.username}">
