@@ -21,11 +21,9 @@
 </head>
 
 <body>
-  <div class="navbar">
-    <a th:href="@{/library/adminHomePage}">Home</a>
-    <a href="#" class="active">User List</a>
-    <a th:href="@{/admin/allbooks}">All donated books</a>
-  </div>
+  <!-- Include the navigation bar -->
+<div th:include="navbar :: navbar" th:with="activePage='userList'" style="margin-bottom: 120px;"></div>
+
   <div class="content">
     <div class="table-container">
       <div class="search-container">

@@ -5,7 +5,7 @@
       th:class="${activePage == 'home' ? 'active' : ''}"
       >Home</a
     >
-    <a href="@{/admin/users}" th:class="${activePage == 'userList' ? 'active' : ''}"
+    <a th:href="@{/admin/users}" th:class="${activePage == 'userList' ? 'active' : ''}"
       >User List</a
     >
     <a
