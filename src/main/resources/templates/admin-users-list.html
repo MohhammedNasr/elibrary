@@ -1,99 +1,124 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script th:inline="javascript">
-      function getToken() {
-        var token = /*[[${_csrf.token}]]*/ "default";
-        var header = /*[[${_csrf.headerName}]]*/ "default";
-        return {
-          token: token,
-          header: header,
-        };
-      }
-    </script>
-    <meta charset="UTF-8" />
-    <title>Users List</title>
-    <style>
-      .editable {
-        border: 1px solid #ccc;
-        padding: 5px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>All Registered Users</h1>
-    <input type="text" id="search-input" placeholder="Search by username" />
-    <button id="search-button" onclick="searchUsers()">Search</button>
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Profile Picture</th>
-        <th>Role</th>
-        <th>Email</th>
-        <th>Action</th>
-      </tr>
-      <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.profilePic}"></td>
-        <td th:text="${user.role}"></td>
-        <td th:text="${user.email}"></td>
-        <td>
-          <button
-            class="edit-button"
-            onclick="makeEditable(this.parentNode.parentNode)"
-          >
-            Edit
-          </button>
-        </td>
-        <td>
-          <button
-            class="remove-button"
-            onclick="deleteUser(this.parentNode.parentNode)"
-          >
-            Remove
-          </button>
-        </td>
-      </tr>
-    </table>
-  </body>
-</html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="/css/admin-user-list.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script th:inline="javascript">
+    function getToken() {
+      var token = /*[[${_csrf.token}]]*/ "default";
+      var header = /*[[${_csrf.headerName}]]*/ "default";
+      return {
+        token: token,
+        header: header,
+      };
+    }
+  </script>
+  <meta charset="UTF-8" />
+  <title>Users List</title>
+</head>
+
+<body>
+  <div class="navbar">
+    <a th:href="@{/library/adminHomePage}">Home</a>
+    <a href="#" class="active">User List</a>
+    <a th:href="@{/admin/allbooks}">All donated books</a>
+  </div>
+  <div class="content">
+    <div class="table-container">
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search by username" />
+        <button id="search-button" onclick="toggleSearch()">
+          <i id="search-icon" class="fa fa-search" style="font-size: 24px;"></i>
+        </button>
+        <button id="add-button" class="button add-button" onclick="addUser()"><i style="font-size:20px;" class="fa">&#xf067;</i> User</button>
+      </div>
+
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Profile Picture</th>
+          <th>Username</th>
+          <th>Role</th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr th:each="user : ${users}">
+          <td th:text="${user.id}"></td>
+          <td>
+            <img class="profile-pic" th:src="${user.profilePic}" />
+          </td>
+          <td>
+            <div class="row-content" style="margin-top: -40px;">
+              <br/>
+              <span th:text="${user.username}" style="font-size: 19px;"></span>
+              <br/>
+              <span th:text="${user.email}" style="margin-top: -15px; color: rgba(0, 0, 0, 0.664);"></span>
+            </div>
+          </td>
+          <td>
+            <div class="row-content" style="margin-bottom: 26px;">
+              <br/>
+              <span th:text="${user.role}"></span>
+            </div>
+          </td>
+          <td>
+            <button class="button edit-button" onclick="makeEditable(this.parentNode.parentNode)">
+              <i style='font-size:24px; color: #FFD700;' class='fas'>&#xf044;</i>
+            </button>
+          </td>
+          <td>
+            <button class="button remove-button" onclick="deleteUser(this.parentNode.parentNode)">
+              <i style='font-size:24px; color: brown;' class='fas'>&#xf2ed;</i>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
 
 <script>
   function makeEditable(row) {
     var cells = row.cells;
-    for (var i = 1; i < cells.length - 2; i++) {
-      // Skip the first and last two columns
-      var cell = cells[i];
-      if (i === 3) {
-        // Role column
-        var currentRole = cell.innerText.trim();
-        var select = document.createElement("select");
-        select.className = "editable";
-        var optionUser = document.createElement("option");
-        optionUser.value = "User";
-        optionUser.text = "User";
-        optionUser.selected = currentRole === "User";
-        var optionAdmin = document.createElement("option");
-        optionAdmin.value = "Admin";
-        optionAdmin.text = "Admin";
-        optionAdmin.selected = currentRole === "Admin";
-        select.appendChild(optionUser);
-        select.appendChild(optionAdmin);
-        cell.innerHTML = "";
-        cell.appendChild(select);
-      } else {
-        // Other columns
-        var text = cell.innerText;
-        cell.innerHTML =
-          '<input type="text" class="editable" value="' + text + '">';
-      }
-    }
+    var usernameCell = cells[2].querySelector("span");
+    var profilePicCell = cells[1];
+    var roleCell = cells[3].querySelector("span");
+
+    // Username
+    usernameCell.contentEditable = true;
+    usernameCell.classList.add("editable");  
+    // Profile picture
+    profilePicCell.innerHTML =
+      '<input type="text" class="editable" value="' +
+      profilePicCell.querySelector("img").getAttribute("src") +
+      '">';
+
+    // Role
+    var currentRole = roleCell.innerText.trim();
+    var select = document.createElement("select");
+    select.className = "editable";
+
+    var optionUser = document.createElement("option");
+    optionUser.value = "User";
+    optionUser.text = "User";
+    optionUser.selected = currentRole === "User";
+
+    var optionAdmin = document.createElement("option");
+    optionAdmin.value = "Admin";
+    optionAdmin.text = "Admin";
+    optionAdmin.selected = currentRole === "Admin";
+
+    select.appendChild(optionUser);
+    select.appendChild(optionAdmin);
+
+    roleCell.innerHTML = "";
+    roleCell.appendChild(select);
 
     var editButton = row.querySelector(".edit-button");
-    editButton.innerHTML = "Save";
+    editButton.innerHTML = "<i style='font-size:24px; color: green;' class='fas'>&#xf0c7;</i>";
     editButton.onclick = function () {
       saveRow(row);
     };
@@ -102,13 +127,14 @@
   function saveRow(row) {
     var cells = row.cells;
     var userId = row.cells[0].innerText;
-    var username = cells[1].querySelector("input").value;
-    var profilePic = cells[2].querySelector("input").value;
+    var username = cells[2].querySelector("span").innerText;
+    var profilePic = cells[1].querySelector("input").value;
     var role = cells[3].querySelector("select").value;
 
     var token = getToken().token;
     var header = getToken().header;
 
+    if (confirm("Are you sure you want to edit this user?")) {
     $.ajax({
       url: "/admin/edit/" + userId,
       type: "POST",
@@ -120,31 +146,30 @@
         profilePic: profilePic,
         role: role,
       },
-    });
+    }); }
 
     // Update the row with the saved values
-    for (var i = 1; i < cells.length - 2; i++) {
-      // Skip the first and last two columns
-      var cell = cells[i];
-      if (i === 3) {
-        // Role column
-        var select = cell.querySelector("select");
-        var selectedOption = select.options[select.selectedIndex];
-        cell.innerHTML = selectedOption.value;
-      } else {
-        // Other columns
-        var input = cell.querySelector("input");
-        var text = input.value;
-        cell.innerHTML = text;
-      }
-    }
+    var usernameCell = cells[2].querySelector("span");
+    var profilePicCell = cells[1];
+    var roleCell = cells[3].querySelector("span");
+
+    usernameCell.contentEditable = false;
+    usernameCell.classList.remove("editable");
+    usernameCell.innerText = username;
+
+    profilePicCell.innerHTML =
+      '<img class="profile-pic" src="' + profilePic + '">';
+
+    roleCell.innerHTML = role;
 
     var editButton = row.querySelector(".edit-button");
-    editButton.innerHTML = "Edit";
+    editButton.innerHTML = "<i style='font-size:24px; color: #FFD43B;' class='fas'>&#xf044;</i>";
     editButton.onclick = function () {
       makeEditable(row);
     };
   }
+
+
 
   function deleteUser(row) {
     var token = getToken().token;
@@ -163,38 +188,56 @@
         },
         error: function (xhr, status, error) {
           var errorMessage = xhr.responseText;
-          alert(errorMessage); //test
+          alert(errorMessage);
         },
       });
     }
   }
 
-  function searchUsers() {
-  var searchInput = document.getElementById("search-input");
-  var searchValue = searchInput.value.trim().toLowerCase();
-  var table = document.querySelector("table");
-  var rows = table.getElementsByTagName("tr");
-  var searchButton = document.getElementById("search-button");
-
-  if (searchButton.innerHTML === "Search") {
-    for (var i = 1; i < rows.length; i++) {
-      var username = rows[i].getElementsByTagName("td")[1].innerText.toLowerCase();
-      if (username.includes(searchValue)) {
-        rows[i].style.display = "";
-      } else {
-        rows[i].style.display = "none";
+  function toggleSearch() {
+    var searchInput = document.getElementById("search-input");
+    var searchValue = searchInput.value.trim().toLowerCase();
+    var table = document.querySelector("table");
+    var rows = table.getElementsByTagName("tr");
+    var searchButton = document.getElementById("search-button");
+  
+    if (searchValue !== "") {
+      for (var i = 1; i < rows.length; i++) {
+        var username = rows[i].getElementsByTagName("td")[2].querySelector("span").innerText.toLowerCase();
+        if (username.includes(searchValue)) {
+          rows[i].style.display = "";
+        } else {
+          rows[i].style.display = "none";
+        }
       }
+      searchButton.innerHTML = '<i style="font-size: 24px;" class="fa fa-times"></i>';
+    } else {
+      for (var i = 1; i < rows.length; i++) {
+        rows[i].style.display = "";
+      }
+      searchButton.innerHTML = '<i style="font-size: 24px;" class="fa fa-search"></i>';
     }
-    searchButton.innerHTML = "Clear";
-    searchInput.disabled = true;
-  } else {
-    for (var i = 1; i < rows.length; i++) {
-      rows[i].style.display = "";
-    }
-    searchButton.innerHTML = "Search";
-    searchInput.value = "";
-    searchInput.disabled = false;
   }
-}
-
+  
+  function searchUsers() {
+    var searchInput = document.getElementById("search-input");
+    var searchButton = document.getElementById("search-button");
+  
+    if (searchButton.innerHTML === '<i style="font-size: 24px;" class="fa fa-search"></i>') {
+      searchInput.disabled = true;
+      toggleSearch();
+    } else {
+      searchInput.disabled = false;
+      searchInput.value = "";
+      toggleSearch();
+    }
+  }
+  
+  document.getElementById("search-input").addEventListener("input", toggleSearch);
+  document.getElementById("search-button").addEventListener("click", searchUsers);
+  
+  
+  
+  
 </script>
+</html>
