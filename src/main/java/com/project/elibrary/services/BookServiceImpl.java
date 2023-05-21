@@ -2,7 +2,6 @@ package com.project.elibrary.services;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.project.elibrary.models.Book;
@@ -36,6 +35,7 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findByUserID(userID);
     }
 
+    //admin
     @Override
     public void acceptBook(Long bookID) {
         Optional<Book> optionalBook = bookRepository.findById(bookID);
@@ -57,6 +57,33 @@ public class BookServiceImpl implements BookService {
             bookRepository.save(book);
         } else {
             throw new IllegalArgumentException("Invalid book ID: " + bookID);
+        }
+    }
+
+    @Override
+    public boolean adminEditBook(Long bookId, String thumbnail, String title, String description) {
+        Book book = bookRepository.findById(bookId).orElse(null);
+        if (book != null) {
+            book.setThumbnailUrl(thumbnail);
+            book.setTitle(title);
+            book.setDescription(description);
+            bookRepository.save(book);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean adminDeleteBook(Long bookId) {
+        try {
+            Book book = bookRepository.findById(bookId).orElse(null);
+            if (book != null) {
+                bookRepository.delete(book);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
         }
     }
 }

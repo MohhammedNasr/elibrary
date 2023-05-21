@@ -1,62 +1,242 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Books List</title>
-    <link rel="stylesheet" type="text/css" href="/css/admin-donated-books.css">
-</head>
-
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/donated-books.css">
+        <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script th:inline="javascript">
+          function getToken() {
+            var token = /*[[${_csrf.token}]]*/ "default";
+            var header = /*[[${_csrf.headerName}]]*/ "default";
+            return {
+              token: token,
+              header: header,
+            };
+          }
+        </script>
+        <meta charset="UTF-8" />
+        <title>Books List</title>
+      </head>
 <body>
-    <div class="navbar">
-        <a th:href="@{/library/adminHomePage}">Home</a>
-        <a th:href="@{/admin/users}" >User List</a>
-        <a th:href="@{/admin/allbooks}" class="active">All donated books</a>
+<!-- Include the navigation bar -->
+<div th:include="navbar :: navbar" th:with="activePage='donatedBooks'" style="margin-bottom: 100px;"></div>
+
+
+<div class="content">
+    <div class="table-container">
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search by title" />
+        <button id="search-button" onclick="toggleSearch()">
+          <i id="search-icon" class="fa fa-search" style="font-size: 24px;"></i>
+        </button>
+        <button id="add-button" class="button add-button" onclick="addBook()"><i style="font-size:20px;" class="fa">&#xf067;</i> Book</button>
+      </div>
+  
+      <table>
+        <tr>
+          <th>Book preview</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Availability</th>
+          <th>Review Status</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr th:each="book : ${books}" data-bookid="${book.id}">
+          <td>
+            <img class="profile-pic" th:src="${book.thumbnailUrl}" />
+          </td>
+          <td>
+            <div class="row-content" style="margin-top: -40px;">
+              <br/>
+              <span th:text="${book.title}" style="font-size: 19px;"></span>
+              <br/>
+              <span th:each="author : ${book.authors}" th:text="${author}" style="margin-top: -15px; color: rgba(0, 0, 0, 0.664);"></span>
+            </div>
+          </td>
+          <td>
+            <div class="row-content" style="margin-bottom: 26px;">
+              <br/>
+              <span th:text="${book.description}"></span>
+            </div>
+          </td>
+          <td th:text="${book.availability == true ? 'Available for borrowing' : 'Not available'}"></td>
+          <td th:text="${book.reviewed == true ? 'Accepted' : 'Not accepted'}"></td>
+          <td>
+            <div class="actions">
+              <a th:href="@{/admin/acceptBook/{bookID}(bookID=${book.id})}" class="accept-button">Accept</a>
+              <a th:href="@{/admin/rejectBook/{bookID}(bookID=${book.id})}" class="reject-button">Reject</a>
+            </div>
+          </td>
+          <td>
+            <button class="button edit-button" onclick="makeEditable(this.parentNode.parentNode)">
+              <i style='font-size:24px; color: #FFD700;' class='fas'>&#xf044;</i>
+            </button>
+          </td>
+          <td>
+            <button class="button remove-button" onclick="deleteBook(this.parentNode.parentNode)">
+              <i style='font-size:24px; color: brown;' class='fas'>&#xf2ed;</i>
+            </button>
+          </td>
+          <input type="hidden" class="book-id" th:value="${book.id}" />
+        </tr>
+      </table>
     </div>
-    <div class="content">
-        <h1 class="main-dtitle">Books List</h1>
-        <div class="box-container">
-            <table class="donated-table">
-                <thead>
-                    <tr>
-                        <th class="donated-category">Book Preview</th>
-                        <th class="donated-category">Description</th>
-                        <th class="donated-category">Availability</th>
-                        <th class="donated-category">Reviewed</th>
-                        <th class="donated-category">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="book : ${books}">
-                        <td>
-                            <div class="book-info">
-                                <img th:src="${book.thumbnailUrl}" alt="Thumbnail" height="100" class="book-image">
-                                <div class="book-details">
-                                    <div class="book-title" th:text="${book.title}"></div>
-                                    <div th:each="author : ${book.authors}" th:text="${author}"></div>
-                                    <div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td th:text="${book.description}"></td>
-                        <td th:text="${book.availability == true ? 'Available for borrowing' : 'Not available'}"></td>
-                        <td th:text="${book.reviewed == true ? 'Accepted' : 'Not accepted'}"></td>
-                        <td>
-                            <div class="actions">
-                                <a th:href="@{/admin/acceptBook/{bookID}(bookID=${book.id})}"
-                                    class="accept-button">Accept</a>
-                                <a th:href="@{/admin/rejectBook/{bookID}(bookID=${book.id})}"
-                                    class="reject-button">Reject</a>
-                            </div>
-                        </td>
-                    </tr>
+  </div>
+  </body>
+  
+  <script>
+    function makeEditable(row) {
+      var cells = row.cells;
+      var thumbnailCell = cells[0];
+      var titleCell = cells[1].querySelector("span");
+      var descriptionCell = cells[2].querySelector("span");
+  
+      // Thumbnail
+      thumbnailCell.innerHTML =
+        '<input type="text" class="editable" value="' +
+        thumbnailCell.querySelector("img").getAttribute("src") +
+        '">';
+  
+      // Title
+      titleCell.contentEditable = true;
+      titleCell.classList.add("editable");
+  
+      // Description
+      descriptionCell.contentEditable = true;
+      descriptionCell.classList.add("editable");
+  
+      var editButton = row.querySelector(".edit-button");
+      editButton.innerHTML = "<i style='font-size:24px; color: green;' class='fas'>&#xf0c7;</i>";
+      editButton.onclick = function () {
+        saveRow(row);
+      };
+    }
+  
+    function saveRow(row) {
+      var cells = row.cells;
+      var bookID = row.querySelector(".book-id").value;
+      var thumbnail = cells[0].querySelector("input").value;
+      var title = cells[1].querySelector("span").innerText;
+      var description = cells[2].querySelector("span").innerText;
+    
+      var token = getToken().token;
+      var header = getToken().header;
+    
+      if (confirm("Are you sure you want to edit this book?")) {
+        $.ajax({
+          url: "/admin/editBook/" + bookID,
+          type: "POST",
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          data: {
+            thumbnail: thumbnail,
+            title: title,
+            description: description,
+          },
+          success: function (response) {
+            location.reload();
+          },
+          error: function (xhr, status, error) {
+            var errorMessage = xhr.responseText;
+          },
+        });
+      }
+  
+      // Update the row with the saved values
+      var thumbnailCell = cells[0];
+      var titleCell = cells[1].querySelector("span");
+      var descriptionCell = cells[2].querySelector("span");
+  
+      thumbnailCell.innerHTML =
+        '<img class="profile-pic" src="' + thumbnail + '">';
+  
+      titleCell.contentEditable = false;
+      titleCell.classList.remove("editable");
+      titleCell.innerText = title;
+  
+      descriptionCell.contentEditable = false;
+      descriptionCell.classList.remove("editable");
+      descriptionCell.innerText = description;
+  
+      var editButton = row.querySelector(".edit-button");
+      editButton.innerHTML = "<i style='font-size:24px; color: #FFD43B;' class='fas'>&#xf044;</i>";
+      editButton.onclick = function () {
+        makeEditable(row);
+      };
+    }
 
 
-                </tbody>
-            </table>
-        </div>
-</body>
-</div>
 
+
+    function deleteBook(row) {
+        var token = getToken().token;
+        var header = getToken().header;
+        var bookID = row.querySelector(".book-id").value;
+        if (confirm("Are you sure you want to delete this book?")) {
+          $.ajax({
+            url: "/admin/removeBook/" + bookID,
+            type: "DELETE",
+            beforeSend: function(xhr) {
+              xhr.setRequestHeader(header, token);
+            },
+            success: function(response) {
+              alert(response);
+              location.reload();
+            },
+            error: function(xhr, status, error) {
+              var errorMessage = xhr.responseText;
+              alert(errorMessage);
+            },
+          });
+        }
+      }
+
+      function toggleSearch() {
+        var searchInput = document.getElementById("search-input");
+        var searchValue = searchInput.value.trim().toLowerCase();
+        var table = document.querySelector("table");
+        var rows = table.getElementsByTagName("tr");
+        var searchButton = document.getElementById("search-button");
+    
+        if (searchValue !== "") {
+            for (var i = 1; i < rows.length; i++) {
+                var title = rows[i].getElementsByTagName("td")[1].querySelector("span").innerText.toLowerCase();
+                if (title.includes(searchValue)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+            searchButton.innerHTML = '<i style="font-size: 24px;" class="fa fa-times"></i>';
+        } else {
+            for (var i = 1; i < rows.length; i++) {
+                rows[i].style.display = "";
+            }
+            searchButton.innerHTML = '<i style="font-size: 24px;" class="fa fa-search"></i>';
+        }
+    }
+    
+    function searchBooks() {
+        var searchInput = document.getElementById("search-input");
+        var searchButton = document.getElementById("search-button");
+    
+        if (searchButton.innerHTML === '<i style="font-size: 24px;" class="fa fa-search"></i>') {
+            searchInput.disabled = true;
+            toggleSearch();
+        } else {
+            searchInput.disabled = false;
+            searchInput.value = "";
+            toggleSearch();
+        }
+    }
+    
+    document.getElementById("search-input").addEventListener("input", toggleSearch);
+    document.getElementById("search-button").addEventListener("click", searchBooks);
+    
+</script>
 </html>
