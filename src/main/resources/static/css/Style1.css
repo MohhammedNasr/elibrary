@@ -228,182 +228,120 @@ body {
   font-size: 14px;
   color: #888;
 }
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
-body {
-    margin: 0;
-    background: #eaeef6;
+.navbar {
+  overflow: hidden;
+  position: sticky;
+  padding: 20px;
+  position: -webkit-sticky;
+  top: 0;
+  background-color: #f9f9f9;
+  z-index: 1;
 }
 
-.MenuBox {
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
+.navbar a {
+  float: left;
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
 }
 
-.TopBox {
-    width: 71px;
-    height: 5px;
-    margin: 0 auto;
-    background: #406ff3;
-    border-radius: 0 0 12px 12px;
+.navbar a:hover {
+  background-color: #ddd;
+  color: rgb(255, 255, 255);
 }
 
-.HoverBox {
-    width: 55px;
-    height: 55px;
-    margin: 0 auto;
-    background: #406ff3;
-    border-radius: 10px;
-    position: absolute;
-    z-index: 0;
-    left: 15px;
-    top: 20px;
-    transition: 250ms;
+.navbar a.active {
+  border-bottom: 3px solid #0066ff;
 }
 
-.PageContact {
-    margin-left: 200px;
-    margin-right: 103px;
-    margin-top: 47px;
+.blue-section {
+  background-color: #4A80F0;
+  padding: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.MenuBox>ul>li>span {
-    position: absolute;
-    left: 80%;
-    opacity: 0;
-    top: 12px;
-    margin-left: 2rem;
-    color: #406ff3;
-    background: #fff;
-    transition: 250ms ease all;
-    border-radius: 17.5px;
-    line-height: 0;
-    padding: 16px 15px;
-    z-index: -1;
+.blue-book-container {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  max-height: 300px;
+  margin-right: -50px;
+  z-index: 0;
 }
 
-.MenuBox>ul>li {
-    display: block;
-    width: 55px;
-    height: 55px;
-    border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-    margin-bottom: 12px;
-    line-height: 68px;
+.blue-book-image {
+  width: 100%;
+  max-height: 300px;
+  border-radius: 10px;
 }
 
-.MenuBox:not(:hover),
-.MenuBox>ul>li:hover svg {
-    color: white;
+.borrow-now {
+  margin-left: 50px;
+  text-align: center;
+  color: white;
 }
 
-.MenuBox>ul>li:hover span {
-    display: block;
-    left: 100%;
-    opacity: 1;
-}
-
-.Active>svg {
-    color: white;
-}
-
-.feather {
-    color: #6e6c6c;
-    width: 25px;
-    transition: 1s;
-}
-
-.MenuBox {
-    background: white;
-    position: absolute;
-    margin: 34px 12px;
-    height: 90%;
-    border-radius: 9px;
-    box-shadow: 0 0 40px 0 rgb(94 92 154 / 6%);
-}
-
-
-.MenuBox>ul {
-    padding: 0 15px;
-    margin-top: 15px;
-}
-
-.PageContact>div {
-    transition: .5s;
-}
-
-@keyframes Effect_0 {
-    0% {
-        transform: scale(1, 1);
-    }
-    50% {
-        transform: scale(0.5, 1.5);
-    }
-    100% {
-        transform: scale(1, 1);
-    }
-}
-
-@keyframes Effect_1 {
-    0% {
-        transform: scale(1, 1);
-    }
-    50% {
-        transform: scale(0.5, 1.5);
-    }
-    100% {
-        transform: scale(1, 1);
-    }
-}
-
-@keyframes Effect_2 {
-    0% {
-        transform: scale(1, 1);
-    }
-    50% {
-        transform: scale(0.5, 1.5);
-    }
-    100% {
-        transform: scale(1, 1);
-    }
-}
-
-@keyframes Effect_3 {
-    0% {
-        transform: scale(1, 1);
-    }
-    50% {
-        transform: scale(0.5, 1.5);
-    }
-    100% {
-        transform: scale(1, 1);
-    }
-}
-
-@keyframes Effect_4 {
-    0% {
-        transform: scale(1, 1);
-    }
-    50% {
-        transform: scale(0.5, 1.5);
-    }
-    100% {
-        transform: scale(1, 1);
-    }
-}
-
-@keyframes Effect_5 {
-    0% {
-        transform: scale(1, 1);
-    }
-    50% {
-        transform: scale(0.5, 1.5);
-    }
-    100% {
-        transform: scale(1, 1);
-    }
-}
-.page-content{
+.borrow-now h1 {
+  font-size: 150px;
+  margin-top: 0;
   margin-left: 100px;
+  margin-bottom: -30px;
+}
+
+.borrow-now p {
+  font-size: 30px;
+}
+
+.borrow-now small {
+  font-size: 20px;
+}
+.bs-section {
+  background: linear-gradient(to bottom, #4A80F0, #fff);
+  padding: 40px;
+  color: #000000;
+}
+
+.bs-title {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.bs-book {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.bs-cover {
+  width: 400px;
+  height: 550px;
+  margin-right: 40px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px #4A80F0;
+}
+
+.bs-details {
+  flex: 1;
+  font-weight: bold;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.bs-book-title {
+  font-size: 48px;
+  margin-top: -150px;
+  margin-bottom: -10px;
+}
+
+.bs-author {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.bs-description {
+  font-size: 16px;
+  margin-bottom: 10px;
 }

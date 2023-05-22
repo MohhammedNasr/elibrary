@@ -19,30 +19,19 @@
 </head>
 
 <body>
-	<div class="Contact">
-        <div class="MenuBox">
-            <div class="TopBox"></div>
-            <div class="HoverBox"></div>
-            <ul>
-                <li class="Active">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline><a th:href="@{/library/donate}"></a></svg>
-                    <span>Home</span>
-                </li>
-                <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                    <span>Chat</span>
-                </li>
-                <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    <span>Customers</span>
-                </li>
-            </ul>
-        </div>
+	<div class="navbar">
+		<a href="#" class="active">Home</a>
+		<a href="#">Books</a>
+		<a href="#">Authors</a>
+		<a href="#">Categories</a>
+		<a href="#">About</a>
+		<a href="#">Contact</a>
+		<form action="#" th:action="@{/books/search}" method="get" class="input-form">
+			<input class="input-box-search" type="text" id="query" name="query" required th:placeholder="'Book Name'" />
+			<button type="submit" class="search-button"><i style="font-size:24px;" class="fa">&#xf002;</i></button>
+		</form>
+	</div>
 <div class="page-content">
-	<form action="#" th:action="@{/books/search}" method="get" class="input-form">
-		<input class="input-box-search" type="text" id="query" name="query" required th:placeholder="'Book Name'" />
-		<button type="submit" class="search-button"><i style="font-size:24px;" class="fa">&#xf002;</i></button>
-	</form>
 		<section class="for-you-section">
 			<h2 class="for-you-title">For you</h2>
 			<div class="book-container">
@@ -131,7 +120,76 @@
 				<!-- Add more book items here -->
 			</div>
 		</section>
-
+		<div class="blue-section">
+			<div class="blue-book-container">
+			  <img class="blue-book-image" src="https://universe.byu.edu/wp-content/uploads/2015/01/HP4cover.jpg" alt="Book 3">
+			</div>
+			<div class="blue-book-container">
+			  <img class="blue-book-image" src="https://m.media-amazon.com/images/I/81THMAxo+pL._AC_UF1000,1000_QL80_.jpg" alt="Book 2">
+			</div>
+			<div class="blue-book-container">
+			  <img class="blue-book-image" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg" alt="Book 1">
+			</div>
+			<div class="blue-book-container">
+				<img class="blue-book-image" src="https://m.media-amazon.com/images/I/81THMAxo+pL._AC_UF1000,1000_QL80_.jpg" alt="Book 2">
+			  </div>
+			  <div class="blue-book-container">
+				<img class="blue-book-image" src="https://universe.byu.edu/wp-content/uploads/2015/01/HP4cover.jpg" alt="Book 3">
+			  </div>
+			<div class="borrow-now">
+			  <h1>Borrow Now</h1>
+			  <p>You can borrow your books for free!</p>
+			  <small>You pick the return date</small>
+			</div>
+		  </div>
+		  <div class="bs-section">
+			<h2 class="bs-title">Best Seller</h2>
+			<div class="bs-book">
+			  <img class="bs-cover" src="https://universe.byu.edu/wp-content/uploads/2015/01/HP4cover.jpg" alt="Book Cover">
+			  <div class="bs-details">
+				<h3 class="bs-book-title">Book Title</h3>
+				<p class="bs-author">Author's Name</p>
+				<p class="bs-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+				</p>
+			  </div>
+			</div>
+		  </div>		  
+		<section class="book-section">
+			<h2 class="book-section-title">Best selling</h2>
+			<div class="book-row">
+				<a href="#" class="book-item">
+					<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+						alt="Book 1">
+					<h3 class="book-name">Book 1</h3>
+					<p class="book-author">Author 1</p>
+				</a>
+				<a href="#" class="book-item">
+					<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+						alt="Book 2">
+					<h3 class="book-name">Book 2</h3>
+					<p class="book-author">Author 2</p>
+				</a>
+				<a href="#" class="book-item">
+					<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+						alt="Book 2">
+					<h3 class="book-name">Book 2</h3>
+					<p class="book-author">Author 2</p>
+				</a>
+				<a href="#" class="book-item">
+					<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+						alt="Book 2">
+					<h3 class="book-name">Book 2</h3>
+					<p class="book-author">Author 2</p>
+				</a>
+				<a href="#" class="book-item">
+					<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+						alt="Book 2">
+					<h3 class="book-name">Book 2</h3>
+					<p class="book-author">Author 2</p>
+				</a>
+				<!-- Add more book items here -->
+			</div>
+		</section>
 		<div class="footer">
 			<h2>Footer</h2>
 		</div>
