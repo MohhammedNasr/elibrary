@@ -2,23 +2,41 @@ package com.project.elibrary.models;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.project.elibrary.util.StringListConverter;
 
 @Entity
 @Table(name = "borrowedBooks")
 public class Borrow {
+
+    @OneToOne
+    @JoinColumn(name = "book_id", insertable = false, updatable = false)
+    private Book book;
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "bookId")
+    @Column(name = "book_id")
     private Long bookId;
 
     @Column(name = "book_name")
@@ -31,16 +49,16 @@ public class Borrow {
     @Column(name = "book_image")
     private String image;
 
-    @Column(name = "user_ID")
+    @Column(name = "user_id")
     private Long userID;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "startDate")
+    @Column(name = "start_date")
     private LocalDate startDate;
 
-    @Column(name = "endDate")
+    @Column(name = "end_date")
     private LocalDate endDate;
 
     public Borrow() {

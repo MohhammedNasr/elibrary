@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.project.elibrary.dao.UserDao;
 import com.project.elibrary.models.Book;
+import com.project.elibrary.models.Borrow;
 import com.project.elibrary.models.User;
 import com.project.elibrary.services.BookService;
+import com.project.elibrary.services.BorrowService;
 
 @Controller
 @RequestMapping("/admin")
@@ -79,18 +81,21 @@ public class AdminController {
         return ResponseEntity.ok("User details updated successfully.");
     }
 
-
-
     //boooooks
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private BorrowService borrowService;
     
     //view list of uploaded books/donated books
     @GetMapping("/allbooks")
     public ModelAndView showBooks() {
         List<Book> books = bookService.getAllBooks();
+        List<Borrow> borrowedBooks = borrowService.getAllBorrowedBooks();
         ModelAndView mav = new ModelAndView("admin-donatedBooks-list");
         mav.addObject("books", books);
+        mav.addObject("borrowedBooks", borrowedBooks);
         return mav;
     }
 
