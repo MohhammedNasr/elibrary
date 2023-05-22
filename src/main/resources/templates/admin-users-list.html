@@ -22,7 +22,7 @@
 
 <body>
   <!-- Include the navigation bar -->
-<div th:include="navbar :: navbar" th:with="activePage='userList'" style="margin-bottom: 120px;"></div>
+  <div th:include="navbar :: navbar" th:with="activePage='userList'" style="margin-bottom: 120px;"></div>
 
   <div class="content">
     <div class="table-container">
@@ -31,7 +31,10 @@
         <button id="search-button" onclick="toggleSearch()">
           <i id="search-icon" class="fa fa-search" style="font-size: 24px;"></i>
         </button>
-        <button id="add-button" class="button add-button" onclick="addUser()"><i style="font-size:20px;" class="fa">&#xf067;</i> User</button>
+        <form method="get" th:action="@{/admin/add-user}">
+          <button id="add-button" class="button add-button"><i style="font-size:20px;" class="fa">&#xf067;</i>
+            User</button>
+        </form>
       </div>
 
       <table>
@@ -50,15 +53,15 @@
           </td>
           <td>
             <div class="row-content" style="margin-top: -40px;">
-              <br/>
+              <br />
               <span th:text="${user.username}" style="font-size: 19px;"></span>
-              <br/>
+              <br />
               <span th:text="${user.email}" style="margin-top: -15px; color: rgba(0, 0, 0, 0.664);"></span>
             </div>
           </td>
           <td>
             <div class="row-content" style="margin-bottom: 26px;">
-              <br/>
+              <br />
               <span th:text="${user.role}"></span>
             </div>
           </td>
@@ -87,7 +90,7 @@
 
     // Username
     usernameCell.contentEditable = true;
-    usernameCell.classList.add("editable");  
+    usernameCell.classList.add("editable");
     // Profile picture
     profilePicCell.innerHTML =
       '<input type="text" class="editable" value="' +
@@ -133,18 +136,19 @@
     var header = getToken().header;
 
     if (confirm("Are you sure you want to edit this user?")) {
-    $.ajax({
-      url: "/admin/edit/" + userId,
-      type: "POST",
-      beforeSend: function (xhr) {
-        xhr.setRequestHeader(header, token);
-      },
-      data: {
-        username: username,
-        profilePic: profilePic,
-        role: role,
-      },
-    }); }
+      $.ajax({
+        url: "/admin/edit/" + userId,
+        type: "POST",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader(header, token);
+        },
+        data: {
+          username: username,
+          profilePic: profilePic,
+          role: role,
+        },
+      });
+    }
 
     // Update the row with the saved values
     var usernameCell = cells[2].querySelector("span");
@@ -198,7 +202,7 @@
     var table = document.querySelector("table");
     var rows = table.getElementsByTagName("tr");
     var searchButton = document.getElementById("search-button");
-  
+
     if (searchValue !== "") {
       for (var i = 1; i < rows.length; i++) {
         var username = rows[i].getElementsByTagName("td")[2].querySelector("span").innerText.toLowerCase();
@@ -216,11 +220,11 @@
       searchButton.innerHTML = '<i style="font-size: 24px;" class="fa fa-search"></i>';
     }
   }
-  
+
   function searchUsers() {
     var searchInput = document.getElementById("search-input");
     var searchButton = document.getElementById("search-button");
-  
+
     if (searchButton.innerHTML === '<i style="font-size: 24px;" class="fa fa-search"></i>') {
       searchInput.disabled = true;
       toggleSearch();
@@ -230,12 +234,13 @@
       toggleSearch();
     }
   }
-  
+
   document.getElementById("search-input").addEventListener("input", toggleSearch);
   document.getElementById("search-button").addEventListener("click", searchUsers);
-  
-  
-  
-  
+
+
+
+
 </script>
+
 </html>

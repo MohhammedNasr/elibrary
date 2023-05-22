@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.project.elibrary.dao.UserDao;
 import com.project.elibrary.models.Book;
 import com.project.elibrary.models.User;
+import com.project.elibrary.repositories.UserRepo;
 import com.project.elibrary.services.BookService;
 
 @Controller
@@ -25,6 +28,12 @@ public class AdminController {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     // for viewing all registered users
     @GetMapping("/users")
     public String getUsers(Model model) {
@@ -32,6 +41,13 @@ public class AdminController {
         model.addAttribute("users", userList);
         model.addAttribute("isList", true);
         return "admin-users-list.html";
+    }
+
+    @PostMapping("save-user")
+    public String saveUserAdmin(@ModelAttribute User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        this.userRepo.save(user);
+        return "redirect:/admin/users";
     }
 
     // for finding a specific user
@@ -138,6 +154,26 @@ public class AdminController {
         ModelAndView mav = new ModelAndView("admin-add-book.html");
         Book book = new Book();
         mav.addObject("book", book);
+        return mav;
+    }
+
+    @PostMapping("/added")
+    public String createBook(Book book, @AuthenticationPrincipal User user) {
+        book.setAvailability(true); // When any book gets added, it is set to be available
+        book.setReviewed(false); // When any book gets added, it is set to be not reviewed and waiting for admin
+                                 // review
+        Long userID = user.getId();
+        bookService.createBook(book.getTitle(), book.getDescription(), book.getAuthors(), book.getThumbnailUrl(),
+                book.getAvailability(), book.getReviewed(), userID);
+        // Redirect to the profile.html page
+        return "redirect:/admin/allbooks";
+    }
+
+    @GetMapping("/add-user")
+    public ModelAndView getAdduser() {
+        ModelAndView mav = new ModelAndView("admin-add-user.html");
+        User user = new User();
+        mav.addObject("user", user);
         return mav;
     }
 

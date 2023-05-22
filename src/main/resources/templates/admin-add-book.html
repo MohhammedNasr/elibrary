@@ -9,7 +9,7 @@
 
 <body>
     <h1 class="header-title">Add a Donated book</h1>
-    <form th:action="@{/books/add}" th:object="${book}" method="post" class="form-container">
+    <form th:action="@{/admin/added}" th:object="${book}" method="post" class="form-container">
         <label for="title" class="title-label">Title:</label>
         <input type="text" id="title" name="title" th:field="*{title}" required class="input-title"><br>
 
