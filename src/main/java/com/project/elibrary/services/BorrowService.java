@@ -17,6 +17,11 @@ public class BorrowService {
     @Autowired
     private BorrowRepository borrowRepository;
 
+    
+    public List<Borrow> getAllBorrowedBooks() {
+        return borrowRepository.findAll();
+    }
+
     public void saveBorrow(Long bookId, Long userID, LocalDate startDate, LocalDate endDate) {
         Optional<Book> optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isPresent()) {

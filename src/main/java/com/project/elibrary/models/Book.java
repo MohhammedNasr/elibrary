@@ -1,12 +1,14 @@
 package com.project.elibrary.models;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.project.elibrary.util.StringListConverter;
 
@@ -49,6 +51,9 @@ public class Book {
     @Column(name = "average_rating")
     private Double averageRating;
 
+    @OneToOne(mappedBy = "book", cascade = CascadeType.REMOVE)
+    private Borrow borrowedBooks;
+    
     // Constructors, getters, and setters
 
     public Book() {
@@ -149,5 +154,13 @@ public class Book {
 
     public void setReviewed(Boolean reviewed) {
         this.reviewed = reviewed;
+    }
+
+    public Borrow getBorrowedBooks() {
+        return borrowedBooks;
+    }
+    
+    public void setBorrowedBooks(Borrow borrowedBooks) {
+        this.borrowedBooks = borrowedBooks;
     }
 }

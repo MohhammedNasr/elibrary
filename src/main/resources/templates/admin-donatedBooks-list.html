@@ -40,57 +40,66 @@
       </div>
 
       <table>
-        <tr>
-          <th>Book preview</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Availability</th>
-          <th>Review Status</th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-        <tr th:each="book : ${books}" data-bookid="${book.id}">
-          <td>
-            <img class="profile-pic" th:src="${book.thumbnailUrl}" />
-          </td>
-          <td>
-            <div class="row-content" style="margin-top: -40px;">
-              <br />
-              <span th:text="${book.title}" style="font-size: 19px;"></span>
-              <br />
-              <span th:each="author : ${book.authors}" th:text="${author}"
-                style="margin-top: -15px; color: rgba(0, 0, 0, 0.664);"></span>
-            </div>
-          </td>
-          <td>
-            <div class="row-content" style="margin-bottom: 26px;">
-              <br />
-              <span th:text="${book.description}"></span>
-            </div>
-          </td>
-          <td th:text="${book.availability == true ? 'Available for borrowing' : 'Not available'}"></td>
-          <td th:text="${book.reviewed == true ? 'Accepted' : 'Not accepted'}"></td>
-          <td>
-            <div class="actions">
-              <a th:href="@{/admin/acceptBook/{bookID}(bookID=${book.id})}" class="accept-button">Accept</a>
-              <a th:href="@{/admin/rejectBook/{bookID}(bookID=${book.id})}" class="reject-button">Reject</a>
-            </div>
-          </td>
-          <td>
-            <button class="button edit-button" onclick="makeEditable(this.parentNode.parentNode)">
-              <i style='font-size:24px; color: #FFD700;' class='fas'>&#xf044;</i>
-            </button>
-          </td>
-          <td>
-            <button class="button remove-button" onclick="deleteBook(this.parentNode.parentNode)">
-              <i style='font-size:24px; color: brown;' class='fas'>&#xf2ed;</i>
-            </button>
-          </td>
-          <input type="hidden" class="book-id" th:value="${book.id}" />
-        </tr>
-      </table>
-    </div>
+  <tr>
+    <th>Book preview</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Availability</th>
+    <th>Review Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr th:each="book : ${books}" data-bookid="${book.id}">
+    <td>
+      <img class="profile-pic" th:src="${book.thumbnailUrl}" />
+    </td>
+    <td>
+      <div class="row-content" style="margin-top: -40px;">
+        <br/>
+        <span th:text="${book.title}" style="font-size: 19px;"></span>
+        <br/>
+        <span th:each="author : ${book.authors}" th:text="${author}" style="margin-top: -15px; color: rgba(0, 0, 0, 0.664);"></span>
+      </div>
+    </td>
+    <td>
+      <div class="row-content" style="margin-bottom: 26px;">
+        <br/>
+        <span th:text="${book.description}"></span>
+      </div>
+    </td>
+    <td>
+      <span th:if="${book.availability}">Available for borrowing</span>
+      <span th:unless="${book.availability}">
+        <span>Borrowed by</span> <span th:text="${book.borrowedBooks.userID}"></span>
+        <br/>
+        <span>Start Date: </span><span th:text="${book.borrowedBooks.startDate}"></span>
+        <br/>
+        <span>End Date: </span><span th:text="${book.borrowedBooks.endDate}"></span>
+      </span>
+    </td>
+    <td th:text="${book.reviewed == true ? 'Accepted' : 'Not accepted'}"></td>
+
+    <td>
+      <div class="actions">
+        <a th:href="@{/admin/acceptBook/{bookID}(bookID=${book.id})}" class="accept-button">Accept</a>
+        <a th:href="@{/admin/rejectBook/{bookID}(bookID=${book.id})}" class="reject-button">Reject</a>
+      </div>
+    </td>
+    <td>
+      <button class="button edit-button" onclick="makeEditable(this.parentNode.parentNode)">
+        <i style='font-size:24px; color: #FFD700;' class='fas'>&#xf044;</i>
+      </button>
+    </td>
+    <td>
+      <button class="button remove-button" onclick="deleteBook(this.parentNode.parentNode)">
+        <i style='font-size:24px; color: brown;' class='fas'>&#xf2ed;</i>
+      </button>
+    </td>
+    <input type="hidden" class="book-id" th:value="${book.id}" />
+  </tr>
+</table>
+  </div>
   </div>
 </body>
 
