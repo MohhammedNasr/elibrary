@@ -79,13 +79,11 @@ public class AdminController {
         return ResponseEntity.ok("User details updated successfully.");
     }
 
-
-
-    //boooooks
+    // boooooks
     @Autowired
     private BookService bookService;
-    
-    //view list of uploaded books/donated books
+
+    // view list of uploaded books/donated books
     @GetMapping("/allbooks")
     public ModelAndView showBooks() {
         List<Book> books = bookService.getAllBooks();
@@ -94,13 +92,13 @@ public class AdminController {
         return mav;
     }
 
-    //edit donated book
+    // edit donated book
     @PostMapping("/editBook/{bookId}")
     public String editBook(@PathVariable("bookId") Long bookId,
-                           @RequestParam("thumbnail") String thumbnail,
-                           @RequestParam("title") String title,
-                           @RequestParam("description") String description,
-                           Model model) {
+            @RequestParam("thumbnail") String thumbnail,
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            Model model) {
         boolean bookUpdated = bookService.adminEditBook(bookId, thumbnail, title, description);
         if (bookUpdated) {
             model.addAttribute("message", "Book updated successfully.");
@@ -110,7 +108,7 @@ public class AdminController {
         return "redirect:/admin/allbooks";
     }
 
-    //delete donated book
+    // delete donated book
     @DeleteMapping("/removeBook/{bookId}")
     public ResponseEntity<String> removeBook(@PathVariable("bookId") Long bookId) {
         boolean bookDeleted = bookService.adminDeleteBook(bookId);
@@ -121,18 +119,26 @@ public class AdminController {
         }
     }
 
-    //accept donated book
+    // accept donated book
     @GetMapping("/acceptBook/{bookID}")
     public String acceptBook(@PathVariable("bookID") Long bookID) {
         bookService.acceptBook(bookID);
         return "redirect:/admin/allbooks";
     }
 
-    //reject donated book
+    // reject donated book
     @GetMapping("/rejectBook/{bookID}")
     public String rejectBook(@PathVariable("bookID") Long bookID) {
         bookService.rejectBook(bookID);
         return "redirect:/admin/allbooks";
+    }
+
+    @GetMapping("/add-book")
+    public ModelAndView getAddbook() {
+        ModelAndView mav = new ModelAndView("admin-add-book.html");
+        Book book = new Book();
+        mav.addObject("book", book);
+        return mav;
     }
 
 }
