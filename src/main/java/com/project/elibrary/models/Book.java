@@ -51,13 +51,12 @@ public class Book {
     @Column(name = "average_rating")
     private Double averageRating;
 
-    @OneToOne(mappedBy = "book", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "book",cascade = CascadeType.ALL)
     private Borrow borrowedBooks;
     
     // Constructors, getters, and setters
-
     public Book() {
-        // Empty constructor needed by JPA
+
     }
 
     public Book(String title, String description, List<String> authors, String thumbnailUrl, Long userID) {
