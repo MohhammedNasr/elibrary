@@ -1,7 +1,6 @@
 package com.project.elibrary.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.project.elibrary.models.Favorite;
 import com.project.elibrary.models.User;
 import com.project.elibrary.services.FavoriteService;
@@ -41,15 +39,14 @@ public class FavoriteController {
             @RequestParam(value = "authors", required = false) String authors,
             @RequestParam(value = "image", required = false) String image,
             @AuthenticationPrincipal User user) {
-        Long userID = user.getId();
-        favoriteService.saveFavorite(bookName, authors, image, userID);
+        favoriteService.saveFavorite(bookName, authors, image, user);
         return ResponseEntity.ok().build();
     }
 
     // removing book from favorite list
     @PostMapping("/remove/{userID}/{bookName}")
-    public ResponseEntity<String> removeFavorite(@PathVariable Long userID, @PathVariable String bookName) {
-        boolean removed = favoriteService.removeFavorite(userID, bookName);
+    public ResponseEntity<String> removeFavorite(@AuthenticationPrincipal User user, @PathVariable String bookName) {
+        boolean removed = favoriteService.removeFavorite(user, bookName);
         if (removed) {
             return ResponseEntity.ok("Removed successfully");
         } else {
