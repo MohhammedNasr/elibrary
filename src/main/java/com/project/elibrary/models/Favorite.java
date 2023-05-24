@@ -5,11 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "favorites")
 public class Favorite {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,8 +28,10 @@ public class Favorite {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "user_ID")
-    private Long userID;
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_ID")
+    private User user;
 
     // getters and setters
     public String getAuthors() {
@@ -59,11 +66,11 @@ public class Favorite {
         this.id = id;
     }
 
-    public Long getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

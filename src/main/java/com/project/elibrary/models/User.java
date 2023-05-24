@@ -2,18 +2,21 @@ package com.project.elibrary.models;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.ArrayList;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -22,6 +25,9 @@ public class User implements UserDetails {
     private String password;
     private String profilePic;
     private String role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Favorite> favorites;
 
     public User() {
         this.role = "User";
@@ -107,6 +113,18 @@ public class User implements UserDetails {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Favorite> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<Favorite> favorites) {
+        this.favorites = favorites;
+    }
+
+    public void addToFavorites(Favorite favorite){
+        this.favorites.add(favorite);
     }
 
 }
