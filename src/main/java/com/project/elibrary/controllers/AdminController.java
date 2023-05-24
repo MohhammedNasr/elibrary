@@ -167,12 +167,9 @@ public class AdminController {
     @PostMapping("/added")
     public String createBook(Book book, @AuthenticationPrincipal User user) {
         book.setAvailability(true); // When any book gets added, it is set to be available
-        book.setReviewed(false); // When any book gets added, it is set to be not reviewed and waiting for admin
-                                 // review
-        Long userID = user.getId();
+        book.setReviewed(false); // When any book gets added, it is set to be not reviewed and waiting for admin review
         bookService.createBook(book.getTitle(), book.getDescription(), book.getAuthors(), book.getThumbnailUrl(),
-                book.getAvailability(), book.getReviewed(), userID);
-        // Redirect to the profile.html page
+                book.getAvailability(), book.getReviewed(), user);
         return "redirect:/admin/allbooks";
     }
 
