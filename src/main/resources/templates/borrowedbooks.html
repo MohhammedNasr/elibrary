@@ -24,14 +24,14 @@
       </thead>
       <tbody>
         <tr th:each="book : ${books}">
-          <td th:text="${book.bookName}"></td>
-          <td><img th:src="${book.image}" alt="Book Image" /></td>
+          <td th:text="${book.book.title}"></td>
+          <td><img th:src="${book.book.thumbnailUrl}" alt="Book Image" /></td>
           <td>
             <ul>
-              <li th:each="author : ${book.authors}" th:text="${author}"></li>
+              <li th:each="author : ${book.book.authors}" th:text="${author}"></li>
             </ul>
           </td>
-          <td th:text="${book.description}"></td>
+          <td th:text="${book.book.description}"></td>
           <td th:text="${book.startDate}"></td>
           <td th:text="${book.endDate}"></td>
         </tr>

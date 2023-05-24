@@ -26,20 +26,9 @@ public class BorrowService {
         Optional<Book> optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isPresent()) {
             Book book = optionalBook.get();
-            
-            // Get the book details
-            String bookName = book.getTitle();
-            String description = book.getDescription();
-            String image = book.getThumbnailUrl();
-            List<String> authors = book.getAuthors();
-    
             if (book.getAvailability()) {
                 Borrow borrowed = new Borrow();
-                borrowed.setBookId(bookId);
-                borrowed.setBookName(bookName);
-                borrowed.setAuthors(authors);
-                borrowed.setDescription(description);
-                borrowed.setImage(image);
+                borrowed.setBook(book);
                 borrowed.setUserID(userID);
                 borrowed.setStartDate(startDate);
                 borrowed.setEndDate(endDate);
@@ -53,7 +42,7 @@ public class BorrowService {
         }
     }
     
-    public List<Borrow> getborrowedBooksByUserID(Long userID) {
+    public List<Borrow> getBorrowedBooksByUserID(Long userID) {
         return borrowRepository.findByUserID(userID);
     }
 

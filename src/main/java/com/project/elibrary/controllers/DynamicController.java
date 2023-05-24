@@ -92,7 +92,7 @@ public class DynamicController {
     @GetMapping("/borrowed")
     public ModelAndView showBooks(@AuthenticationPrincipal User user) {
         Long userID = user.getId();
-        List<Borrow> books = borrowService.getborrowedBooksByUserID(userID);
+        List<Borrow> books = borrowService.getBorrowedBooksByUserID(userID);
         ModelAndView mav = new ModelAndView("borrowedbooks");
         mav.addObject("books", books);
         return mav;

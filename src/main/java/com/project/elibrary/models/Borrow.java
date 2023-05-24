@@ -1,9 +1,7 @@
 package com.project.elibrary.models;
 
 import java.time.LocalDate;
-import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import com.project.elibrary.util.StringListConverter;
 
 @Entity
 @Table(name = "borrowedBooks")
@@ -21,24 +18,8 @@ public class Borrow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "book_id")
-    private Long bookId;
-
-    @Column(name = "book_name")
-    private String bookName;
-
-    @Convert(converter = StringListConverter.class)
-    @Column(name = "book_authors")
-    private List<String> authors;
-
-    @Column(name = "book_image")
-    private String image;
-
     @Column(name = "user_id")
     private Long userID;
-
-    @Column(name = "description")
-    private String description;
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -47,23 +28,18 @@ public class Borrow {
     private LocalDate endDate;
 
     @OneToOne
-    @JoinColumn(name = "book_id", insertable = false, updatable = false)
+    @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
 
     public Borrow() {
     }
 
-    public Borrow(Long id, Long bookId, String bookName, List<String> authors, String image, Long userID,
-            String description, LocalDate startDate, LocalDate endDate) {
+    public Borrow(Long id, Long userID, LocalDate startDate, LocalDate endDate, Book book) {
         this.id = id;
-        this.bookId = bookId;
-        this.bookName = bookName;
-        this.authors = authors;
-        this.image = image;
         this.userID = userID;
-        this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.book = book;
     }
 
     public Long getId() {
@@ -74,52 +50,12 @@ public class Borrow {
         this.id = id;
     }
 
-    public Long getBookId() {
-        return this.bookId;
-    }
-
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
-    }
-
-    public String getBookName() {
-        return this.bookName;
-    }
-
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
-    }
-
-    public List<String> getAuthors() {
-        return this.authors;
-    }
-
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
-    }
-
-    public String getImage() {
-        return this.image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public Long getUserID() {
         return this.userID;
     }
 
     public void setUserID(Long userID) {
         this.userID = userID;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public LocalDate getStartDate() {
@@ -139,10 +75,36 @@ public class Borrow {
     }
 
     public Book getBook() {
-        return book;
+        return this.book;
     }
 
     public void setBook(Book book) {
         this.book = book;
     }
+
+    public Borrow id(Long id) {
+        setId(id);
+        return this;
+    }
+
+    public Borrow userID(Long userID) {
+        setUserID(userID);
+        return this;
+    }
+
+    public Borrow startDate(LocalDate startDate) {
+        setStartDate(startDate);
+        return this;
+    }
+
+    public Borrow endDate(LocalDate endDate) {
+        setEndDate(endDate);
+        return this;
+    }
+
+    public Borrow book(Book book) {
+        setBook(book);
+        return this;
+    }
+
 }
