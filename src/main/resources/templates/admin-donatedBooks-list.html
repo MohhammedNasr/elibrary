@@ -71,13 +71,14 @@
     <td>
       <span th:if="${book.availability}">Available for borrowing</span>
       <span th:unless="${book.availability}">
-        <span>Borrowed by</span> <span th:text="${book.borrowedBooks.userID}"></span>
+        <span>Borrowed by</span> <span th:text="${book.borrowedBooks.user.username}"></span>
         <br/>
         <span>Start Date: </span><span th:text="${book.borrowedBooks.startDate}"></span>
         <br/>
         <span>End Date: </span><span th:text="${book.borrowedBooks.endDate}"></span>
       </span>
     </td>
+    
     <td th:text="${book.reviewed == true ? 'Accepted' : 'Not accepted'}"></td>
 
     <td>
