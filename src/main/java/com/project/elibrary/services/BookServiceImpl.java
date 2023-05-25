@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.project.elibrary.models.Book;
+import com.project.elibrary.models.User;
 import com.project.elibrary.repositories.BookRepository;
 
 @Service
@@ -23,16 +24,24 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book createBook(String title, String description, List<String> authors, String thumbnailUrl, Boolean availability, Boolean reviewed, Long userID) {
-        Book book = new Book(title, description, authors, thumbnailUrl, userID);
+    public Book createBook(String title, String description, List<String> authors, String thumbnailUrl,
+            Boolean availability, Boolean reviewed, User user) {
+        Book book = new Book();
+        book.setTitle(title);
+        book.setDescription(description);
+        book.setAuthors(authors);
+        book.setThumbnailUrl(thumbnailUrl);
         book.setAvailability(availability);
         book.setReviewed(reviewed);
+        book.setUser(user);
+
         return bookRepository.save(book);
     }
 
+
     @Override
     public List<Book> getBooksByUserID(Long userID) {
-        return bookRepository.findByUserID(userID);
+        return bookRepository.findByUser_Id(userID);
     }
   
     @Override 

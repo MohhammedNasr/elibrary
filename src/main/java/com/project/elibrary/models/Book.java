@@ -8,8 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import com.project.elibrary.util.StringListConverter;
 
 @Entity
@@ -19,9 +23,6 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "user_ID")
-    private Long userID;
 
     @Column(nullable = false)
     private String title;
@@ -53,18 +54,23 @@ public class Book {
 
     @OneToOne(mappedBy = "book",cascade = CascadeType.ALL)
     private Borrow borrowedBooks;
-    
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_ID")
+    private User user;
+
     // Constructors, getters, and setters
     public Book() {
 
     }
 
-    public Book(String title, String description, List<String> authors, String thumbnailUrl, Long userID) {
+    public Book(String title, String description, List<String> authors, String thumbnailUrl) {
         this.title = title;
         this.description = description;
         this.authors = authors;
         this.thumbnailUrl = thumbnailUrl;
-        this.userID = userID;
+        
     }
 
     public Boolean getAvailability() {
@@ -139,14 +145,6 @@ public class Book {
         this.averageRating = averageRating;
     }
 
-    public Long getUserID() {
-        return userID;
-    }
-
-    public void setUserID(Long userID) {
-        this.userID = userID;
-    }
-
     public Boolean getReviewed() {
         return reviewed;
     }
@@ -161,5 +159,13 @@ public class Book {
     
     public void setBorrowedBooks(Borrow borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

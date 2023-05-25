@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -28,6 +29,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Favorite> favorites;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Book> books = new ArrayList<>();
 
     public User() {
         this.role = "User";
@@ -125,6 +129,18 @@ public class User implements UserDetails {
 
     public void addToFavorites(Favorite favorite){
         this.favorites.add(favorite);
+    }
+
+    public void addBook(Book books){
+        this.books.add(books);
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
 }
