@@ -3,6 +3,7 @@ package com.project.elibrary.models;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,6 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,27 +33,17 @@ public class User implements UserDetails {
     private String profilePic;
     private String role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Favorite> favorites;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Book> books = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Borrow> borrow = new ArrayList<>();
-
-    public List<Borrow> getBorrow() {
-        return borrow;
-    }
-
-    public void setBorrow(List<Borrow> borrow) {
-        this.borrow = borrow;
-    }
-
-    public void addBorrow(Borrow borrow){
-        this.borrow.add(borrow);
-    }
-
+    @Fetch(FetchMode.SELECT)
+    @OrderColumn(name = "LIST_INDEX")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Borrow> borrow;
 
     public User() {
         this.role = "User";
@@ -157,6 +153,13 @@ public class User implements UserDetails {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    public Set<Borrow> getBorrow() {
+        return borrow;
+    }
+    public void setBorrow(Set<Borrow> borrow) {
+        this.borrow = borrow;
     }
 
 }

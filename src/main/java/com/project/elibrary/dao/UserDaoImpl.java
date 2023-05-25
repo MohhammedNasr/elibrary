@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import com.project.elibrary.models.User;
+import com.project.elibrary.services.BorrowService;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -116,8 +117,12 @@ public class UserDaoImpl implements UserDao {
         jdbcTemplate.update(sql, username, profile_picture, role, userID);
     }
 
+    @Autowired
+    private BorrowService borrowService;
+
     @Override
     public void adminRemoveUser(Long id) {
+        borrowService.resetBorrow(id);//sets book availability to true
         String sql = "DELETE FROM user WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
