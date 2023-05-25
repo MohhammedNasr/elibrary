@@ -2,12 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" type="text/css" href="/css/profile.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/user-navbar.css">
 
 <head>
     <title>Profile</title>
 </head>
 
 <body>
+    <div th:include="user-navbar :: user-navbar" th:with="activePage='profile'" style="margin-bottom: 10px;"></div>
     <h1 th:if="${isList}">User List</h1>
     <table th:if="${isList}">
         <thead>
@@ -33,35 +35,39 @@
         <div class="background-gradient">
             <img class="profilePic" th:src="${user.profilePic}" />
         </div>
-        <div class="button-container">
-            <form method="get" th:action="@{/library/edit-profile}">
-                <button type="submit" class="edit-button">Edit Profile</button>
-            </form>
-            <form method="get" th:action="@{/books/donated}">
-                <button type="submit" class="donated-button">Donated books</button>
-            </form>
-            <form method="get" th:action="@{/library/borrowed}">
-                <button type="submit" class="borrow-button">borrowed books</button>
-            </form>
+        <div class="profile-info">
+            <div class="profile-details">
+                <div class="profile-name-container">
+                    <p class="profile-name" th:text="${user.username}"></p>
+                    <form method="get" th:action="@{/library/edit-profile}">
+                        <button type="submit" class="edit-button">Edit Profile</button>
+                    </form>
+                    <div class="button-container">
+                        <form method="get" th:action="@{/books/donated}">
+                            <button type="submit" class="donated-button">Donated</button>
+                        </form>
+                        <form method="get" th:action="@{/library/borrowed}">
+                            <button type="submit" class="borrow-button">Borrowed</button>
+                        </form>
+                    </div>
+                </div>
+                <p class="profile-email" th:text="${user.email}"></p>
+            </div>
+            
         </div>
-
-        <p class="profile-name" th:text="${user.username}">
-            </td>
-        <p th:text="${user.email}" class="profile-email"></p>
     </div>
 
     <div id="favorite-list-container" style="display: none;"></div>
 
+    <script>
+        //showing favorites.html inside this profile.html
+        $(document).ready(function () {
+            $.get("/favorites/list", function (data) {
+                $("#favorite-list-container").html(data);
+                $("#favorite-list-container").show();
+            });
+        });
+    </script>
 </body>
 
 </html>
-
-<script>
-    //showing favorites.html inside this profile.html
-    $(document).ready(function () {
-        $.get("/favorites/list", function (data) {
-            $("#favorite-list-container").html(data);
-            $("#favorite-list-container").show();
-        });
-    });    
-</script>

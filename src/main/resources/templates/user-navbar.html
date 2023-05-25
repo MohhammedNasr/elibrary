@@ -1,0 +1,10 @@
+<nav th:fragment="user-navbar">
+<div class="navbar">
+    <a th:href="@{/library/homepage}" th:class="${activePage == 'home' ? 'active' : ''}">Home</a>
+    <a href="#" th:class="${activePage == '#' ? 'active' : ''}">Books</a>
+    <a th:href="@{/library/profile}" th:class="${activePage == 'profile' ? 'active' : ''}">Profile</a>
+    <a href="#" th:class="${activePage == '#' ? 'active' : ''}">Categories</a>
+    <a href="#" th:class="${activePage == '#' ? 'active' : ''}">About</a>
+    <a href="#" th:class="${activePage == '#' ? 'active' : ''}">Contact</a>
+  </div>
+</nav>
