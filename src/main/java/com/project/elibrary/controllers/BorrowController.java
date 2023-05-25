@@ -25,10 +25,10 @@ public class BorrowController {
             @AuthenticationPrincipal User user,
             RedirectAttributes redirectAttributes) {
 
-        Long userID = user.getId();
+        //Long userID = user.getId();
         LocalDate startDate = LocalDate.now();
 
-        borrowService.saveBorrow(bookId, userID, startDate, endDate);
+        borrowService.saveBorrow(bookId, user, startDate, endDate);
 
         // Add a redirect attribute to the response
         redirectAttributes.addFlashAttribute("message", "Borrow saved successfully.");

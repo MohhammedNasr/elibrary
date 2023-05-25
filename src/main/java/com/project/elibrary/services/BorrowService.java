@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.project.elibrary.models.Book;
 import com.project.elibrary.models.Borrow;
+import com.project.elibrary.models.User;
 import com.project.elibrary.repositories.BookRepository;
 import com.project.elibrary.repositories.BorrowRepository;
 
@@ -22,16 +23,16 @@ public class BorrowService {
         return borrowRepository.findAll();
     }
 
-    public void saveBorrow(Long bookId, Long userID, LocalDate startDate, LocalDate endDate) {
+    public void saveBorrow(Long bookId, User user, LocalDate startDate, LocalDate endDate) {
         Optional<Book> optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isPresent()) {
             Book book = optionalBook.get();
             if (book.getAvailability()) {
                 Borrow borrowed = new Borrow();
                 borrowed.setBook(book);
-                borrowed.setUserID(userID);
                 borrowed.setStartDate(startDate);
                 borrowed.setEndDate(endDate);
+                borrowed.setUser(user);
                 borrowRepository.save(borrowed);
                 
                 book.setAvailability(false); // Update availability to false
@@ -43,7 +44,7 @@ public class BorrowService {
     }
     
     public List<Borrow> getBorrowedBooksByUserID(Long userID) {
-        return borrowRepository.findByUserID(userID);
+        return borrowRepository.findByUser_Id(userID);
     }
 
 }

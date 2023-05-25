@@ -7,8 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "borrowedBooks")
@@ -18,14 +21,16 @@ public class Borrow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userID;
-
     @Column(name = "start_date")
     private LocalDate startDate;
 
     @Column(name = "end_date")
     private LocalDate endDate;
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_ID")
+    private User user;
 
     @OneToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
@@ -34,11 +39,11 @@ public class Borrow {
     public Borrow() {
     }
 
-    public Borrow(Long id, Long userID, LocalDate startDate, LocalDate endDate, Book book) {
+    public Borrow(Long id, LocalDate startDate, LocalDate endDate, User user, Book book) {
         this.id = id;
-        this.userID = userID;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.user = user;
         this.book = book;
     }
 
@@ -48,14 +53,6 @@ public class Borrow {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getUserID() {
-        return this.userID;
-    }
-
-    public void setUserID(Long userID) {
-        this.userID = userID;
     }
 
     public LocalDate getStartDate() {
@@ -74,6 +71,14 @@ public class Borrow {
         this.endDate = endDate;
     }
 
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Book getBook() {
         return this.book;
     }
@@ -87,11 +92,6 @@ public class Borrow {
         return this;
     }
 
-    public Borrow userID(Long userID) {
-        setUserID(userID);
-        return this;
-    }
-
     public Borrow startDate(LocalDate startDate) {
         setStartDate(startDate);
         return this;
@@ -99,6 +99,11 @@ public class Borrow {
 
     public Borrow endDate(LocalDate endDate) {
         setEndDate(endDate);
+        return this;
+    }
+
+    public Borrow user(User user) {
+        setUser(user);
         return this;
     }
 

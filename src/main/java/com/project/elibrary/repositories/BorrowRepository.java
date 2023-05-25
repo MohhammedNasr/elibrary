@@ -5,5 +5,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BorrowRepository extends JpaRepository<Borrow, Long> {
-    List<Borrow> findByUserID(Long userID);
+    List<Borrow> findByUser_Id(Long userID);
 }

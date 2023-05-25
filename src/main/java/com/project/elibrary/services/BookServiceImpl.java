@@ -102,4 +102,22 @@ public class BookServiceImpl implements BookService {
             return false;
         }
     }
+
+    // @Override
+    // public boolean adminDeleteBook(Long bookId) {
+    //     Optional<Borrow> optionalBook = borrowRepository.findById(bookId);
+    //     Borrow borrow = optionalBook.get();
+    //     try {
+    //         Book book = bookRepository.findById(bookId).orElse(null);
+    //         if (book != null) {
+    //             borrow.setUser(null);
+    //             borrowRepository.save(borrow);
+    //             bookRepository.delete(book);
+    //             return true;
+    //         }
+    //         return false;
+    //     } catch (Exception e) {
+    //         return false;
+    //     }
+    // }
 }

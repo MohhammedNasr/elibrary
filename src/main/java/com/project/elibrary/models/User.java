@@ -33,6 +33,22 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Book> books = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Borrow> borrow = new ArrayList<>();
+
+    public List<Borrow> getBorrow() {
+        return borrow;
+    }
+
+    public void setBorrow(List<Borrow> borrow) {
+        this.borrow = borrow;
+    }
+
+    public void addBorrow(Borrow borrow){
+        this.borrow.add(borrow);
+    }
+
+
     public User() {
         this.role = "User";
     }
