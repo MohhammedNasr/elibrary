@@ -81,11 +81,9 @@ public class DynamicController {
     public String confirmBorrow(@RequestParam("bookId") Long bookId, Model model) {
         // Retrieve the book details based on the bookId
         Book book = bookService.getBookById(bookId);
-
         // Pass the book details to the "Confirm Borrow" page
         model.addAttribute("book", book);
-
-        return "borrow-details";
+        return "borrow";
     }
 
     //view list of borrowed books
