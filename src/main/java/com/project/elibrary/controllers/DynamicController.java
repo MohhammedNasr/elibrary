@@ -18,6 +18,7 @@ import com.project.elibrary.repositories.BookRepository;
 import com.project.elibrary.repositories.UserRepo;
 import com.project.elibrary.services.BookService;
 import com.project.elibrary.services.BorrowService;
+import com.project.elibrary.services.PaymentService;
 
 @Controller
 @RequestMapping("/library")
@@ -97,4 +98,9 @@ public class DynamicController {
         mav.addObject("books", books);
         return mav;
     }
+    @Autowired 
+    private PaymentService paymentService;
+    @GetMapping("/pay")
+    
+
 }
