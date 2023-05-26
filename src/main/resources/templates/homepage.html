@@ -1,88 +1,279 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" href="/css/Style1.css">
-
+ 
 <head>
 	<meta charset="UTF-8">
 	<title>Library</title>
+	<link rel="stylesheet" type="text/css" href="/css/Style1.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
+	<style>
+		.book-box {
+			cursor: pointer;
+		}
+ 
+		.book-box:hover {
+			background-color: #f5f5f5;
+		}
+	</style>
 </head>
-
+ 
 <body>
-	<nav>
-		<ul>
-			<li><a th:href="@{/library/search}">Search</a></li>
-			<li><a th:href="@{/library/profile}">Profile</a></li>
-			<li><a th:href="@{/library/donate}">Donate</a></li>
-			<li><a th:href="@{/library/donatedbooks}">Borrow-Books</a></li>
-			<li><a th:href="@{/library/logout}">Logout</a></li>
-		</ul>
-	</nav>
-</body>
-
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Home Page</title>
-	<meta name="description" content="" />
-	<meta name="viewport" content="width=device-width" />
-	<base href="/" />
-</head>
-<header>
-	<div class="header">
-		<h1> E-Library </h1>
-		<p>An <b>Online</b> Library Website for everyone</p>
-	</div>
-
 	<div class="navbar">
 		<a href="#" class="active">Home</a>
-		<a href="#">My Library</a>
-		<a href="#">Explore Books</a>
-		<a href="#">About Us</a>
-		<a href="#" class="right">Checkout</a>
-		<div class="search-container">
-			<form action="/search">
-				<input type="text" placeholder="Search..." name="search-input" id="search-input">
-				<button type="submit"><i class="fa fa-search"></i></button>
+		<a href="#">Books</a>
+		<a href="#">Authors</a>
+		<a href="#">Categories</a>
+		<a href="#">About</a>
+		<a href="#">Contact</a>
+	</div>
+	<div class="page-content">
+		<div class="lil-right">
+			<h2 class="book-section-title" style="margin-left: 10px; margin-top: 0px;">Discover </h2>
+			<form action="#" th:action="@{/books/search}" method="get" class="input-form" style="margin-left: 10px;">
+				<input class="input-box-search" type="text" id="query" name="query" required th:placeholder="'Book Name'" />
+				<button type="submit" class="search-button"><i style="font-size:24px;" class="fa">&#xf002;</i></button>
 			</form>
-		</div>
-
-	</div>
-</header>
-<div class="row">
-	<div class="side">
-		<h2>Our Books</h2>
-		<h5>Romance :</h5>
-		<img src="allBooks.jpeg" alt="all books">
-		<div class="fakeimg" style="height:200px;">Image</div>
-		<p>We Offer You a Variety Of Books at your doorstep</p>
-		<h3>Available Books</h3>
-		<p> Books Available</p>
-		<img src="Book1.jpg" alt="Romance Books" style="height:60px;">
-		<div class="fakeimg" style="height:60px;">Book 1</div><br>
-		<!-- insert a picture?-->
-
-		<div class="fakeimg" style="height:60px;">Book 2</div><br>
-		<div class="fakeimg" style="height:60px;">Book 3</div>
-	</div>
-	<div class="main">
-		<h2> Available Books in Our Store</h2>
-		<h5>Title description, April 7, 2023</h5>
-		<div class="fakeimg" style="height:200px;">Image</div>
-		<p>Available books in the store</p>
-		<p>.........</p>
-		<br>
-		<h2>TITLE HEADING</h2>
-		<h5>Title description, April 7, 2023</h5>
-		<div class="fakeimg" style="height:200px;">Image</div>
-		<p>Some text..</p>
-		<p>..........</p>
-	</div>
-</div>
-
-<div class="footer">
-	<h2>Footer</h2>
-</div>
-
+			<section class="for-you-section">
+				<h2 class="for-you-title">For you</h2>
+				<div class="book-container">
+					<a href="#" class="book-box">
+						<img class="book-image" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 1">
+						<div class="book-details">
+							<h3 class="book-title">Book 1</h3>
+							<p class="book-author">Author 1</p>
+							<div class="book-info">
+								<span class="book-pages">200 Pages</span>
+								<span class="book-reviews">15 Reviews</span>
+								<span class="book-rating">4.5/5 Rating</span>
+							</div>
+						</div>
+					</a>
+					<a href="#" class="book-box">
+						<img class="book-image" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 2">
+						<div class="book-details">
+							<h3 class="book-title">Book 2</h3>
+							<p class="book-author">Author 2</p>
+							<div class="book-info">
+								<span class="book-pages">300 Pages</span>
+								<span class="book-reviews">20 Reviews</span>
+								<span class="book-rating">4.8/5 Rating</span>
+							</div>
+						</div>
+					</a>
+					<a href="#" class="book-box">
+						<img class="book-image" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 2">
+						<div class="book-details">
+							<h3 class="book-title">Book 2</h3>
+							<p class="book-author">Author 2</p>
+							<div class="book-info">
+								<span class="book-pages">300 Pages</span>
+								<span class="book-reviews">20 Reviews</span>
+								<span class="book-rating">4.8/5 Rating</span>
+							</div>
+						</div>
+					</a>
+					<a href="#" class="book-box">
+						<img class="book-image" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 2">
+						<div class="book-details">
+							<h3 class="book-title">Book 2</h3>
+							<p class="book-author">Author 2</p>
+							<div class="book-info">
+								<span class="book-pages">300 Pages</span>
+								<span class="book-reviews">20 Reviews</span>
+								<span class="book-rating">4.8/5 Rating</span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</section>
+ 
+			<section class="book-section">
+				<div class="title-things-container">
+					<h2 class="book-section-title">POPULAR <br />BESTSELLERS <br />
+						<p class="desc-text"> We picked up the most popular <br /> books for you, based on your taste.
+						</p>
+					</h2>
+					<button class="explore-button">Explore More!</button>
+				</div>
+				<div class="book-row">
+					<a href="#" class="book-item">
+						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 1">
+						<h3 class="book-name">Book 1</h3>
+						<p class="book-author">Author 1</p>
+					</a>
+					<a href="#" class="book-item">
+						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 2">
+						<h3 class="book-name">Book 2</h3>
+						<p class="book-author">Author 2</p>
+					</a>
+					<a href="#" class="book-item">
+						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 2">
+						<h3 class="book-name">Book 2</h3>
+						<p class="book-author">Author 2</p>
+					</a>
+					<a href="#" class="book-item">
+						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 2">
+						<h3 class="book-name">Book 2</h3>
+						<p class="book-author">Author 2</p>
+					</a>
+					<!-- Add more book items here -->
+				</div>
+			</section>
+			<div class="blue-section">
+				<div class="blue-book-container">
+					<img class="blue-book-image" src="https://universe.byu.edu/wp-content/uploads/2015/01/HP4cover.jpg"
+						alt="Book 3">
+				</div>
+				<div class="blue-book-container">
+					<img class="blue-book-image"
+						src="https://m.media-amazon.com/images/I/81THMAxo+pL._AC_UF1000,1000_QL80_.jpg" alt="Book 2">
+				</div>
+				<div class="blue-book-container">
+					<img class="blue-book-image" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+						alt="Book 1">
+				</div>
+				<div class="blue-book-container">
+					<img class="blue-book-image"
+						src="https://m.media-amazon.com/images/I/81THMAxo+pL._AC_UF1000,1000_QL80_.jpg" alt="Book 2">
+				</div>
+				<div class="blue-book-container">
+					<img class="blue-book-image" src="https://universe.byu.edu/wp-content/uploads/2015/01/HP4cover.jpg"
+						alt="Book 3">
+				</div>
+				<div class="borrow-now">
+					<h1>Borrow Now</h1>
+					<p>You can borrow your books for free!</p>
+					<small>You pick the return date</small> <br />
+					<button class="borrow-button">Borrow Now!</button>
+				</div>
+			</div>
+			<section class="book-section">
+				<div class="title-things-container">
+				<h2 class="book-section-title">CAN BE <br />INTERESTING <br />
+					<p class="desc-text"> Check this list of books, picked up <br /> by the webiste and choose <br />
+						something new!</p>
+				</h2>
+			</div>
+				<div class="book-row">
+					<a href="#" class="book-item">
+						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 1">
+						<h3 class="book-name">Book 1</h3>
+						<p class="book-author">Author 1</p>
+					</a>
+					<a href="#" class="book-item">
+						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 2">
+						<h3 class="book-name">Book 2</h3>
+						<p class="book-author">Author 2</p>
+					</a>
+					<a href="#" class="book-item">
+						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 2">
+						<h3 class="book-name">Book 2</h3>
+						<p class="book-author">Author 2</p>
+					</a>
+					<a href="#" class="book-item">
+						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+							alt="Book 2">
+						<h3 class="book-name">Book 2</h3>
+						<p class="book-author">Author 2</p>
+					</a>
+					<!-- Add more book items here -->
+				</div>
+			</section>
+			<footer class="awesome-footer">
+				<div class="footer-links">
+				  <div class="footer-section">
+					<h4>Explore</h4>
+					<ul>
+					  <li><a href="#home">Home</a></li>
+					  <li><a href="#about">About</a></li>
+					  <li><a href="#services">Services</a></li>
+					  <li><a href="#portfolio">Portfolio</a></li>
+					  <li><a href="#blog">Blog</a></li>
+					  <li><a href="#contact">Contact</a></li>
+					</ul>
+				  </div>
+				  <div class="footer-section">
+					<h4>Company</h4>
+					<ul>
+					  <li><a href="#team">Our Team</a></li>
+					  <li><a href="#clients">Clients</a></li>
+					  <li><a href="#testimonials">Testimonials</a></li>
+					  <li><a href="#pricing">Pricing</a></li>
+					  <li><a href="#faq">FAQ</a></li>
+					</ul>
+				  </div>
+				  <div class="footer-section">
+					<h4>Legal</h4>
+					<ul>
+					  <li><a href="#terms">Terms of Service</a></li>
+					  <li><a href="#privacy">Privacy Policy</a></li>
+					  <li><a href="#cookie">Cookie Policy</a></li>
+					</ul>
+				  </div>
+				</div>
+				<div class="footer-info">
+				  <p>&copy; 2023 Your Company. All rights reserved.</p>
+				  <p><a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+				</div>
+			  </footer>
+ 
 </body>
-
+</div>
+</div>
+<script>var button_s = document.querySelectorAll(".MenuBox>ul>li");
+	var svg_s = document.querySelectorAll(".MenuBox>ul>li>svg");
+	var HoverBox_s = document.getElementsByClassName("HoverBox")[0];
+ 
+	function clearTag(id) {
+		for (let item of svg_s) {
+			if (item == svg_s[id]) {
+				continue;
+			}
+			item.style.color = "#6e6c6c";
+		}
+	}
+ 
+	function Action_s(Index, Top) {
+		HoverBox_s.style.top = Top;
+		HoverBox_s.style.animation = `Effect_${Index} 250ms 1`;
+		svg_s[Index].style.color = "white"
+		clearTag(Index)
+	}
+	button_s[0].addEventListener("mouseover", function () {
+		Action_s(0, "20px");
+	});
+ 
+	button_s[1].addEventListener("mouseover", function () {
+		Action_s(1, "87px");
+	});
+ 
+	button_s[2].addEventListener("mouseover", function () {
+		Action_s(2, "154px");
+	});
+ 
+	button_s[3].addEventListener("mouseover", function () {
+		Action_s(3, "221px");
+	});
+ 
+	button_s[4].addEventListener("mouseover", function () {
+		Action_s(4, "288px");
+	});
+ 
+	button_s[5].addEventListener("mouseover", function () {
+		Action_s(5, "355px");
+ 
+	});</script>
+ 
 </html>
