@@ -6,23 +6,13 @@
 	<title>Library</title>
 	<link rel="stylesheet" type="text/css" href="/css/home-page.css">
 	<link rel="stylesheet" type="text/css" href="/css/footer.css">
-	<!-- <link rel="stylesheet" type="text/css" href="/css/footer.css"> navBar css --> 
+	<link rel="stylesheet" type="text/css" href="/css/user-navbar.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
  
 <body>
-	  <!-- Include the navigation bar -->
-	  <!-- <div th:include="navbar :: navbar" th:with="activePage='donatedBooks'" style="margin-bottom: 100px;"></div> -->
 	  
-	<div class="navbar">
-		<a href="#" class="active">Home</a>
-		<a href="#">Books</a>
-		<a href="#">Authors</a>
-		<a href="#">Categories</a>
-		<a href="#">About</a>
-		<a href="#">Contact</a>
-	</div>
-
+	  <div th:include="user-navbar :: user-navbar" th:with="activePage='home'" style="margin-bottom: 10px;"></div>
 	<div class="page-content">
 		<div class="lil-right">
 			<h2 class="book-section-title" style="margin-left: 10px; margin-top: 0px;">Discover </h2>

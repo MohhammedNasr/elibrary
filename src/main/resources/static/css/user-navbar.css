@@ -1,0 +1,27 @@
+.navbar {
+    overflow: hidden;
+    position: sticky;
+    padding: 10px;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 999;
+  }
+  
+  .navbar a {
+    float: left;
+    display: block;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+  }
+  
+  .navbar a:hover {
+    background-color: #0066ff;
+    color: #fff;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .navbar a.active {
+    border-bottom: 3px solid #0066ff;
+  }  
