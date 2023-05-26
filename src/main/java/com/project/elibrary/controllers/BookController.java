@@ -101,8 +101,7 @@ public class BookController {
     public String createBook(Book book, @AuthenticationPrincipal User user) {
         book.setAvailability(true); // When any book gets added, it is set to be available 
         book.setReviewed(false); // When any book gets added, it is set to be not reviewed and waiting for admin review
-        Long userID = user.getId();
-        bookService.createBook(book.getTitle(), book.getDescription(), book.getAuthors(), book.getThumbnailUrl(), book.getAvailability(), book.getReviewed(), userID);
+        bookService.createBook(book.getTitle(), book.getDescription(), book.getAuthors(), book.getThumbnailUrl(), book.getAvailability(), book.getReviewed(), user);
         // Redirect to the profile.html page
         return "redirect:/library/profile";
     }

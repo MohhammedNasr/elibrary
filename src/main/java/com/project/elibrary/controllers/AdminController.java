@@ -2,28 +2,39 @@ package com.project.elibrary.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.project.elibrary.dao.UserDao;
 import com.project.elibrary.models.Book;
+import com.project.elibrary.models.Borrow;
 import com.project.elibrary.models.User;
+import com.project.elibrary.repositories.UserRepo;
 import com.project.elibrary.services.BookService;
+import com.project.elibrary.services.BorrowService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // for viewing all registered users
     @GetMapping("/users")
@@ -32,6 +43,13 @@ public class AdminController {
         model.addAttribute("users", userList);
         model.addAttribute("isList", true);
         return "admin-users-list.html";
+    }
+
+    @PostMapping("save-user")
+    public String saveUserAdmin(@ModelAttribute User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        this.userRepo.save(user);
+        return "redirect:/admin/users";
     }
 
     // for finding a specific user
@@ -79,33 +97,88 @@ public class AdminController {
         return ResponseEntity.ok("User details updated successfully.");
     }
 
-
-
     //boooooks
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private BorrowService borrowService;
     
     //view list of uploaded books/donated books
     @GetMapping("/allbooks")
     public ModelAndView showBooks() {
         List<Book> books = bookService.getAllBooks();
+        List<Borrow> borrowedBooks = borrowService.getAllBorrowedBooks();
         ModelAndView mav = new ModelAndView("admin-donatedBooks-list");
         mav.addObject("books", books);
+        mav.addObject("borrowedBooks", borrowedBooks);
         return mav;
     }
 
-    //accept donated book
+    // edit donated book
+    @PostMapping("/editBook/{bookId}")
+    public String editBook(@PathVariable("bookId") Long bookId,
+            @RequestParam("thumbnail") String thumbnail,
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            Model model) {
+        boolean bookUpdated = bookService.adminEditBook(bookId, thumbnail, title, description);
+        if (bookUpdated) {
+            model.addAttribute("message", "Book updated successfully.");
+        } else {
+            model.addAttribute("error", "Failed to update the book.");
+        }
+        return "redirect:/admin/allbooks";
+    }
+
+    // delete donated book
+    @DeleteMapping("/removeBook/{bookId}")
+    public ResponseEntity<String> removeBook(@PathVariable("bookId") Long bookId) {
+        boolean bookDeleted = bookService.adminDeleteBook(bookId);
+        if (bookDeleted) {
+            return ResponseEntity.ok("Book deleted successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete book.");
+        }
+    }
+
+    // accept donated book
     @GetMapping("/acceptBook/{bookID}")
     public String acceptBook(@PathVariable("bookID") Long bookID) {
         bookService.acceptBook(bookID);
         return "redirect:/admin/allbooks";
     }
 
-    //reject donated book
+    // reject donated book
     @GetMapping("/rejectBook/{bookID}")
     public String rejectBook(@PathVariable("bookID") Long bookID) {
         bookService.rejectBook(bookID);
         return "redirect:/admin/allbooks";
+    }
+
+    @GetMapping("/add-book")
+    public ModelAndView getAddbook() {
+        ModelAndView mav = new ModelAndView("admin-add-book.html");
+        Book book = new Book();
+        mav.addObject("book", book);
+        return mav;
+    }
+
+    @PostMapping("/added")
+    public String createBook(Book book, @AuthenticationPrincipal User user) {
+        book.setAvailability(true); // When any book gets added, it is set to be available
+        book.setReviewed(false); // When any book gets added, it is set to be not reviewed and waiting for admin review
+        bookService.createBook(book.getTitle(), book.getDescription(), book.getAuthors(), book.getThumbnailUrl(),
+                book.getAvailability(), book.getReviewed(), user);
+        return "redirect:/admin/allbooks";
+    }
+
+    @GetMapping("/add-user")
+    public ModelAndView getAdduser() {
+        ModelAndView mav = new ModelAndView("admin-add-user.html");
+        User user = new User();
+        mav.addObject("user", user);
+        return mav;
     }
 
 }

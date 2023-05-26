@@ -76,6 +76,10 @@
 }
 
 .donate-button {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    /* Adjust this value to change the spacing between the buttons */
     padding: 8px 18px;
     background-color: #0d0c22;
     border-radius: 5px;
@@ -85,12 +89,80 @@
     border: none;
     outline: none;
     cursor: pointer;
-    margin-left: 10vw;
     margin-top: 2vh;
 }
-.donate-button:hover{
+
+.donate-button:hover {
     background-color: #3d3d3d;
     color: #f3f3f3;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
+.borrow-button {
+    display: block;
+    float: right;
+    margin-left: 10px;
+    /* Adjust this value to change the spacing between the buttons */
+    padding: 8px 18px;
+    background-color: #0d0c22;
+    border-radius: 5px;
+    color: #f3f3f3;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-top: 2vh;
+}
+
+.borrow-button:hover {
+    background-color: #3d3d3d;
+    color: #f3f3f3;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.username-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-username {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+    width: 98%;
+}
+
+
+.email-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-email {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+    width: 98%;
+}
+
+.pass-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-pass {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+    width: 98%;
 }

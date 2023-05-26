@@ -15,6 +15,7 @@
                 <tr>
                     <th class="donated-category">Book</th>
                     <th class="donated-category">Availability</th>
+                    <th class="donated-category">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +30,12 @@
                         </div>
                     </td>
                     <td th:text="${book.availability == true ? 'Available for borrowing' : 'Not available'}"></td>
+                    <td>
+                        <form th:action="@{/library/borrow}" method="post">
+                            <input type="hidden" name="bookId" th:value="${book.id}" />
+                            <button type="submit">Borrow</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

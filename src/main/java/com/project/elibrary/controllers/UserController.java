@@ -1,7 +1,6 @@
 package com.project.elibrary.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,7 +30,7 @@ public class UserController {
     private UserRepo userRepo;
 
     @Autowired
-    private AuthService authservice;
+    private AuthService authService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -48,16 +47,7 @@ public class UserController {
     public String saveUser(@ModelAttribute User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         this.userRepo.save(user);
-        /*
-         * Authentication authentication = new UsernamePasswordAuthenticationToken(
-         * user.getEmail(),
-         * user.getPassword(),
-         * user.getAuthorities());
-         * Authentication authenticated = this.authservice.authenticate(authentication);
-         * SecurityContextHolder.getContext().setAuthentication(authenticated);
-         */
         return "redirect:/library/login";
-
     }
 
     @GetMapping("login")
@@ -69,12 +59,19 @@ public class UserController {
     }
 
     @PostMapping("check-user")
-    public String checkUser(@ModelAttribute User user) {
+    public String checkUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+        String email = user.getEmail();
+        User userFinder = this.userRepo.findByEmail(email).orNull();
+        String pass = user.getPassword();
+        if (userFinder == null || !bCryptPasswordEncoder.matches(pass, userFinder.getPassword())) {
+            redirectAttributes.addAttribute("error", "true");
+            return "redirect:/library/login";
+        }
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 user.getEmail(),
                 user.getPassword(),
                 user.getAuthorities());
-        Authentication authenticated = this.authservice.authenticate(authentication);
+        Authentication authenticated = this.authService.authenticate(authentication);
         SecurityContextHolder.getContext().setAuthentication(authenticated);
         boolean isAdmin = user.getRole().equals("Admin");
         if (isAdmin) {
@@ -82,24 +79,10 @@ public class UserController {
         } else {
             return "redirect:/library/homepage";
         }
-        /*
-         * String email = user.getEmail();
-         * User userfinder = this.userRepo.findByEmail(email).orNull();
-         * if (userfinder == null) {
-         * return "redirect:/library/login";
-         * }
-         * String pass = user.getPassword();
-         * String Password = userfinder.getPassword();
-         * if (pass.equals(Password)) {
-         * return "redirect:/library/homepage";
-         * } else {
-         * return "redirect:/library/login";
-         * }
-         */
     }
 
     @GetMapping("reset-pass")
-    public ModelAndView getRestpassform() {
+    public ModelAndView getRestPassForm() {
         ModelAndView mav = new ModelAndView("reset-pass.html");
         User newUser = new User();
         mav.addObject("user", newUser);
@@ -107,22 +90,22 @@ public class UserController {
     }
 
     @PostMapping("change-pass")
-    public String changepass(@ModelAttribute User user) {
+    public String changePass(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
         String email = user.getEmail();
-        User userfinder = this.userRepo.findByEmail(email).orNull();
-        if (userfinder == null) {
+        User userFinder = this.userRepo.findByEmail(email).orNull();
+        if (userFinder == null) {
+            redirectAttributes.addFlashAttribute("error", "This email doesn't exist");
             return "redirect:/library/reset-pass";
         }
         String pass = user.getPassword();
-        userfinder.setPassword(bCryptPasswordEncoder.encode(pass));
-        this.userRepo.save(userfinder);
+        userFinder.setPassword(bCryptPasswordEncoder.encode(pass));
+        this.userRepo.save(userFinder);
         return "redirect:/library/login";
 
     }
 
     @Autowired
     private UserDao userDao;
-
 
     @GetMapping("/users")
     public String getUsers(Model model) {

@@ -26,8 +26,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
         http.userDetailsService(userservice)
                 .authorizeRequests()
-                .antMatchers("/library", "/library/save-user", "/library/reset-pass","/library/change-pass").permitAll()
-                .antMatchers("/library/adminHomePage", "/admin//remove/{id}", "/admin//edit/{id}", "/admin/users").hasAuthority("Admin")
+                .antMatchers("/library", "/library/save-user", "/library/reset-pass", "/library/change-pass")
+                .permitAll()
+                .antMatchers("/library/adminHomePage", "/admin//remove/{id}", "/admin//edit/{id}", "/admin/users")
+                .hasAuthority("Admin")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
