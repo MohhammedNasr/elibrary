@@ -22,7 +22,7 @@
                 <tr th:each="book : ${books}">
                     <td>
                         <div class="book-info">
-                            <img class="book-image" th:src="${book.thumbnailUrl}" alt="Thumbnail">
+                            <img class="book-image" th:src="${book.thumbnailUrl}" alt="Thumbnail" onerror="this.src='https://i.pinimg.com/736x/55/b1/b5/55b1b5dbf1488a572f8aa37b0388d321--book-cover-design-template-design-templates.jpg'">
                             <div class="book-details">
                                 <h3 class="book-title" th:text="${book.title}"></h3>
                                 <p class="book-author" th:text="${book.authors}"></p>
