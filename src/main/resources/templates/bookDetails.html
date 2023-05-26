@@ -22,6 +22,7 @@
     <h1 class="ti-name">About the book</h1>
     <div class="book-details">
         <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image-details" />
+        <p class="p3p-details description-details" th:text="${book.price}">egp</p>
         <h2 name="title" id="title" th:text="${book.title}" class="book-title-details"></h2>
         <p name="authors" id="authors" class="p3p book-author-details" th:text="${book.authors}"></p>
         <div class="details-box">
@@ -36,7 +37,9 @@
         </div>
         <h1 class="details-h1">Description</h1>
         <p class="p3p-details description-details" th:text="${book.description}"></p>
+    
         <button type="button" class="favorite-btn">Favorite</button>
+
         <a class="details-button" th:href="@{/books/mdetails(bookName=${book.title})}"> Details </a>  <!-- goes to bookmDetails.html -->
     </div>
 </body>

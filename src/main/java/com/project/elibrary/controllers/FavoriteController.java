@@ -54,4 +54,5 @@ public class FavoriteController {
                     .body("Couldn't remove book from favorite list");
         }
     }
+    
 }

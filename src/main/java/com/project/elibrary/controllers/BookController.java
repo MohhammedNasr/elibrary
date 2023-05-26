@@ -65,6 +65,7 @@ public class BookController {
       book.setPageCount(googleBook.getVolumeInfo().getPageCount());
       book.setPublishedDate(googleBook.getVolumeInfo().getPublishedDate());
       book.setAverageRating(googleBook.getVolumeInfo().getAverageRating());
+      book.setPrice(googleBook.getVolumeInfo().getPrice());
     
       model.addAttribute("book", book);
       return "bookDetails";
@@ -88,6 +89,7 @@ public class BookController {
       book.setPageCount(googleBook.getVolumeInfo().getPageCount());
       book.setPublishedDate(googleBook.getVolumeInfo().getPublishedDate());
       book.setAverageRating(googleBook.getVolumeInfo().getAverageRating());
+      book.setPrice(googleBook.getVolumeInfo().getPrice());
     
       model.addAttribute("book", book);
       return "bookmDetails";

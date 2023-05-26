@@ -60,6 +60,21 @@
   .favorite-btn:hover {
     background-color: #0B5A8A;
   }
+  .add-to-cart-btn {
+    font-family: 'Euclid Circular B', sans-serif;
+    font-size: 32px;
+    background-color: #0E76BD;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #0B5A8A;
+  }
   .all-details{
     display: inline-block;
     position: absolute;

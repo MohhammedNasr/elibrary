@@ -37,14 +37,28 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Favorite> favorites;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Book> books = new ArrayList<>();
 
     @Fetch(FetchMode.SELECT)
     @OrderColumn(name = "LIST_INDEX")
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Borrow> borrow;
+    private Set<Cart> cart;
 
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Book> books = new ArrayList<>();
+
+  
+    @Fetch(FetchMode.SELECT)
+    @OrderColumn(name = "LIST_INDEX")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Borrow> borrow;  
+
+
+    
+    public void addtoCart(Cart cart)
+    {
+        this.cart.add(cart);
+    }
     public User() {
         this.role = "User";
     }

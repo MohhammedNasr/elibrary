@@ -78,3 +78,12 @@
 .dlt-btn:hover {
     background-color: #b0bdf5;
 }
+.cart-item {
+    width: calc(100% / 5);
+    display: inline-table;
+    vertical-align: top;
+    padding: 0 5px;
+    box-sizing: border-box;
+    margin-right: 10px;
+    border-radius: 5px;
+}

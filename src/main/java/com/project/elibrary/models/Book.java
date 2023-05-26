@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import com.project.elibrary.util.StringListConverter;
+import java.util.Objects;
 
 @Entity
 @Table(name = "books")
@@ -50,39 +51,42 @@ public class Book {
     private String publishedDate;
 
     @Column(name = "average_rating")
-    private Double averageRating;
+    private double averageRating;
 
     @OneToOne(mappedBy = "book",cascade = CascadeType.ALL)
     private Borrow borrowedBooks;
+
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_ID")
     private User user;
 
-    // Constructors, getters, and setters
-    public Book() {
 
+    @Column (name="Price")
+private Double price ;  
+
+    public Book() {
     }
 
-    public Book(String title, String description, List<String> authors, String thumbnailUrl) {
+    public Book(Long id, String title, String description, List<String> authors, String thumbnailUrl, Boolean availability, Boolean reviewed, Integer pageCount, String publishedDate, double averageRating, Borrow borrowedBooks, User user, Double price) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.authors = authors;
         this.thumbnailUrl = thumbnailUrl;
-        
-    }
-
-    public Boolean getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(Boolean availability) {
         this.availability = availability;
+        this.reviewed = reviewed;
+        this.pageCount = pageCount;
+        this.publishedDate = publishedDate;
+        this.averageRating = averageRating;
+        this.borrowedBooks = borrowedBooks;
+        this.user = user;
+        this.price = price;
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -90,7 +94,7 @@ public class Book {
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
@@ -98,7 +102,7 @@ public class Book {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -106,7 +110,7 @@ public class Book {
     }
 
     public List<String> getAuthors() {
-        return authors;
+        return this.authors;
     }
 
     public void setAuthors(List<String> authors) {
@@ -114,15 +118,39 @@ public class Book {
     }
 
     public String getThumbnailUrl() {
-        return thumbnailUrl;
+        return this.thumbnailUrl;
     }
 
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
 
+    public Boolean isAvailability() {
+        return this.availability;
+    }
+
+    public Boolean getAvailability() {
+        return this.availability;
+    }
+
+    public void setAvailability(Boolean availability) {
+        this.availability = availability;
+    }
+
+    public Boolean isReviewed() {
+        return this.reviewed;
+    }
+
+    public Boolean getReviewed() {
+        return this.reviewed;
+    }
+
+    public void setReviewed(Boolean reviewed) {
+        this.reviewed = reviewed;
+    }
+
     public Integer getPageCount() {
-        return pageCount;
+        return this.pageCount;
     }
 
     public void setPageCount(Integer pageCount) {
@@ -130,42 +158,111 @@ public class Book {
     }
 
     public String getPublishedDate() {
-        return publishedDate;
+        return this.publishedDate;
     }
 
     public void setPublishedDate(String publishedDate) {
         this.publishedDate = publishedDate;
     }
 
-    public Double getAverageRating() {
-        return averageRating;
+    public double getAverageRating() {
+        return this.averageRating;
     }
 
-    public void setAverageRating(Double averageRating) {
+    public void setAverageRating(double averageRating) {
         this.averageRating = averageRating;
     }
 
-    public Boolean getReviewed() {
-        return reviewed;
-    }
-
-    public void setReviewed(Boolean reviewed) {
-        this.reviewed = reviewed;
-    }
-
     public Borrow getBorrowedBooks() {
-        return borrowedBooks;
+        return this.borrowedBooks;
     }
-    
+
     public void setBorrowedBooks(Borrow borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
     }
 
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
-}
+
+    public Double getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Book id(Long id) {
+        setId(id);
+        return this;
+    }
+
+    public Book title(String title) {
+        setTitle(title);
+        return this;
+    }
+
+    public Book description(String description) {
+        setDescription(description);
+        return this;
+    }
+
+    public Book authors(List<String> authors) {
+        setAuthors(authors);
+        return this;
+    }
+
+    public Book thumbnailUrl(String thumbnailUrl) {
+        setThumbnailUrl(thumbnailUrl);
+        return this;
+    }
+
+    public Book availability(Boolean availability) {
+        setAvailability(availability);
+        return this;
+    }
+
+    public Book reviewed(Boolean reviewed) {
+        setReviewed(reviewed);
+        return this;
+    }
+
+    public Book pageCount(Integer pageCount) {
+        setPageCount(pageCount);
+        return this;
+    }
+
+    public Book publishedDate(String publishedDate) {
+        setPublishedDate(publishedDate);
+        return this;
+    }
+
+    public Book averageRating(double averageRating) {
+        setAverageRating(averageRating);
+        return this;
+    }
+
+    public Book borrowedBooks(Borrow borrowedBooks) {
+        setBorrowedBooks(borrowedBooks);
+        return this;
+    }
+
+    public Book user(User user) {
+        setUser(user);
+        return this;
+    }
+
+    public Book price(Double price) {
+        setPrice(price);
+        return this;
+    }
+
+
+    }
+
+

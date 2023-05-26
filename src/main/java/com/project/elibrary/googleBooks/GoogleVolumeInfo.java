@@ -12,6 +12,8 @@ public class GoogleVolumeInfo {
     private Integer pageCount;
     private String publishedDate;
     private Double averageRating;
+    private Double price; 
+    
     
     public String getTitle() {
         if(title == null || title == ""){
@@ -98,4 +100,15 @@ public class GoogleVolumeInfo {
     public void setAverageRating(Double averageRating) {
         this.averageRating = averageRating;
     }
+    public double getPrice() {
+        if(price== null || price == 0.0){
+            return 150.0;
+        }
+        else{
+            return price;
+        }
+    }
+  public void setPrice(Double price) {
+      this.price = price;
+  }
 }

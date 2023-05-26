@@ -69,6 +69,26 @@
      background-color: #121421;
      color: white;
  }
+ .add-to-cart-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 11px 20px;
+    background-color: white;
+    color: #121421;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #121421;
+    color: white;
+  }
+  
+  .favorite-btn, .add-to-cart-btn {
+    margin-right: 10px;
+  }
 
  .book-title-details {
      font-size: 30px;
