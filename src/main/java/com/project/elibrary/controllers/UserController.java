@@ -44,7 +44,13 @@ public class UserController {
     }
 
     @PostMapping("save-user")
-    public String saveUser(@ModelAttribute User user) {
+    public String saveUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+        String email = user.getEmail();
+        User userFinder = this.userRepo.findByEmail(email).orNull();
+        if (userFinder != null) {
+            redirectAttributes.addAttribute("error", "true");
+            return "redirect:/library";
+        }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         this.userRepo.save(user);
         return "redirect:/library/login";
@@ -67,6 +73,7 @@ public class UserController {
             redirectAttributes.addAttribute("error", "true");
             return "redirect:/library/login";
         }
+
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 user.getEmail(),
                 user.getPassword(),
