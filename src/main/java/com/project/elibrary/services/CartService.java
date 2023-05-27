@@ -1,10 +1,8 @@
 package com.project.elibrary.services;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.project.elibrary.models.Cart;
 import com.project.elibrary.models.User;
 import com.project.elibrary.repositories.CartRepository;
@@ -37,18 +35,11 @@ public class CartService {
         } else {
             return false; // Book is already in the cart
         }
-    
-    
+
+    }
+
+    public List<Cart> getAllCartItems(Long userId) {
+        return cartRepository.findByUser_Id(userId);
+    }
+
 }
-public List<Cart> getAllCartItems(Long userId) 
-{
-    return cartRepository.findByUser_Id(userId);
-}
-}
-/*else {
-            Cart existingCartItem = cartItems.get(0);
-            existingCartItem.setQuantity(existingCartItem.getQuantity() + 1);
-            existingCartItem.setTotalPrice(existingCartItem.getPrice().multiply(new BigDecimal(existingCartItem.getQuantity())));
-            cartRepository.save(existingCartItem);
-            return false; // Book is already in the cart
-        }    */

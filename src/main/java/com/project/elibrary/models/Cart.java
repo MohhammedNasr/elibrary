@@ -20,8 +20,6 @@ public class Cart {
     @Column(name = "title", nullable = false)
     private String bookName;
 
-    
-
     @Column(name = "thumbnail_url")
     private String thumbnailUrl;
     
@@ -46,7 +44,6 @@ public class Cart {
     User user, double price, int quantity, double totalPrice) {
         this.id = id;
         this.bookName = bookName;
-       
         this.thumbnailUrl = thumbnailUrl;
         this.user = user;
         this.price = price;
@@ -69,10 +66,6 @@ public class Cart {
     public void setBookName(String bookName) {
         this.bookName = bookName;
     }
-
-  
-
-   
 
     public String getThumbnailUrl() {
         return this.thumbnailUrl;
@@ -99,7 +92,11 @@ public class Cart {
     }
 
     public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+        this.totalPrice = this.quantity*this.price;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
     public Cart id(Long id) {
@@ -111,8 +108,6 @@ public class Cart {
         setBookName(bookName);
         return this;
     }
-
-   
 
     public Cart thumbnailUrl(String thumbnailUrl) {
         setThumbnailUrl(thumbnailUrl);

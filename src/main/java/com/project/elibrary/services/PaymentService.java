@@ -1,13 +1,10 @@
 package com.project.elibrary.services;
 
 import java.util.List;
-
-import org.apache.http.HttpEntity;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import com.project.elibrary.models.pay;
 
 @Service

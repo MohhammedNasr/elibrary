@@ -37,14 +37,12 @@ public class CartController
     }
 
     @GetMapping("/showCart")
-    public ModelAndView showCart(@AuthenticationPrincipal User user,Model model) {
+    public ModelAndView showCart(@AuthenticationPrincipal User user, Model model) {
         Long userID = user.getId();
         List<Cart> carts = cartService.getAllCartItems(userID);
-        ModelAndView mav =new ModelAndView("Cart"); 
-      
-        mav.addObject("cart",carts); 
-      return  mav ; 
-       
+        ModelAndView mav = new ModelAndView("Cart");
+        mav.addObject("cart", carts);
+        return mav;
     }
-   
+
 }
