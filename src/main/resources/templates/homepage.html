@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
- 
+
 <head>
 	<title>Library</title>
 	<link rel="stylesheet" type="text/css" href="/css/home-page.css">
@@ -8,37 +8,40 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
- 
+
 <body>
 	<div th:include="user-navbar :: user-navbar" th:with="activePage='home'" style="margin-bottom: 10px;"></div>
 	<div class="page-content">
 		<div class="lil-right">
 			<h2 class="book-section-title" style="margin-left: 10px; margin-top: 0px;">Discover </h2>
 			<form action="#" th:action="@{/books/search}" method="get" class="input-form" style="margin-left: 10px;">
-				<input class="input-box-search" type="text" id="query" name="query" required th:placeholder="'Book Name'" />
+				<input class="input-box-search" type="text" id="query" name="query" required
+					th:placeholder="'Book Name'" />
 				<button type="submit" class="search-button"><i style="font-size:24px;" class="fa">&#xf002;</i></button>
 			</form>
 			<section class="for-you-section">
 				<h2 class="for-you-title">For you</h2>
 				<div class="book-container">
 					<div th:each="book : ${books}">
-					<a href="" class="book-details">
-						<div class="book-box">
-							<img class="book-image" th:src="${book.thumbnailUrl}" alt="Book">
-							<div class="book-details">
-								<h3 class="book-title" th:text="${book.title}">Book Title</h3>
-								<p class="book-author" th:text="${book.authors}">Author</p>
-								<div class="book-info">
-									<span class="book-pages" th:text="${book.pageCount} + ' Pages'"> Pages</span>
-									<span class="book-rating" th:text="${book.averageRating} + ' Rating'"> Rating</span>
+						<a href="" class="book-details">
+							<div class="book-box">
+								<img class="book-image" th:src="${book.thumbnailUrl}" alt="Book">
+								<div class="book-details">
+									<h3 class="book-title" th:text="${book.title}">Book Title</h3>
+									<p class="book-author" th:text="${book.authors}">Author</p>
+									<div class="book-info">
+										<span class="book-pages" th:text="${book.pageCount} + ' Pages'"> Pages</span>
+										<span class="book-rating" th:text="${book.averageRating} + ' Rating'">
+											Rating</span>
+									</div>
 								</div>
 							</div>
-						</div>
-					</a>
+						</a>
 					</div>
 				</div>
 			</section>
-			<button class="close-button" style="display: none; position: absolute; top: 100px; right: 265px; z-index: 999;">Close</button>			
+			<button class="close-button"
+				style="display: none; position: absolute; top: 100px; right: 265px; z-index: 999;">Close</button>
 			<div id="book-details-container" style="display: none; background-color: #121421;"></div>
 
 			<section class="book-section">
@@ -52,27 +55,29 @@
 				</div>
 				<div class="book-row">
 					<a href="http://localhost:8070/books/mdetails?bookName=Strange%20the%20Dreamer" class="book-item">
-						<img class="book-cover" src="https://m.media-amazon.com/images/I/516+g2uZpEL.jpg"
-							alt="Book 1">
-						<h3 class="book-name">Strange the dreamer <br/> <br/> </h3>
+						<img class="book-cover" src="https://m.media-amazon.com/images/I/516+g2uZpEL.jpg" alt="Book 1">
+						<h3 class="book-name">Strange the dreamer <br /> <br /> </h3>
 						<p class="book-author">Laini Taylor</p>
 					</a>
-					<a href="http://localhost:8070/books/mdetails?bookName=As%20Long%20As%20the%20Lemon%20Trees%20Grow" class="book-item">
-						<img class="book-cover" src="https://m.media-amazon.com/images/I/91Xn1L32d7L._AC_UF1000,1000_QL80_.jpg"
+					<a href="http://localhost:8070/books/mdetails?bookName=As%20Long%20As%20the%20Lemon%20Trees%20Grow"
+						class="book-item">
+						<img class="book-cover"
+							src="https://m.media-amazon.com/images/I/91Xn1L32d7L._AC_UF1000,1000_QL80_.jpg"
 							alt="Book 2">
 						<h3 class="book-name">As long as the lemon trees grow</h3>
 						<p class="book-author">Zoulfa Katouh</p>
 					</a>
 					<a href="http://localhost:8070/books/mdetails?bookName=Piranesi" class="book-item">
-						<img class="book-cover" src="https://m.media-amazon.com/images/I/61ErYZhx0aL._AC_UF894,1000_QL80_.jpg"
-							alt="Book 2">
-						<h3 class="book-name">piranesi <br/> <br/> </h3>
+						<img class="book-cover"
+							src="https://m.media-amazon.com/images/I/61ErYZhx0aL._AC_UF894,1000_QL80_.jpg" alt="Book 2">
+						<h3 class="book-name">piranesi <br /> <br /> </h3>
 						<p class="book-author">Susanna Clarke</p>
 					</a>
 					<a href="http://localhost:8070/books/mdetails?bookName=Legendborn" class="book-item">
-						<img class="book-cover" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1598382979l/50892338.jpg"
+						<img class="book-cover"
+							src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1598382979l/50892338.jpg"
 							alt="Book 2">
-						<h3 class="book-name">Legendborn <br/> <br/> </h3>
+						<h3 class="book-name">Legendborn <br /> <br /> </h3>
 						<p class="book-author">Tracy Deonn</p>
 					</a>
 				</div>
@@ -107,68 +112,74 @@
 			</div>
 			<section class="book-section">
 				<div class="title-things-container">
-				<h2 class="book-section-title">CAN BE <br />INTERESTING <br />
-					<p class="desc-text"> Check this list of books, picked up <br /> by the webiste and choose <br />
-						something new!</p>
-				</h2>
-			</div>
+					<h2 class="book-section-title">CAN BE <br />INTERESTING <br />
+						<p class="desc-text"> Check this list of books, picked up <br /> by the webiste and choose
+							<br />
+							something new!
+						</p>
+					</h2>
+				</div>
 				<div class="book-row">
+					<a href="http://localhost:8070/books/mdetails?bookName=Skyward" class="book-item">
+						<img class="book-cover"
+							src="https://m.media-amazon.com/images/I/91WalCe0LyL._AC_UF1000,1000_QL80_.jpg"
+							alt="Book 2">
+						<h3 class="book-name">skyward</h3>
+						<p class="book-author">Brandon Sanderson</p>
+					</a>
 					<a href="http://localhost:8070/books/mdetails?bookName=Cytonic" class="book-item">
-						<img class="book-cover" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1622045953l/57571215.jpg"
+						<img class="book-cover"
+							src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1622045953l/57571215.jpg"
 							alt="Book 1">
 						<h3 class="book-name">Cytonic</h3>
 						<p class="book-author">Brandon Sanderson</p>
 					</a>
 					<a href="http://localhost:8070/books/mdetails?bookName=The%20Poppy%20War" class="book-item">
-						<img class="book-cover" src="https://m.media-amazon.com/images/I/71unFYkE-3L._AC_UF1000,1000_QL80_.jpg"
+						<img class="book-cover"
+							src="https://m.media-amazon.com/images/I/71unFYkE-3L._AC_UF1000,1000_QL80_.jpg"
 							alt="Book 2">
 						<h3 class="book-name">The Poppy War</h3>
 						<p class="book-author">R. F. Kuang</p>
 					</a>
-					<a href="http://localhost:8070/books/mdetails?bookName=Skyward" class="book-item">
-						<img class="book-cover" src="https://m.media-amazon.com/images/I/91WalCe0LyL._AC_UF1000,1000_QL80_.jpg"
-							alt="Book 2">
-						<h3 class="book-name">skyward</h3>
-						<p class="book-author">Brandon Sanderson</p>
+					<a href="http://localhost:8070/books/mdetails?bookName=The%20Dragon%20Republic" class="book-item">
+						<img class="book-cover" src="https://m.media-amazon.com/images/I/51dzhqHC4mL.jpg" alt="Book 2">
+						<h3 class="book-name">The Dragon Republic</h3>
+						<p class="book-author">R. F. Kuang</p>
 					</a>
-					<a href="http://localhost:8070/books/mdetails?bookName=Sand%20Cake" class="book-item">
-						<img class="book-cover" src="https://m.media-amazon.com/images/I/513e7-IwADL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg"
-							alt="Book 2">
-						<h3 class="book-name">Sand Cake</h3>
-						<p class="book-author">Frank Asch</p>
-					</a>
+
 				</div>
 			</section>
-			  <!-- Include the footer -->
-  			<div th:include="footer :: footer"></div>
+			<!-- Include the footer -->
+			<div th:include="footer :: footer"></div>
 </body>
+
 </html>
 
 <script>
-    $(document).ready(function() {
-        $(".book-details").click(function(event) {
-            event.preventDefault();
-            var bookName = $(this).find(".book-title").text();
-            $.get("/books/details?bookName=" + bookName, function(data) {
-                $("#book-details-container").html(data);
-                $("#book-details-container").show();
-                $(".close-button").show();
-            });
-        });
+	$(document).ready(function () {
+		$(".book-details").click(function (event) {
+			event.preventDefault();
+			var bookName = $(this).find(".book-title").text();
+			$.get("/books/details?bookName=" + bookName, function (data) {
+				$("#book-details-container").html(data);
+				$("#book-details-container").show();
+				$(".close-button").show();
+			});
+		});
 
-        $(".close-button").click(function(event) {
-            event.stopPropagation(); // Prevent click event from propagating to parent span
-            $("#book-details-container").hide();
-            $(".close-button").hide();
-        });
-    });
+		$(".close-button").click(function (event) {
+			event.stopPropagation(); // Prevent click event from propagating to parent span
+			$("#book-details-container").hide();
+			$(".close-button").hide();
+		});
+	});
 </script>
 <script>
 
 	var button_s = document.querySelectorAll(".MenuBox>ul>li");
 	var svg_s = document.querySelectorAll(".MenuBox>ul>li>svg");
 	var HoverBox_s = document.getElementsByClassName("HoverBox")[0];
- 
+
 	function clearTag(id) {
 		for (let item of svg_s) {
 			if (item == svg_s[id]) {
@@ -177,7 +188,7 @@
 			item.style.color = "#6e6c6c";
 		}
 	}
- 
+
 	function Action_s(Index, Top) {
 		HoverBox_s.style.top = Top;
 		HoverBox_s.style.animation = `Effect_${Index} 250ms 1`;
@@ -187,25 +198,25 @@
 	button_s[0].addEventListener("mouseover", function () {
 		Action_s(0, "20px");
 	});
- 
+
 	button_s[1].addEventListener("mouseover", function () {
 		Action_s(1, "87px");
 	});
- 
+
 	button_s[2].addEventListener("mouseover", function () {
 		Action_s(2, "154px");
 	});
- 
+
 	button_s[3].addEventListener("mouseover", function () {
 		Action_s(3, "221px");
 	});
- 
+
 	button_s[4].addEventListener("mouseover", function () {
 		Action_s(4, "288px");
 	});
- 
+
 	button_s[5].addEventListener("mouseover", function () {
 		Action_s(5, "355px");
- 
+
 	});
 </script>
