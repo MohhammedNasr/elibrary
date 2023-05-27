@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.elibrary.dao.UserDao;
+import com.project.elibrary.models.Book;
 import com.project.elibrary.models.User;
 import com.project.elibrary.repositories.UserRepo;
 import com.project.elibrary.services.AuthService;
+import com.project.elibrary.services.BookService;
 
 @Controller
 @RequestMapping("/library")
@@ -198,6 +200,20 @@ public class UserController {
             redirectAttributes.addFlashAttribute("error", "Failed to update your profile picture.");
         }
         return "redirect:/library/edit-profile";
+    }
+
+
+    @Autowired
+    private BookService bookService;
+    
+    // view list of donated books by userID
+    @GetMapping("/donated")
+    public ModelAndView showDonatedBooks(@AuthenticationPrincipal User user) {
+        Long userID = user.getId();
+        List<Book> books = bookService.getBooksByUserID(userID);
+        ModelAndView mav = new ModelAndView("donatedBooks");
+        mav.addObject("books", books);
+        return mav;
     }
 
 }

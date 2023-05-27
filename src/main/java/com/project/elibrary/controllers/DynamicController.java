@@ -1,6 +1,5 @@
 package com.project.elibrary.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,11 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import com.project.elibrary.dto.BookDTO;
-import com.project.elibrary.googleBooks.GoogleBook;
-import com.project.elibrary.googleBooks.GoogleBooksResponse;
 import com.project.elibrary.models.Book;
 import com.project.elibrary.models.Borrow;
 import com.project.elibrary.models.User;
@@ -27,49 +23,34 @@ import com.project.elibrary.services.BorrowService;
 @RequestMapping("/library")
 public class DynamicController {
 
-    @GetMapping("search")
-    public ModelAndView getBooks() {
-        ModelAndView mav = new ModelAndView("search.html");
-        return mav;
-    }
-
-    @Autowired
-    private RestTemplate restTemplate;
-    @GetMapping("/homepage")
-    public ModelAndView getHomePage(ModelAndView modelAndView) {
-        String url = "https://www.googleapis.com/books/v1/volumes?q={bookName}";
-        GoogleBooksResponse response = restTemplate.getForObject(url, GoogleBooksResponse.class, "curse");
-    
-        List<Book> books = new ArrayList<>();
-        
-        int limit = 4; // Limit the number of books to be shown
-        
-        for (int i = 0; i < response.getItems().size() && i < limit; i++) {
-            GoogleBook googleBook = response.getItems().get(i);
-            
-            Book book = new Book();
-            book.setTitle(googleBook.getVolumeInfo().getTitle());
-            book.setDescription(googleBook.getVolumeInfo().getDescription());
-            book.setAuthors(googleBook.getVolumeInfo().getAuthors());
-            book.setThumbnailUrl(googleBook.getVolumeInfo().getImageLinks().getThumbnail());
-            book.setPageCount(googleBook.getVolumeInfo().getPageCount());
-            book.setPublishedDate(googleBook.getVolumeInfo().getPublishedDate());
-            book.setAverageRating(googleBook.getVolumeInfo().getAverageRating());
-            
-            books.add(book);
-        }
-    
-        modelAndView.addObject("books", books);
-        modelAndView.setViewName("homepage.html");
-        return modelAndView;
-    }
-
     @Autowired
     private UserRepo userRepo;
 
     @Autowired
     private BookRepository bookRepo;
 
+    @Autowired
+    private BookService bookService;
+
+    @Autowired
+    private BorrowService borrowService;
+
+    //go to search page
+    @GetMapping("search")
+    public ModelAndView getBooks() {
+        ModelAndView mav = new ModelAndView("search.html");
+        return mav;
+    }
+
+    //go to home page thats showing books "curse"
+    @GetMapping("/homepage")
+    public String getHomePage(Model model) {
+        String bookName = "curse"; //books category that will be shown in homepage
+        bookService.homePageBooks(bookName, model);
+        return "homepage";
+    }
+
+    //go to admin home page
     @GetMapping("adminHomePage")
     public ModelAndView getAdminPage(@AuthenticationPrincipal User user) {
         ModelAndView mav = new ModelAndView("admin-home-page.html");
@@ -92,12 +73,6 @@ public class DynamicController {
         return "donate-books";
     }
 
-    @Autowired
-    private BookService bookService;
-
-    @Autowired
-    private BorrowService borrowService;
-
     // list of donated books that shows available approved by admin books for
     // borrowing
     @GetMapping("/donatedbooks")
@@ -108,6 +83,7 @@ public class DynamicController {
         return mav;
     }
 
+    //borrow page
     @PostMapping("/borrow")
     public String confirmBorrow(@RequestParam("bookId") Long bookId, Model model) {
         // Retrieve the book details based on the bookId
