@@ -22,16 +22,16 @@
 			<section class="for-you-section">
 				<h2 class="for-you-title">For you</h2>
 				<div class="book-container">
-					<div th:each="book : ${books}">
+					<div th:each="books : ${books}">
 						<a href="" class="book-details">
 							<div class="book-box">
-								<img class="book-image" th:src="${book.thumbnailUrl}" alt="Book">
+								<img class="book-image" th:src="${books.thumbnailUrl}" alt="Book">
 								<div class="book-details">
-									<h3 class="book-title" th:text="${book.title}">Book Title</h3>
-									<p class="book-author" th:text="${book.authors}">Author</p>
+									<h3 class="book-title" th:text="${books.title}">Book Title</h3>
+									<p class="book-author" th:text="${books.authors}">Author</p>
 									<div class="book-info">
-										<span class="book-pages" th:text="${book.pageCount} + ' Pages'"> Pages</span>
-										<span class="book-rating" th:text="${book.averageRating} + ' Rating'">
+										<span class="book-pages" th:text="${books.pageCount} + ' Pages'"> Pages</span>
+										<span class="book-rating" th:text="${books.averageRating} + ' Rating'">
 											Rating</span>
 									</div>
 								</div>
