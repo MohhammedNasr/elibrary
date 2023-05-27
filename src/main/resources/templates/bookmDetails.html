@@ -1,8 +1,6 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
   <title>Book Details</title>
   <link rel="stylesheet" type="text/css" href="/css/bookDetails.css">
   <link href="https://fonts.cdnfonts.com/css/euclid-circular-b" rel="stylesheet">
@@ -27,7 +25,7 @@
     <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image" name="book-image" id="book-image" />
     <div class="vertical-line"></div>
     <div class="all-details">
-     
+    
       <h2 name="title" id="title" th:text="${book.title}" class="book-title"></h2>
       <p name="authors" id="authors" class="book-authors p3p" th:text="${book.authors}"></p>
       <p class="book-description p3p" th:text="${book.description}"></p>
@@ -37,8 +35,7 @@
       <p name="price" id="price" th:text="${book.price}" class="price" >Price:</p>
       
       <button type="button" class="favorite-btn">Favorite</button>
-      <button type="button" class="add-to-cart-btn">add to cart</button>
-
+      <button type="submit" class="add-to-cart-btn">Add to Cart</button>
     </div>
   </div>
   <script>
@@ -79,7 +76,7 @@
         var header = getToken().header;
         $.ajax({
           type: "POST",
-          url: "/Cart/add",
+          url: "/cart/add",
           beforeSend: function(xhr) {
             xhr.setRequestHeader(header, token);
           },
@@ -98,9 +95,6 @@
       });
     });
      
-   
-
-
     $(document).ready(function() {
       var maxLength = 200;
       $('.book-description').each(function() {

@@ -23,6 +23,7 @@ import com.project.elibrary.models.User;
 import com.project.elibrary.repositories.UserRepo;
 import com.project.elibrary.services.AuthService;
 import com.project.elibrary.services.BookService;
+import com.project.elibrary.services.CartService;
 
 @Controller
 @RequestMapping("/library")
@@ -36,6 +37,9 @@ public class UserController {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private CartService cartService; 
 
     @GetMapping("")
     public ModelAndView getSignup() {
@@ -51,10 +55,10 @@ public class UserController {
         User userFinder = this.userRepo.findByEmail(email).orNull();
         if (userFinder != null) {
             redirectAttributes.addAttribute("error", "true");
-            return "redirect:/library";
-        }
+            return "redirect:/library"; }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        this.userRepo.save(user);
+       this.userRepo.save(user);
+        cartService.createCartForUser(user);//creates carts for new users 
         return "redirect:/library/login";
     }
 

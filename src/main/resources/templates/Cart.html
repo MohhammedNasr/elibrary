@@ -1,30 +1,125 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <title>Cart</title>
-    <link rel="stylesheet" href="/css/cart.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:inline="javascript">
+        function getToken() {
+            var token = /*[[${_csrf.token}]]*/ 'default';
+            var header = /*[[${_csrf.headerName}]]*/ 'default';
+            return {
+                token: token,
+                header: header
+            };
+        }
+    </script>
 </head>
 <body>
-    <h1>Cart</h1>
-    <table class="cart-table">
+    <h1>Your Cart</h1>
+    <table>
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Thumbnail</th>
                 <th>Price</th>
                 <th>Quantity</th>
-                <th>Thumbnail</th>
-               <th>Total Price</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="cartItem : ${cart}">
-                <td th:text="${cartItem.bookName}"></td>
+            <tr th:each="cartItem : ${cart.cartItems}">
+                <td th:text="${cartItem.title}"></td>
+                <td>
+                    <img th:src="${cartItem.thumbnailUrl}" alt="Thumbnail" width="50" height="50" />
+                </td>
                 <td th:text="${cartItem.price}"></td>
-                <td th:text="${cartItem.quantity}"></td>
-                <td><img th:src="${cartItem.thumbnailUrl}" alt="Thumbnail" /></td>
-                <td th:text="${cartItem.totalPrice}"></td>
-           </tr>
+                <td>
+                    <input type="number" min="1" th:value="${cartItem.quantity}" class="quantity-input">
+                </td>
+                <td>
+                    <button th:data-cartItemId="${cartItem.id}" class="update-btn">Update</button>
+                    <button th:data-cartItemId="${cartItem.id}" class="remove-btn">Remove</button> <!-- Added remove button -->
+                </td>
+            </tr>
         </tbody>
     </table>
+    
+    <div>
+        <h2>Total Price: <span th:text="${cart.totalPrice}"></span></h2>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $(".update-btn").click(function() {
+                var updateButton = $(this);
+                var cartItemId = updateButton.data("cartitemid");
+                var quantityInput = updateButton.closest("tr").find(".quantity-input");
+                var quantity = quantityInput.val();
+                var token = getToken().token;
+                var header = getToken().header;
+
+                if (quantity < 1) {
+                    alert("Quantity must be at least 1.");
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/cart/update",
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data: {
+                        cartItemId: cartItemId,
+                        quantity: quantity
+                    },
+                    success: function(response) {
+                        // Update the quantity on the page
+                        quantityInput.val(quantity);
+
+                        // Optional: Update the total price on the page if needed
+                        var totalPriceElement = $("h2 span");
+                        var newTotalPrice = response.totalPrice; // Assuming the server sends back the updated total price
+                        totalPriceElement.text(newTotalPrice);
+                    },
+                    error: function(xhr) {
+                        alert("Error updating quantity!");
+                    }
+                });
+            });
+
+            $(".remove-btn").click(function() {
+                var removeButton = $(this);
+                var cartItemId = removeButton.data("cartitemid");
+                var token = getToken().token;
+                var header = getToken().header;
+
+                if (confirm("Are you sure you want to remove this item from your cart?")) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/cart/remove",
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader(header, token);
+                        },
+                        data: {
+                            cartItemId: cartItemId
+                        },
+                        success: function(response) {
+                            // Remove the item's row from the table
+                            removeButton.closest("tr").remove();
+
+                            // Optional: Update the total price on the page if needed
+                            var totalPriceElement = $("h2 span");
+                            var newTotalPrice = response.totalPrice; // Assuming the server sends back the updated total price
+                            totalPriceElement.text(newTotalPrice);
+                        },
+                        error: function(xhr) {
+                            alert("Error removing item from cart!");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
