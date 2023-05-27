@@ -45,6 +45,22 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Borrow> borrow;
 
+   
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Cart> cart; 
+
+    public List<Cart> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<Cart> cart) {
+        this.cart = cart;
+    }
+
+    public void addToCart(Cart cart)
+    {
+        this.cart.add(cart);
+    }
     public User() {
         this.role = "User";
     }
