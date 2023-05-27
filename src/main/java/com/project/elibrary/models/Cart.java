@@ -1,4 +1,8 @@
 package com.project.elibrary.models;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,49 +10,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-@Entity
-@Table(name = "carts")
-public class Cart {
+import java.util.Objects;
 
+@Entity
+@Table(name="Carts")
+
+public class Cart
+ {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false)
-    private String bookName;
-
-    @Column(name = "thumbnail_url")
-    private String thumbnailUrl;
-    
-    @Column(name = "price", nullable = false)
-    private double price;
-
-    @Column(name = "quantity", nullable = false)
-    private int quantity;
-
-    @Column(name = "total_price", nullable = false)
-    private double totalPrice;  
-    
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_ID")
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "total_price", nullable = false)
+    private double totalPrice;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItems> cartItems;
 
     public Cart() {
     }
 
-    public Cart(Long id, String bookName,  String thumbnailUrl, 
-    User user, double price, int quantity, double totalPrice) {
+    public Cart(Long id, User user, double totalPrice, List<CartItems> cartItems) {
         this.id = id;
-        this.bookName = bookName;
-        this.thumbnailUrl = thumbnailUrl;
         this.user = user;
-        this.price = price;
-        this.quantity = quantity;
         this.totalPrice = totalPrice;
+        this.cartItems = cartItems;
     }
 
     public Long getId() {
@@ -59,58 +55,32 @@ public class Cart {
         this.id = id;
     }
 
-    public String getBookName() {
-        return this.bookName;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
-    }
-
-    public String getThumbnailUrl() {
-        return this.thumbnailUrl;
-    }
-
-    public void setThumbnailUrl(String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
-    }
-
-    public double getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getQuantity() {
-        return this.quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = this.quantity*this.price;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public double getTotalPrice() {
-        return totalPrice;
+        return this.totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public List<CartItems> getCartItems() {
+        return this.cartItems;
+    }
+
+    public void setCartItems(List<CartItems> cartItems) {
+        this.cartItems = cartItems;
     }
 
     public Cart id(Long id) {
         setId(id);
-        return this;
-    }
-
-    public Cart bookName(String bookName) {
-        setBookName(bookName);
-        return this;
-    }
-
-    public Cart thumbnailUrl(String thumbnailUrl) {
-        setThumbnailUrl(thumbnailUrl);
         return this;
     }
 
@@ -119,27 +89,18 @@ public class Cart {
         return this;
     }
 
-    public Cart price(double price) {
-        setPrice(price);
-        return this;
-    }
-
-    public Cart quantity(int quantity) {
-        setQuantity(quantity);
-        return this;
-    }
-
     public Cart totalPrice(double totalPrice) {
         setTotalPrice(totalPrice);
         return this;
     }
 
-    public User getUser() {
-        return user;
+    public Cart cartItems(List<CartItems> cartItems) {
+        setCartItems(cartItems);
+        return this;
     }
 
-    public void setUser(User user) {
-        this.user = user;
     }
 
-}
+
+    
+
