@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Borrowed Books</title>
+    <link rel="stylesheet" type="text/css" href="/css/borrowed-books.css" />
+    <link rel="stylesheet" type="text/css" href="/css/user-navbar.css">
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Borrowed Books</title>
-  <link rel="stylesheet" type="text/css" href="/css/borrowed-books.css" />
-</head>
-
-<body>
-  <a th:href="@{/library/homepage}">homepage</a>
-  <div class="borrowed-books-container">
-    <h1 class="borrowed-books-title">Borrowed Books</h1>
-    <table class="borrowed-books-table">
-      <thead>
-        <tr>
-          <th>Book Name</th>
-          <th>Image</th>
-          <th>Authors</th>
-          <th>Description</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="book : ${books}">
-          <td th:text="${book.book.title}"></td>
-          <td><img th:src="${book.book.thumbnailUrl}" alt="Book Image" /></td>
-          <td>
-            <ul>
-              <li th:each="author : ${book.book.authors}" th:text="${author}"></li>
-            </ul>
-          </td>
-          <td th:text="${book.book.description}"></td>
-          <td th:text="${book.startDate}"></td>
-          <td th:text="${book.endDate}"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</body>
-
+  <div th:include="user-navbar :: user-navbar"  style="margin-bottom: 10px;"></div>
+  <body>
+    <div class="borrowed-books-container">
+      <h1 class="borrowed-books-title">Borrowed Books</h1>
+      <div class="card-container">
+        <div th:each="book : ${books}" class="card">
+          <div class="card-header">
+            <h2 class="book-title" th:text="${book.book.title}"></h2>
+          </div>
+          <div class="card-body">
+            <div class="book-image">
+              <img th:src="${book.book.thumbnailUrl}" alt="Book Image" onerror="this.src='https://i.pinimg.com/736x/55/b1/b5/55b1b5dbf1488a572f8aa37b0388d321--book-cover-design-template-design-templates.jpg'" />
+            </div>
+            <div class="book-details">
+              <ul class="author-list">
+                <li th:each="author : ${book.book.authors}" th:text="${author}"></li>
+              </ul>
+              <p class="book-description" th:text="${book.book.description}"></p>
+              <div class="date-container">
+                <div class="start-date-container">
+                  <div class="date-label">Start Date:</div>
+                  <p class="start-date" th:text="${book.startDate}"></p>
+                </div>
+                <div class="end-date-container">
+                  <div class="date-label">End Date:</div>
+                  <p class="end-date" th:text="${book.endDate}"></p>
+                </div>
+              </div>
+            </div>              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

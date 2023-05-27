@@ -4,7 +4,6 @@
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
-    height: 270px;
     margin-bottom: 20px;
     scroll-behavior: smooth;
     margin-top: 30px;
@@ -20,12 +19,14 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    height: 220px;
+    height: 260px;
     margin-bottom: 10px;
     border-radius: 5px;
+    max-width: 200px;
+    min-width: 200px;
     border: none;
     overflow: hidden;
-    background-color: #f1c6c6;
+    background-color: #a3c3e5;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -76,5 +77,5 @@
 }
 
 .dlt-btn:hover {
-    background-color: #b0bdf5;
+    background-color: #f5b0b0;
 }

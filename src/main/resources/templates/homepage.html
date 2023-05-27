@@ -1,28 +1,16 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
  
 <head>
-	<meta charset="UTF-8">
 	<title>Library</title>
 	<link rel="stylesheet" type="text/css" href="/css/home-page.css">
 	<link rel="stylesheet" type="text/css" href="/css/footer.css">
-	<!-- <link rel="stylesheet" type="text/css" href="/css/footer.css"> navBar css --> 
+	<link rel="stylesheet" type="text/css" href="/css/user-navbar.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
  
 <body>
-	  <!-- Include the navigation bar -->
-	  <!-- <div th:include="navbar :: navbar" th:with="activePage='donatedBooks'" style="margin-bottom: 100px;"></div> -->
-	  
-	<div class="navbar">
-		<a href="#" class="active">Home</a>
-		<a href="#">Books</a>
-		<a href="#">Authors</a>
-		<a href="#">Categories</a>
-		<a href="#">About</a>
-		<a href="#">Contact</a>
-	</div>
-
+	<div th:include="user-navbar :: user-navbar" th:with="activePage='home'" style="margin-bottom: 10px;"></div>
 	<div class="page-content">
 		<div class="lil-right">
 			<h2 class="book-section-title" style="margin-left: 10px; margin-top: 0px;">Discover </h2>
@@ -33,93 +21,59 @@
 			<section class="for-you-section">
 				<h2 class="for-you-title">For you</h2>
 				<div class="book-container">
-					<a href="#" class="book-box">
-						<img class="book-image" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
-							alt="Book 1">
-						<div class="book-details">
-							<h3 class="book-title">Book 1</h3>
-							<p class="book-author">Author 1</p>
-							<div class="book-info">
-								<span class="book-pages">200 Pages</span>
-								<span class="book-reviews">15 Reviews</span>
-								<span class="book-rating">4.5/5 Rating</span>
+					<div th:each="book : ${books}">
+					<a href="" class="book-details">
+						<div class="book-box">
+							<img class="book-image" th:src="${book.thumbnailUrl}" alt="Book">
+							<div class="book-details">
+								<h3 class="book-title" th:text="${book.title}">Book Title</h3>
+								<p class="book-author" th:text="${book.authors}">Author</p>
+								<div class="book-info">
+									<span class="book-pages" th:text="${book.pageCount} + ' Pages'"> Pages</span>
+									<span class="book-rating" th:text="${book.averageRating} + ' Rating'"> Rating</span>
+								</div>
 							</div>
 						</div>
 					</a>
-					<a href="#" class="book-box">
-						<img class="book-image" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
-							alt="Book 2">
-						<div class="book-details">
-							<h3 class="book-title">Book 2</h3>
-							<p class="book-author">Author 2</p>
-							<div class="book-info">
-								<span class="book-pages">300 Pages</span>
-								<span class="book-reviews">20 Reviews</span>
-								<span class="book-rating">4.8/5 Rating</span>
-							</div>
-						</div>
-					</a>
-					<a href="#" class="book-box">
-						<img class="book-image" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
-							alt="Book 2">
-						<div class="book-details">
-							<h3 class="book-title">Book 2</h3>
-							<p class="book-author">Author 2</p>
-							<div class="book-info">
-								<span class="book-pages">300 Pages</span>
-								<span class="book-reviews">20 Reviews</span>
-								<span class="book-rating">4.8/5 Rating</span>
-							</div>
-						</div>
-					</a>
-					<a href="#" class="book-box">
-						<img class="book-image" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
-							alt="Book 2">
-						<div class="book-details">
-							<h3 class="book-title">Book 2</h3>
-							<p class="book-author">Author 2</p>
-							<div class="book-info">
-								<span class="book-pages">300 Pages</span>
-								<span class="book-reviews">20 Reviews</span>
-								<span class="book-rating">4.8/5 Rating</span>
-							</div>
-						</div>
-					</a>
+					</div>
 				</div>
 			</section>
- 
+			<button class="close-button" style="display: none; position: absolute; top: 100px; right: 265px; z-index: 999;">Close</button>			
+			<div id="book-details-container" style="display: none; background-color: #121421;"></div>
+
 			<section class="book-section">
 				<div class="title-things-container">
 					<h2 class="book-section-title">POPULAR <br />BESTSELLERS <br />
 						<p class="desc-text"> We picked up the most popular <br /> books for you, based on your taste.
 						</p>
 					</h2>
-					<button class="explore-button">Explore More!</button>
+					<a href="http://localhost:8070/books/search?query=fiction" class="explore-button">Explore More!</a>
+
 				</div>
 				<div class="book-row">
-					<a href="#" class="book-item">
-						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+					<a href="http://localhost:8070/books/mdetails?bookName=Strange%20the%20Dreamer" class="book-item">
+						<img class="book-cover" src="https://m.media-amazon.com/images/I/516+g2uZpEL.jpg"
 							alt="Book 1">
-						<h3 class="book-name">Book 1</h3>
-						<p class="book-author">Author 1</p>
+						<h3 class="book-name">Strange the dreamer <br/> <br/> </h3>
+						<p class="book-author">Laini Taylor</p>
 					</a>
-					<a href="#" class="book-item">
-						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+					<a href="http://localhost:8070/books/mdetails?bookName=As%20Long%20As%20the%20Lemon%20Trees%20Grow" class="book-item">
+						<img class="book-cover" src="https://m.media-amazon.com/images/I/91Xn1L32d7L._AC_UF1000,1000_QL80_.jpg"
 							alt="Book 2">
-						<h3 class="book-name">Book 2</h3>
-						<p class="book-author">Author 2</p>
+						<h3 class="book-name">As long as the lemon trees grow</h3>
+						<p class="book-author">Zoulfa Katouh</p>
 					</a>
-					<a href="#" class="book-item">
-						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+					<a href="http://localhost:8070/books/mdetails?bookName=Piranesi" class="book-item">
+						<img class="book-cover" src="https://m.media-amazon.com/images/I/61ErYZhx0aL._AC_UF894,1000_QL80_.jpg"
 							alt="Book 2">
-						<h3 class="book-name">Book 2</h3>
-						<p class="book-author">Author 2</p>
+						<h3 class="book-name">piranesi <br/> <br/> </h3>
+						<p class="book-author">Susanna Clarke</p>
 					</a>
-					<a href="#" class="book-item">
-						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+					<a href="http://localhost:8070/books/mdetails?bookName=Legendborn" class="book-item">
+						<img class="book-cover" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1598382979l/50892338.jpg"
 							alt="Book 2">
-						<h3 class="book-name">Book 2</h3>
-						<p class="book-author">Author 2</p>
+						<h3 class="book-name">Legendborn <br/> <br/> </h3>
+						<p class="book-author">Tracy Deonn</p>
 					</a>
 				</div>
 			</section>
@@ -148,7 +102,7 @@
 					<h1>Borrow Now</h1>
 					<p>You can borrow your books for free!</p>
 					<small>You pick the return date</small> <br />
-					<button class="borrow-button">Borrow Now!</button>
+					<a href="http://localhost:8070/library/donatedbooks" class="borrow-button">Borrow Now!</a>
 				</div>
 			</div>
 			<section class="book-section">
@@ -159,39 +113,59 @@
 				</h2>
 			</div>
 				<div class="book-row">
-					<a href="#" class="book-item">
-						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+					<a href="http://localhost:8070/books/mdetails?bookName=Cytonic" class="book-item">
+						<img class="book-cover" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1622045953l/57571215.jpg"
 							alt="Book 1">
-						<h3 class="book-name">Book 1</h3>
-						<p class="book-author">Author 1</p>
+						<h3 class="book-name">Cytonic</h3>
+						<p class="book-author">Brandon Sanderson</p>
 					</a>
-					<a href="#" class="book-item">
-						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+					<a href="http://localhost:8070/books/mdetails?bookName=The%20Poppy%20War" class="book-item">
+						<img class="book-cover" src="https://m.media-amazon.com/images/I/71unFYkE-3L._AC_UF1000,1000_QL80_.jpg"
 							alt="Book 2">
-						<h3 class="book-name">Book 2</h3>
-						<p class="book-author">Author 2</p>
+						<h3 class="book-name">The Poppy War</h3>
+						<p class="book-author">R. F. Kuang</p>
 					</a>
-					<a href="#" class="book-item">
-						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+					<a href="http://localhost:8070/books/mdetails?bookName=Skyward" class="book-item">
+						<img class="book-cover" src="https://m.media-amazon.com/images/I/91WalCe0LyL._AC_UF1000,1000_QL80_.jpg"
 							alt="Book 2">
-						<h3 class="book-name">Book 2</h3>
-						<p class="book-author">Author 2</p>
+						<h3 class="book-name">skyward</h3>
+						<p class="book-author">Brandon Sanderson</p>
 					</a>
-					<a href="#" class="book-item">
-						<img class="book-cover" src="https://edit.org/images/cat/book-covers-big-2019101610.jpg"
+					<a href="http://localhost:8070/books/mdetails?bookName=Sand%20Cake" class="book-item">
+						<img class="book-cover" src="https://m.media-amazon.com/images/I/513e7-IwADL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg"
 							alt="Book 2">
-						<h3 class="book-name">Book 2</h3>
-						<p class="book-author">Author 2</p>
+						<h3 class="book-name">Sand Cake</h3>
+						<p class="book-author">Frank Asch</p>
 					</a>
 				</div>
 			</section>
-
 			  <!-- Include the footer -->
   			<div th:include="footer :: footer"></div>
 </body>
 </html>
 
-<script>var button_s = document.querySelectorAll(".MenuBox>ul>li");
+<script>
+    $(document).ready(function() {
+        $(".book-details").click(function(event) {
+            event.preventDefault();
+            var bookName = $(this).find(".book-title").text();
+            $.get("/books/details?bookName=" + bookName, function(data) {
+                $("#book-details-container").html(data);
+                $("#book-details-container").show();
+                $(".close-button").show();
+            });
+        });
+
+        $(".close-button").click(function(event) {
+            event.stopPropagation(); // Prevent click event from propagating to parent span
+            $("#book-details-container").hide();
+            $(".close-button").hide();
+        });
+    });
+</script>
+<script>
+
+	var button_s = document.querySelectorAll(".MenuBox>ul>li");
 	var svg_s = document.querySelectorAll(".MenuBox>ul>li>svg");
 	var HoverBox_s = document.getElementsByClassName("HoverBox")[0];
  
@@ -233,4 +207,5 @@
 	button_s[5].addEventListener("mouseover", function () {
 		Action_s(5, "355px");
  
-	});</script>
+	});
+</script>
