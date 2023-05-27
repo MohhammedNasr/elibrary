@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
 import com.project.elibrary.models.Cart;
+import com.project.elibrary.models.CartItems;
 import com.project.elibrary.models.User;
+import com.project.elibrary.repositories.CartRepository;
 import com.project.elibrary.services.CartService;
 
 @Controller
@@ -23,26 +25,18 @@ public class CartController
     @Autowired
     private CartService cartService;
 
-    @PostMapping("/add")
-    public ResponseEntity<String> addToCart(@RequestParam("bookName") String bookName,
-            @RequestParam("image") String image,
-            @RequestParam("price") double price,
-            @AuthenticationPrincipal User user) {
-        boolean bookAdded = cartService.addToCart(bookName, image, user, price);
-        if (bookAdded) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.badRequest().body("Book is already in the cart.");
-        }
-    }
+   
 
-    @GetMapping("/showCart")
+    @GetMapping("/show")
     public ModelAndView showCart(@AuthenticationPrincipal User user, Model model) {
-        Long userID = user.getId();
-        List<Cart> carts = cartService.getAllCartItems(userID);
-        ModelAndView mav = new ModelAndView("Cart");
-        mav.addObject("cart", carts);
-        return mav;
+        Cart cart = cartService.getCartForUser(user.getId());
+
+        List<CartItems> cartItems = cart.getCartItems();
+     
+        ModelAndView mav = new ModelAndView("Cart");  
+        mav.addObject("cartItems", cartItems);
+     
+        return mav;     
     }
 
 }
