@@ -49,7 +49,7 @@ public class DynamicController {
         long donatedBooksCount = bookRepo.count();
         String username = user.getUsername();
         String profilePicture = user.getProfilePic();
-        //passing registered user count and donated books count
+        // passing registered user count and donated books count
         mav.addObject("userCount", userCount);
         mav.addObject("donatedBooksCount", donatedBooksCount);
         mav.addObject("username", username);
@@ -57,7 +57,7 @@ public class DynamicController {
         return mav;
     }
 
-    //open donating form to donate a book
+    // open donating form to donate a book
     @GetMapping("/donate")
     public String getDonateForm(Model model) {
         model.addAttribute("book", new BookDTO());
@@ -70,7 +70,8 @@ public class DynamicController {
     @Autowired
     private BorrowService borrowService;
 
-    //list of donated books that shows available approved by admin books for borrowing
+    // list of donated books that shows available approved by admin books for
+    // borrowing
     @GetMapping("/donatedbooks")
     public ModelAndView getDonatedBooksList(Model model) {
         List<Book> books = bookService.getReviewedBooks();
@@ -78,7 +79,8 @@ public class DynamicController {
         mav.addObject("books", books);
         return mav;
     }
-   @PostMapping("/borrow")
+
+    @PostMapping("/borrow")
     public String confirmBorrow(@RequestParam("bookId") Long bookId, Model model) {
         // Retrieve the book details based on the bookId
         Book book = bookService.getBookById(bookId);
@@ -89,7 +91,7 @@ public class DynamicController {
         return "borrow-details";
     }
 
-    //view list of borrowed books
+    // view list of borrowed books
     @GetMapping("/borrowed")
     public ModelAndView showBooks(@AuthenticationPrincipal User user) {
         Long userID = user.getId();
@@ -98,9 +100,9 @@ public class DynamicController {
         mav.addObject("books", books);
         return mav;
     }
-    @Autowired 
+
+    @Autowired
     private PaymentService paymentService;
-    @GetMapping("/pay")
-    
+    // @GetMapping("/pay")
 
 }
