@@ -20,18 +20,25 @@
 </head>
 
 <body class="background-details">
+ 
   <h1 class="title-name">Book details</h1>
   <div class="book-details">
+    
     <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image" name="book-image" id="book-image" />
     <div class="vertical-line"></div>
     <div class="all-details">
+     
       <h2 name="title" id="title" th:text="${book.title}" class="book-title"></h2>
       <p name="authors" id="authors" class="book-authors p3p" th:text="${book.authors}"></p>
       <p class="book-description p3p" th:text="${book.description}"></p>
       <p class="book-page-count p3p" th:text="'Page Count: ' + ${book.pageCount}"></p>
       <p class="book-published-date p3p" th:text="'Published Date: ' + ${book.publishedDate}"></p>
       <p class="book-average-rating p3p" th:text="'Average Rating: ' + ${book.averageRating}"></p>
+      <p name="price" id="price" th:text="${book.price}" class="price" >Price:</p>
+      
       <button type="button" class="favorite-btn">Favorite</button>
+      <button type="button" class="add-to-cart-btn">add to cart</button>
+
     </div>
   </div>
   <script>
@@ -62,6 +69,35 @@
         });
       });
     });  
+
+    $(document).ready(function () {
+      $(".add-to-cart-btn").click(function () {
+        var bookTitle = $(this).siblings("#title").text();
+        var bookImage = $(this).closest(".book-details").find("#book-image").attr("src");
+        var bookPrice = $(this).siblings("#price").text(); // Retrieve the price from the element
+        var token = getToken().token;
+        var header = getToken().header;
+        $.ajax({
+          type: "POST",
+          url: "/Cart/add",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          data: {
+            bookName: bookTitle,
+            image: bookImage,
+            price: bookPrice // Send the price in the request
+          },
+          success: function (response) {
+            alert("Book added to cart!");
+          },
+          error: function (xhr) {
+            alert("Book added to cart!");
+          }
+        });
+      });
+    });
+     
    
 
 
