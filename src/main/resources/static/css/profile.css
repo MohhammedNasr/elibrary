@@ -67,21 +67,22 @@ body {
     justify-content: flex-end;
     align-items: flex-start;
     flex-wrap: wrap;
+    margin-left: 40px;
 }
 .edit-button {
-    width: 8rem;
-    height: 3rem;
-    background-color: #0d0c22;
+    width: 2rem;
+    height: 2rem;
+    background-color: #0d0c2200;
     border-radius: 27px;
-    color: #f3f3f3;
+    color: #0d0c22;
     font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
     border: none;
     outline: none;
     cursor: pointer;
     margin-right: 400px;
 }
 
-.edit-button,
 .donated-button,
 .borrow-button {
     width: 6rem;

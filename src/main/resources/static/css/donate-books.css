@@ -1,168 +1,79 @@
+/* CSS for Donate book form */
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('data:image/svg+xml,<svg id="visual" viewBox="0 0 960 540" width="960" height="540" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><rect x="0" y="0" width="960" height="540" fill="%23eeeeee"></rect><defs><linearGradient id="grad1_0" x1="43.8%" y1="0%" x2="100%" y2="100%"><stop offset="14.444444444444446%" stop-color="%233c81fa" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%233c81fa" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_1" x1="43.8%" y1="0%" x2="100%" y2="100%"><stop offset="14.444444444444446%" stop-color="%233c81fa" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%23668ff9" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_2" x1="43.8%" y1="0%" x2="100%" y2="100%"><stop offset="14.444444444444446%" stop-color="%23849ef8" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%23668ff9" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_3" x1="43.8%" y1="0%" x2="100%" y2="100%"><stop offset="14.444444444444446%" stop-color="%23849ef8" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%239dadf6" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_4" x1="43.8%" y1="0%" x2="100%" y2="100%"><stop offset="14.444444444444446%" stop-color="%23b3bdf4" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%239dadf6" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_5" x1="43.8%" y1="0%" x2="100%" y2="100%"><stop offset="14.444444444444446%" stop-color="%23b3bdf4" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%23c8cdf3" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_6" x1="43.8%" y1="0%" x2="100%" y2="100%"><stop offset="14.444444444444446%" stop-color="%23dbddf0" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%23c8cdf3" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_7" x1="43.8%" y1="0%" x2="100%" y2="100%"><stop offset="14.444444444444446%" stop-color="%23dbddf0" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%23eeeeee" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_0" x1="0%" y1="0%" x2="56.3%" y2="100%"><stop offset="14.444444444444446%" stop-color="%233c81fa" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%233c81fa" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_1" x1="0%" y1="0%" x2="56.3%" y2="100%"><stop offset="14.444444444444446%" stop-color="%23668ff9" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%233c81fa" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_2" x1="0%" y1="0%" x2="56.3%" y2="100%"><stop offset="14.444444444444446%" stop-color="%23668ff9" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%23849ef8" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_3" x1="0%" y1="0%" x2="56.3%" y2="100%"><stop offset="14.444444444444446%" stop-color="%239dadf6" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%23849ef8" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_4" x1="0%" y1="0%" x2="56.3%" y2="100%"><stop offset="14.444444444444446%" stop-color="%239dadf6" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%23b3bdf4" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_5" x1="0%" y1="0%" x2="56.3%" y2="100%"><stop offset="14.444444444444446%" stop-color="%23c8cdf3" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%23b3bdf4" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_6" x1="0%" y1="0%" x2="56.3%" y2="100%"><stop offset="14.444444444444446%" stop-color="%23c8cdf3" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%23dbddf0" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_7" x1="0%" y1="0%" x2="56.3%" y2="100%"><stop offset="14.444444444444446%" stop-color="%23eeeeee" stop-opacity="1"></stop><stop offset="85.55555555555554%" stop-color="%23dbddf0" stop-opacity="1"></stop></linearGradient></defs><g transform="translate(960, 0)"><path d="M0 486C-68.7 484.6 -137.3 483.2 -186 449C-234.6 414.8 -263.3 347.8 -297.7 297.7C-332.1 247.6 -372.3 214.4 -404.7 167.6C-437 120.8 -461.5 60.4 -486 0L0 0Z" fill="%23e5e6ef"></path><path d="M0 425.3C-60.1 424 -120.2 422.8 -162.7 392.9C-205.3 363 -230.4 304.3 -260.5 260.5C-290.6 216.6 -325.8 187.6 -354.1 146.7C-382.4 105.7 -403.8 52.9 -425.2 0L0 0Z" fill="%23d1d5f2"></path><path d="M0 364.5C-51.5 363.5 -103 362.4 -139.5 336.8C-176 311.1 -197.5 260.8 -223.3 223.3C-249.1 185.7 -279.2 160.8 -303.5 125.7C-327.8 90.6 -346.1 45.3 -364.5 0L0 0Z" fill="%23bdc5f4"></path><path d="M0 303.8C-42.9 302.9 -85.8 302 -116.2 280.6C-146.6 259.3 -164.5 217.4 -186.1 186.1C-207.6 154.7 -232.7 134 -252.9 104.8C-273.1 75.5 -288.4 37.8 -303.7 0L0 0Z" fill="%23a8b5f5"></path><path d="M0 243C-34.3 242.3 -68.7 241.6 -93 224.5C-117.3 207.4 -131.6 173.9 -148.8 148.8C-166.1 123.8 -186.2 107.2 -202.3 83.8C-218.5 60.4 -230.8 30.2 -243 0L0 0Z" fill="%2390a6f7"></path><path d="M0 182.3C-25.7 181.7 -51.5 181.2 -69.7 168.4C-88 155.6 -98.7 130.4 -111.6 111.6C-124.5 92.8 -139.6 80.4 -151.7 62.9C-163.9 45.3 -173.1 22.7 -182.2 0L0 0Z" fill="%237697f8"></path><path d="M0 121.5C-17.2 121.2 -34.3 120.8 -46.5 112.3C-58.7 103.7 -65.8 86.9 -74.4 74.4C-83 61.9 -93.1 53.6 -101.2 41.9C-109.3 30.2 -115.4 15.1 -121.5 0L0 0Z" fill="%235488f9"></path><path d="M0 60.8C-8.6 60.6 -17.2 60.4 -23.2 56.1C-29.3 51.9 -32.9 43.5 -37.2 37.2C-41.5 30.9 -46.5 26.8 -50.6 21C-54.6 15.1 -57.7 7.6 -60.7 0L0 0Z" fill="%233c81fa"></path></g><g transform="translate(0, 540)"><path d="M0 -486C56.8 -464 113.6 -441.9 174.9 -422.2C236.1 -402.5 301.8 -385.1 343.7 -343.7C385.5 -302.2 403.4 -236.6 423.1 -175.3C442.9 -114 464.4 -57 486 0L0 0Z" fill="%23e5e6ef"></path><path d="M0 -425.2C49.7 -406 99.4 -386.7 153 -369.4C206.6 -352.2 264.1 -337 300.7 -300.7C337.3 -264.4 353 -207 370.2 -153.4C387.5 -99.7 406.4 -49.9 425.3 0L0 0Z" fill="%23d1d5f2"></path><path d="M0 -364.5C42.6 -348 85.2 -331.4 131.2 -316.7C177.1 -301.9 226.4 -288.9 257.7 -257.7C289.1 -226.6 302.5 -177.4 317.4 -131.5C332.2 -85.5 348.3 -42.7 364.5 0L0 0Z" fill="%23bdc5f4"></path><path d="M0 -303.7C35.5 -290 71 -276.2 109.3 -263.9C147.6 -251.6 188.7 -240.7 214.8 -214.8C240.9 -188.9 252.1 -147.9 264.5 -109.5C276.8 -71.2 290.3 -35.6 303.8 0L0 0Z" fill="%23a8b5f5"></path><path d="M0 -243C28.4 -232 56.8 -221 87.4 -211.1C118.1 -201.3 150.9 -192.6 171.8 -171.8C192.7 -151.1 201.7 -118.3 211.6 -87.6C221.4 -57 232.2 -28.5 243 0L0 0Z" fill="%2390a6f7"></path><path d="M0 -182.2C21.3 -174 42.6 -165.7 65.6 -158.3C88.6 -150.9 113.2 -144.4 128.9 -128.9C144.5 -113.3 151.3 -88.7 158.7 -65.7C166.1 -42.7 174.2 -21.4 182.3 0L0 0Z" fill="%237697f8"></path><path d="M0 -121.5C14.2 -116 28.4 -110.5 43.7 -105.6C59 -100.6 75.5 -96.3 85.9 -85.9C96.4 -75.5 100.8 -59.1 105.8 -43.8C110.7 -28.5 116.1 -14.2 121.5 0L0 0Z" fill="%235488f9"></path><path d="M0 -60.7C7.1 -58 14.2 -55.2 21.9 -52.8C29.5 -50.3 37.7 -48.1 43 -43C48.2 -37.8 50.4 -29.6 52.9 -21.9C55.4 -14.2 58.1 -7.1 60.8 0L0 0Z" fill="%233c81fa"></path></g></svg>');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.donate-bckgrnd {
+    background-image: url('data:image/svg+xml,<svg id="visual" viewBox="0 0 900 600" width="900" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><rect x="0" y="0" width="900" height="600" fill="%23ffffff"></rect><defs><linearGradient id="grad1_0" x1="33.3%" y1="0%" x2="100%" y2="100%"><stop offset="20%" stop-color="%230083ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%230083ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_1" x1="33.3%" y1="0%" x2="100%" y2="100%"><stop offset="20%" stop-color="%230083ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%235893ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_2" x1="33.3%" y1="0%" x2="100%" y2="100%"><stop offset="20%" stop-color="%237ea4ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%235893ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_3" x1="33.3%" y1="0%" x2="100%" y2="100%"><stop offset="20%" stop-color="%237ea4ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%239db5ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_4" x1="33.3%" y1="0%" x2="100%" y2="100%"><stop offset="20%" stop-color="%23b8c7ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%239db5ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_5" x1="33.3%" y1="0%" x2="100%" y2="100%"><stop offset="20%" stop-color="%23b8c7ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%23d1d9ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_6" x1="33.3%" y1="0%" x2="100%" y2="100%"><stop offset="20%" stop-color="%23e8ecff" stop-opacity="1"></stop><stop offset="80%" stop-color="%23d1d9ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad1_7" x1="33.3%" y1="0%" x2="100%" y2="100%"><stop offset="20%" stop-color="%23e8ecff" stop-opacity="1"></stop><stop offset="80%" stop-color="%23ffffff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_0" x1="0%" y1="0%" x2="66.7%" y2="100%"><stop offset="20%" stop-color="%230083ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%230083ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_1" x1="0%" y1="0%" x2="66.7%" y2="100%"><stop offset="20%" stop-color="%235893ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%230083ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_2" x1="0%" y1="0%" x2="66.7%" y2="100%"><stop offset="20%" stop-color="%235893ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%237ea4ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_3" x1="0%" y1="0%" x2="66.7%" y2="100%"><stop offset="20%" stop-color="%239db5ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%237ea4ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_4" x1="0%" y1="0%" x2="66.7%" y2="100%"><stop offset="20%" stop-color="%239db5ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%23b8c7ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_5" x1="0%" y1="0%" x2="66.7%" y2="100%"><stop offset="20%" stop-color="%23d1d9ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%23b8c7ff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_6" x1="0%" y1="0%" x2="66.7%" y2="100%"><stop offset="20%" stop-color="%23d1d9ff" stop-opacity="1"></stop><stop offset="80%" stop-color="%23e8ecff" stop-opacity="1"></stop></linearGradient></defs><defs><linearGradient id="grad2_7" x1="0%" y1="0%" x2="66.7%" y2="100%"><stop offset="20%" stop-color="%23ffffff" stop-opacity="1"></stop><stop offset="80%" stop-color="%23e8ecff" stop-opacity="1"></stop></linearGradient></defs><g transform="translate(900, 0)"><path d="M0 540.8C-71.4 532.1 -142.8 523.4 -205.5 496.1C-268.2 468.9 -322.3 423.1 -373.4 373.4C-424.4 323.6 -472.3 269.9 -499.7 207C-527.1 144.1 -533.9 72 -540.8 0L0 0Z" fill="%23f4f5ff"></path><path d="M0 473.2C-62.5 465.6 -124.9 458 -179.8 434.1C-234.7 410.3 -282.1 370.2 -326.7 326.7C-371.3 283.1 -413.2 236.1 -437.2 181.1C-461.2 126.1 -467.2 63 -473.2 0L0 0Z" fill="%23dce3ff"></path><path d="M0 405.6C-53.5 399.1 -107.1 392.5 -154.1 372.1C-201.2 351.7 -241.8 317.3 -280 280C-318.3 242.7 -354.2 202.4 -374.7 155.2C-395.3 108.1 -400.5 54 -405.6 0L0 0Z" fill="%23c4d0ff"></path><path d="M0 338C-44.6 332.6 -89.2 327.1 -128.4 310.1C-167.7 293 -201.5 264.4 -233.3 233.3C-265.2 202.2 -295.2 168.7 -312.3 129.4C-329.4 90 -333.7 45 -338 0L0 0Z" fill="%23aabeff"></path><path d="M0 270.4C-35.7 266.1 -71.4 261.7 -102.8 248.1C-134.1 234.4 -161.2 211.6 -186.7 186.7C-212.2 161.8 -236.1 134.9 -249.8 103.5C-263.5 72 -267 36 -270.4 0L0 0Z" fill="%238eadff"></path><path d="M0 202.8C-26.8 199.5 -53.5 196.3 -77.1 186C-100.6 175.8 -120.9 158.7 -140 140C-159.1 121.3 -177.1 101.2 -187.4 77.6C-197.6 54 -200.2 27 -202.8 0L0 0Z" fill="%236d9cff"></path><path d="M0 135.2C-17.8 133 -35.7 130.8 -51.4 124C-67.1 117.2 -80.6 105.8 -93.3 93.3C-106.1 80.9 -118.1 67.5 -124.9 51.7C-131.8 36 -133.5 18 -135.2 0L0 0Z" fill="%233d8bff"></path><path d="M0 67.6C-8.9 66.5 -17.8 65.4 -25.7 62C-33.5 58.6 -40.3 52.9 -46.7 46.7C-53 40.4 -59 33.7 -62.5 25.9C-65.9 18 -66.7 9 -67.6 0L0 0Z" fill="%230083ff"></path></g><g transform="translate(0, 600)"><path d="M0 -540.8C61.4 -512.4 122.8 -484.1 191.7 -462.9C260.7 -441.7 337.2 -427.7 382.4 -382.4C427.7 -337.2 441.7 -260.7 462.9 -191.7C484.1 -122.8 512.4 -61.4 540.8 0L0 0Z" fill="%23f4f5ff"></path><path d="M0 -473.2C53.7 -448.4 107.4 -423.5 167.8 -405C228.1 -386.5 295 -374.2 334.6 -334.6C374.2 -295 386.5 -228.1 405 -167.8C423.5 -107.4 448.4 -53.7 473.2 0L0 0Z" fill="%23dce3ff"></path><path d="M0 -405.6C46 -384.3 92.1 -363 143.8 -347.1C195.5 -331.3 252.9 -320.8 286.8 -286.8C320.8 -252.9 331.3 -195.5 347.1 -143.8C363 -92.1 384.3 -46 405.6 0L0 0Z" fill="%23c4d0ff"></path><path d="M0 -338C38.4 -320.3 76.7 -302.5 119.8 -289.3C162.9 -276 210.7 -267.3 239 -239C267.3 -210.7 276 -162.9 289.3 -119.8C302.5 -76.7 320.3 -38.4 338 0L0 0Z" fill="%23aabeff"></path><path d="M0 -270.4C30.7 -256.2 61.4 -242 95.9 -231.4C130.3 -220.8 168.6 -213.8 191.2 -191.2C213.8 -168.6 220.8 -130.3 231.4 -95.9C242 -61.4 256.2 -30.7 270.4 0L0 0Z" fill="%238eadff"></path><path d="M0 -202.8C23 -192.2 46 -181.5 71.9 -173.6C97.8 -165.6 126.4 -160.4 143.4 -143.4C160.4 -126.4 165.6 -97.8 173.6 -71.9C181.5 -46 192.2 -23 202.8 0L0 0Z" fill="%236d9cff"></path><path d="M0 -135.2C15.3 -128.1 30.7 -121 47.9 -115.7C65.2 -110.4 84.3 -106.9 95.6 -95.6C106.9 -84.3 110.4 -65.2 115.7 -47.9C121 -30.7 128.1 -15.3 135.2 0L0 0Z" fill="%233d8bff"></path><path d="M0 -67.6C7.7 -64.1 15.3 -60.5 24 -57.9C32.6 -55.2 42.1 -53.5 47.8 -47.8C53.5 -42.1 55.2 -32.6 57.9 -24C60.5 -15.3 64.1 -7.7 67.6 0L0 0Z" fill="%230083ff"></path></g></svg>');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Header */
 .header-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    color: #333;
     text-align: center;
 }
 
+/* Form Container */
 .form-container {
-    max-width: 500px;
+    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.title-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.input-title {
-    padding: 10px;
+    background-color: #fff;
     border-radius: 5px;
-    border: none;
-    margin-bottom: 10px;
-    width: 98%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.description-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.input-description {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    margin-bottom: 10px;
-    width: 98%;
-    height: 100px;
-}
-
-.authors-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.input-authors {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    margin-bottom: 10px;
-    width: 98%;
-}
-
+/* Labels */
+.title-label,
+.description-label,
+.authors-label,
 .thumbnail-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
+    display: block;
     margin-bottom: 5px;
-    display: block;
+    font-weight: bold;
+    color: #333;
 }
 
+/* Input Fields */
+.input-title,
+.input-description,
+.input-authors,
 .input-thumbnail {
+    width: 100%;
     padding: 10px;
-    border-radius: 5px;
-    border: none;
     margin-bottom: 10px;
-    width: 98%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
+/* Submit Button */
 .donate-button {
-    display: block;
-    float: left;
-    margin-right: 10px;
-    /* Adjust this value to change the spacing between the buttons */
-    padding: 8px 18px;
-    background-color: #0d0c22;
-    border-radius: 5px;
-    color: #f3f3f3;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
+    background-color: #0066ff;
+    color: white;
+    padding: 10px 20px;
     border: none;
-    outline: none;
+    border-radius: 4px;
     cursor: pointer;
-    margin-top: 2vh;
+    font-size: 16px;
+    margin: auto;
+    align-items: center;
+    align-self: center;
+    text-align: center;
 }
 
 .donate-button:hover {
-    background-color: #3d3d3d;
-    color: #f3f3f3;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #0b6dff;
 }
 
-.borrow-button {
-    display: block;
-    float: right;
-    margin-left: 10px;
-    /* Adjust this value to change the spacing between the buttons */
-    padding: 8px 18px;
-    background-color: #0d0c22;
-    border-radius: 5px;
-    color: #f3f3f3;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    margin-top: 2vh;
-}
-
-.borrow-button:hover {
-    background-color: #3d3d3d;
-    color: #f3f3f3;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.username-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.input-username {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    margin-bottom: 10px;
-    width: 98%;
-}
-
-
-.email-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.input-email {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    margin-bottom: 10px;
-    width: 98%;
-}
-
-.pass-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.input-pass {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    margin-bottom: 10px;
-    width: 98%;
+.donate-button:active {
+    background-color: #0b6dff;
 }

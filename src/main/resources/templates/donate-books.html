@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" type="text/css" href="/css/donate-books.css">
+<link rel="stylesheet" type="text/css" href="/css/user-navbar.css">
+<link rel="stylesheet" type="text/css" href="/css/footer.css">
 <head>
   <meta charset="UTF-8">
   <title>Donate</title>
 </head>
+<div class="donate-bckgrnd"> </div>
+<div th:include="user-navbar :: user-navbar" style="margin-bottom: 10px;"></div>
 <body>
   <h1 class="header-title">Donate book</h1>
   <form th:action="@{/books/add}" th:object="${book}" method="post" class="form-container">
@@ -17,7 +21,7 @@
     <label for="authors" class="authors-label">Authors:</label>
     <input type="text" id="authors" name="authors" th:field="*{authors}" required class="input-authors"><br>
 
-    <label for="thumbnailUrl" class="thumbnail-label">Thumbnail URL:</label>
+    <label for="thumbnailUrl" class="thumbnail-label">Book Cover:</label>
     <input type="text" id="thumbnailUrl" name="thumbnailUrl" th:field="*{thumbnailUrl}" required class="input-thumbnail"><br>
 
     <input type="hidden" id="availability" name="availability" th:field="*{availability}" value="true" />
