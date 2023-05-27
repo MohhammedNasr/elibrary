@@ -52,6 +52,9 @@ public class Book {
     @Column(name = "average_rating")
     private Double averageRating;
 
+    @Column (name="Price")
+    private Double price ;  
+
     @OneToOne(mappedBy = "book",cascade = CascadeType.ALL)
     private Borrow borrowedBooks;
 
@@ -100,7 +103,12 @@ public class Book {
     public String getDescription() {
         return description;
     }
-
+public Double getPrice() {
+    return price;
+}
+public void setPrice(Double price) {
+    this.price = price;
+}
     public void setDescription(String description) {
         this.description = description;
     }
