@@ -12,18 +12,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 public class User implements UserDetails {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -33,8 +32,7 @@ public class User implements UserDetails {
     private String profilePic;
     private String role;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Favorite> favorites;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
@@ -42,25 +40,12 @@ public class User implements UserDetails {
 
     @Fetch(FetchMode.SELECT)
     @OrderColumn(name = "LIST_INDEX")
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "user",  fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Borrow> borrow;
 
-   
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Cart> cart; 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private Cart cart;
 
-    public List<Cart> getCart() {
-        return cart;
-    }
-
-    public void setCart(List<Cart> cart) {
-        this.cart = cart;
-    }
-
-    public void addToCart(Cart cart)
-    {
-        this.cart.add(cart);
-    }
     public User() {
         this.role = "User";
     }
@@ -176,6 +161,14 @@ public class User implements UserDetails {
     }
     public void setBorrow(Set<Borrow> borrow) {
         this.borrow = borrow;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
 }
