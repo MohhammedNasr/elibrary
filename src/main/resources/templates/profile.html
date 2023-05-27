@@ -3,13 +3,13 @@
 <link rel="stylesheet" type="text/css" href="/css/profile.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/user-navbar.css">
-
+<link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
 <head>
     <title>Profile</title>
 </head>
 
 <body>
-    <div th:include="user-navbar :: user-navbar" th:with="activePage='profile'" style="margin-bottom: 10px;"></div>
+    <div th:include="user-navbar :: user-navbar"  style="margin-bottom: 10px;"></div>
     <h1 th:if="${isList}">User List</h1>
     <table th:if="${isList}">
         <thead>
@@ -38,9 +38,9 @@
         <div class="profile-info">
             <div class="profile-details">
                 <div class="profile-name-container">
-                    <p class="profile-name" th:text="${user.username}"></p>
+                    <p class="profile-name" th:text="${user.username}" style="width:200px;"></p>
                     <form method="get" th:action="@{/library/edit-profile}">
-                        <button type="submit" class="edit-button">Edit Profile</button>
+                        <button type="submit" class="edit-button"><i class="fas fa-edit"></i></button>
                     </form>
                     <div class="button-container">
                         <form method="get" th:action="@{/library/donated}">
@@ -58,6 +58,7 @@
     </div>
 
     <div id="favorite-list-container" style="display: none;"></div>
+    
 
     <script>
         //showing favorites.html inside this profile.html

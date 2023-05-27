@@ -5,25 +5,30 @@
     <meta charset="UTF-8">
     <title>Search Books</title>
     <link rel="stylesheet" type="text/css" href="/css/search.css">
+    <link rel="stylesheet" type="text/css" href="/css/user-navbar.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+<div th:include="user-navbar :: user-navbar" th:with="activePage='home'" style="margin-bottom: 10px;"></div>
 <body class="background-search">
-    <h1 class="title-name">Discover</h1>
-    <form action="#" th:action="@{/books/search}" method="get" class="input-form">
-        <input class="input-box-search" type="text" id="query" name="query" required th:placeholder="'Book Name'"/>
-        <button type="submit" class="search-button">Search</button>
-    </form>
+    <div class="lil-right">
+    <h2 class="book-section-title" style="margin-left: 10px; margin-top: 0px;">Discover </h2>
+			<form action="#" th:action="@{/books/search}" method="get" class="input-form" style="margin-left: 10px;">
+				<input class="input-box-search" type="text" id="query" name="query" required
+					th:placeholder="'Book Name'" />
+				<button type="submit" class="search-button"><i style="font-size:24px;" class="fa">&#xf002;</i></button>
+			</form>
+        </div>
     <div th:if="${not #lists.isEmpty(books)}">
         <h2 class="results-h">Results</h2>
         <div class="row-list">
             <ul>
                 <li th:each="book : ${books}">
-                  <a href="" class="book-details">
-                    <img th:src="${book.ThumbnailUrl}" th:alt="${book.title}" class="book-image" />
+                  <a href="" class="s-book-details">
+                    <img class="book-cover" th:src="${book.ThumbnailUrl}" th:alt="${book.title}" onerror="this.src='https://i.pinimg.com/736x/55/b1/b5/55b1b5dbf1488a572f8aa37b0388d321--book-cover-design-template-design-templates.jpg'">
                     <h3 th:text="${book.title}" class="book-title"></h3>
-                    <p class="p3p" th:text="${book.authors}"></p>
+                    <p class="book-author" th:text="${book.authors}">Laini Taylor</p>
                     <input type="hidden" id="book-id" name="book-id" th:value="${book.id}" />
-                  </a>
+                </a>
                 </li>
             </ul>
         </div>
@@ -34,7 +39,7 @@
 
 <script>
     $(document).ready(function() {
-        $(".book-details").click(function(event) {
+        $(".s-book-details").click(function(event) {
             event.preventDefault();
             var bookName = $(this).find(".book-title").text();
             $.get("/books/details?bookName=" + bookName, function(data) {
