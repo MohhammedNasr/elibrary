@@ -5,35 +5,22 @@
       <a th:href="@{/library/search}" th:class="${activePage == 'search' ? 'active' : ''}">Search</a>
       <a th:href="@{/library/donate}" th:class="${activePage == 'donate' ? 'active' : ''}">Donate</a>
       <a th:href="@{/library/donatedbooks}" th:class="${activePage == 'borrow' ? 'active' : ''}">Borrow</a>
-      <a href="#" th:class="${activePage == '#' ? 'active' : ''}">Contact</a>
-      <div class="dropdown invis-dw">
+      <div class="dropdown">
+        <a th:href="@{/library/profile}" th:class="${activePage == 'profile' ? 'active' : ''}">
+          Profile <i class="fas fa-caret-down"></i>
+        </a>
+        <div class="dropdown-content">
+          <a th:href="@{/library/logout}" class="logout-option">Logout</a>
+        </div>
+      </div>      <div class="dropdown invis-dw">
         <a href="#" class="invis-profile-button" th:class="${activePage == 'profile' ? 'active' : ''}">
             <div class="profile-image invis-dw">
             </div>
         </a>
       </div>
       <div class="nav-right">
-        <div class="dropdown">
-            <a href="#" class="profile-button" th:class="${activePage == 'profile' ? 'active' : ''}">
-              <a href="/library/profile">
-                <div class="profile-image">
-                  <img src="" onerror="this.src='https://i.pinimg.com/1200x/c9/3a/d1/c93ad1538753e96aa7a99de8b058ed60.jpg'" />
-                </div>
-              </a>
-              <span class="d-profile-name"></span>
-              <i class="fas fa-chevron-down"></i>
-            </a>
-            <div class="dropdown-content">
-              <a href="/library/profile">
-                <img src="" onerror="this.src='https://i.pinimg.com/1200x/c9/3a/d1/c93ad1538753e96aa7a99de8b058ed60.jpg'" />
-              </a>
-              <span class="d-profile-name">User Name</span>
-              <a th:href="@{/library/logout}" style="margin-top: 15px;">Logout</a>
-            </div>
-          </div>
         <a th:href="@{/library/cart}" class="cart-button" title="Cart" th:class="${activePage == '#' ? 'active' : ''}">
           <i class="fas fa-shopping-cart"></i>
-          <span class="cart-counter">0</span>
         </a>
       </div>
     </div>

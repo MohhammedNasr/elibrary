@@ -21,14 +21,17 @@
   color: #fff;
   transition: background-color 0.3s ease-in-out;
 }
-.invis-dw{
+
+.invis-dw {
   pointer-events: none;
 }
-.invis-dw:hover{
+
+.invis-dw:hover {
   background-color: transparent;
   color: #000;
   transition: background-color 0.3s ease-in-out;
 }
+
 .navbar a.active {
   border-bottom: 3px solid #0066ff;
 }
@@ -37,15 +40,6 @@
   float: right;
   display: flex;
   align-items: center;
-}
-
-.cart-counter {
-  background-color: #ff3366;
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 50%;
-  font-size: 12px;
-  margin-left: 5px;
 }
 
 .navbar a.logout-button,
@@ -63,6 +57,7 @@
 .dropdown {
   position: relative;
   display: inline-block;
+  margin-top: -10px;
 }
 
 .dropdown-content {
@@ -70,16 +65,32 @@
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  min-height: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   padding: 10px;
   border-radius: 4px;
+  opacity: 0;
   margin-top: 40px;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
 }
 
-.dropdown:hover .dropdown-content {
-  display:block;
+.dropdown-content a.logout-option {
+  color: black;
+  padding: 5px 1px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.dropdown-content a.logout-option:hover {
+  background-color: #FF3300;
 }
 
 .profile-button {
