@@ -7,6 +7,17 @@
 	<link rel="stylesheet" type="text/css" href="/css/user-navbar.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<script th:inline="javascript">
+		function getToken() {
+		  var token = /*[[${_csrf.token}]]*/ 'default';
+		  var header = /*[[${_csrf.headerName}]]*/ 'default';
+		  return {
+			token: token,
+			header: header
+		  };
+		}
+	  </script>
 </head>
 
 <body>
@@ -20,7 +31,20 @@
 				<button type="submit" class="search-button"><i style="font-size:24px;" class="fa">&#xf002;</i></button>
 			</form>
 			<section class="for-you-section">
-				<h2 class="for-you-title">For you</h2> <button onclick="setBookName('java')">Java</button><button onclick="setBookName('java')">Java</button><button onclick="setBookName('java')">Java</button>
+				<h2 class="for-you-title">For you</h2>
+				<button onclick="setBookName('java')">Java</button>
+				<script th:inline="javascript">
+					function setBookName(book) {
+						var xhr = new XMLHttpRequest();
+						xhr.open('POST', '/books/category?book=' + book, true);
+						var csrfToken = getToken().token;
+						var csrfHeader = getToken().header;
+						xhr.setRequestHeader(csrfHeader, csrfToken);
+						
+						xhr.send();
+						location.reload();
+					}
+				</script>
 				<div class="book-container">
 					<div th:each="books : ${books}">
 						<a href="" class="book-details">
@@ -154,6 +178,9 @@
 </body>
 
 </html>
+
+
+
 
 <script>
 	$(document).ready(function () {

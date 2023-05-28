@@ -2,9 +2,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <div class="navbar">
       <a th:href="@{/library/homepage}" th:class="${activePage == 'home' ? 'active' : ''}">Home</a>
-      <a href="#" th:class="${activePage == '#' ? 'active' : ''}">Books</a>
-      <a href="#" th:class="${activePage == '#' ? 'active' : ''}">Categories</a>
-      <a href="#" th:class="${activePage == '#' ? 'active' : ''}">About</a>
+      <a th:href="@{/library/search}" th:class="${activePage == 'search' ? 'active' : ''}">Search</a>
+      <a th:href="@{/library/donate}" th:class="${activePage == 'donate' ? 'active' : ''}">Donate</a>
+      <a th:href="@{/library/donatedbooks}" th:class="${activePage == 'borrow' ? 'active' : ''}">Borrow</a>
       <a href="#" th:class="${activePage == '#' ? 'active' : ''}">Contact</a>
       <div class="dropdown invis-dw">
         <a href="#" class="invis-profile-button" th:class="${activePage == 'profile' ? 'active' : ''}">
@@ -28,10 +28,10 @@
                 <img src="" onerror="this.src='https://i.pinimg.com/1200x/c9/3a/d1/c93ad1538753e96aa7a99de8b058ed60.jpg'" />
               </a>
               <span class="d-profile-name">User Name</span>
-              <a href="#" style="margin-top: 15px;">Logout</a>
+              <a th:href="@{/library/logout}" style="margin-top: 15px;">Logout</a>
             </div>
           </div>
-        <a href="#" class="cart-button" title="Cart" th:class="${activePage == '#' ? 'active' : ''}">
+        <a th:href="@{/library/cart}" class="cart-button" title="Cart" th:class="${activePage == '#' ? 'active' : ''}">
           <i class="fas fa-shopping-cart"></i>
           <span class="cart-counter">0</span>
         </a>

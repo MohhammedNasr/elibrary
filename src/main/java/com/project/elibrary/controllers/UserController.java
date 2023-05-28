@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,13 +40,12 @@ public class UserController {
     @Autowired
     private CartService cartService; 
 
-    @GetMapping("")
-    public ModelAndView getSignup() {
-        ModelAndView mav = new ModelAndView("sign-up-form.html");
-        User newUser = new User();
-        mav.addObject("user", newUser);
-        return mav;
-    }
+    @Autowired
+    private BookService bookService;
+
+    @Autowired
+    private UserDao userDao;
+
 
     @PostMapping("save-user")
     public String saveUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
@@ -62,14 +60,6 @@ public class UserController {
         return "redirect:/library/login";
     }
 
-    @GetMapping("login")
-    public ModelAndView getLogin() {
-        ModelAndView mav = new ModelAndView("login-form.html");
-        User newUser = new User();
-        mav.addObject("user", newUser);
-        return mav;
-    }
-
     @PostMapping("check-user")
     public String checkUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
         String email = user.getEmail();
@@ -79,7 +69,6 @@ public class UserController {
             redirectAttributes.addAttribute("error", "true");
             return "redirect:/library/login";
         }
-
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 user.getEmail(),
                 user.getPassword(),
@@ -92,14 +81,6 @@ public class UserController {
         } else {
             return "redirect:/library/homepage";
         }
-    }
-
-    @GetMapping("reset-pass")
-    public ModelAndView getRestPassForm() {
-        ModelAndView mav = new ModelAndView("reset-pass.html");
-        User newUser = new User();
-        mav.addObject("user", newUser);
-        return mav;
     }
 
     @PostMapping("change-pass")
@@ -115,34 +96,6 @@ public class UserController {
         this.userRepo.save(userFinder);
         return "redirect:/library/login";
 
-    }
-
-    @Autowired
-    private UserDao userDao;
-
-    @GetMapping("/users")
-    public String getUsers(Model model) {
-        List<User> userList = userDao.getAllUsers();
-        model.addAttribute("users", userList);
-        model.addAttribute("isList", true);
-        return "profile.html";
-    }
-
-    // for finding a specific user (showing profile page) (can be used by admins)
-    @GetMapping("/users/{name}")
-    public String getUserByName(@PathVariable String name, Model model) {
-        User user = userDao.getUserByName(name);
-        model.addAttribute("user", user);
-        model.addAttribute("isList", false);
-        return "profile.html";
-    }
-
-    // showing profile page
-    @GetMapping("/profile")
-    public String getUserByName(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("user", user);
-        model.addAttribute("isList", false);
-        return "profile.html";
     }
 
     // for editing/updating user info
@@ -206,10 +159,6 @@ public class UserController {
         return "redirect:/library/edit-profile";
     }
 
-
-    @Autowired
-    private BookService bookService;
-    
     // view list of donated books by userID
     @GetMapping("/donated")
     public ModelAndView showDonatedBooks(@AuthenticationPrincipal User user) {
@@ -218,6 +167,15 @@ public class UserController {
         ModelAndView mav = new ModelAndView("donatedBooks");
         mav.addObject("books", books);
         return mav;
+    }
+
+    @PostMapping("/borrow")
+    public String confirmBorrow(@RequestParam("bookId") Long bookId, Model model) {
+        // Retrieve the book details based on the bookId
+        Book book = bookService.getBookById(bookId);
+        // Pass the book details to the "Confirm Borrow" page
+        model.addAttribute("book", book);
+        return "borrow";
     }
 
 }

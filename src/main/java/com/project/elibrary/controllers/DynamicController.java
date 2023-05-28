@@ -1,23 +1,25 @@
 package com.project.elibrary.controllers;
 
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.project.elibrary.dto.BookDTO;
 import com.project.elibrary.models.Book;
 import com.project.elibrary.models.Borrow;
+import com.project.elibrary.models.Cart;
 import com.project.elibrary.models.User;
 import com.project.elibrary.repositories.BookRepository;
+import com.project.elibrary.repositories.CartRepository;
 import com.project.elibrary.repositories.UserRepo;
 import com.project.elibrary.services.BookService;
 import com.project.elibrary.services.BorrowService;
+import com.project.elibrary.services.CartService;
 
 @Controller
 @RequestMapping("/library")
@@ -30,39 +32,94 @@ public class DynamicController {
     private BookRepository bookRepo;
 
     @Autowired
+    private CartRepository cartRepo;
+
+    @Autowired
     private BookService bookService;
 
     @Autowired
     private BorrowService borrowService;
 
-    //go to search page
+    @Autowired
+    private CartService cartService;
+
+    @GetMapping("")
+    public ModelAndView getSignup() {
+        ModelAndView mav = new ModelAndView("sign-up-form.html");
+        User newUser = new User();
+        mav.addObject("user", newUser);
+        return mav;
+    }
+
+    @GetMapping("login")
+    public ModelAndView getLogin() {
+        ModelAndView mav = new ModelAndView("login-form.html");
+        User newUser = new User();
+        mav.addObject("user", newUser);
+        return mav;
+    }
+
+    @GetMapping("reset-pass")
+    public ModelAndView getRestPassForm() {
+        ModelAndView mav = new ModelAndView("reset-pass.html");
+        User newUser = new User();
+        mav.addObject("user", newUser);
+        return mav;
+    }
+
+    // go to home page thats showing books "curse"
+    @GetMapping("/homepage")
+    public String getHomePage(Model model, HttpSession session) {
+        String bookName = "curse"; // Default book name
+
+        String selectedBook = (String) session.getAttribute("selectedBook");
+        if (selectedBook != null && !selectedBook.isEmpty()) {
+            bookName = selectedBook; // Use the selected book name from the session if available
+        }
+
+        bookService.homePageBooks(bookName, model);
+        return "homepage";
+    }
+
+    // go to admin home page
+    @GetMapping("adminHomePage")
+    public ModelAndView getAdminPage(@AuthenticationPrincipal User user) {
+        ModelAndView mav = new ModelAndView("admin-home-page.html");
+        long userCount = userRepo.count();
+        long donatedBooksCount = bookRepo.count();
+        long cartCount = cartRepo.count();
+        String username = user.getUsername();
+        String profilePicture = user.getProfilePic();
+        // passing registered user count and donated books count
+        mav.addObject("userCount", userCount);
+        mav.addObject("donatedBooksCount", donatedBooksCount);
+        mav.addObject("cartCount", cartCount);
+        mav.addObject("username", username);
+        mav.addObject("profilePicture", profilePicture);
+        return mav;
+    }
+
+    // go to search page
     @GetMapping("search")
     public ModelAndView getBooks() {
         ModelAndView mav = new ModelAndView("search.html");
         return mav;
     }
 
-    //go to home page thats showing books "curse"
-    @GetMapping("/homepage")
-    public String getHomePage(Model model) {
-        String bookName = "curse"; //books category that will be shown in homepage
-        bookService.homePageBooks(bookName, model);
-        return "homepage";
+    // showing profile page
+    @GetMapping("/profile")
+    public String getUserByName(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("user", user);
+        model.addAttribute("isList", false);
+        return "profile.html";
     }
 
-    //go to admin home page
-    @GetMapping("adminHomePage")
-    public ModelAndView getAdminPage(@AuthenticationPrincipal User user) {
-        ModelAndView mav = new ModelAndView("admin-home-page.html");
-        long userCount = userRepo.count();
-        long donatedBooksCount = bookRepo.count();
-        String username = user.getUsername();
-        String profilePicture = user.getProfilePic();
-        // passing registered user count and donated books count
-        mav.addObject("userCount", userCount);
-        mav.addObject("donatedBooksCount", donatedBooksCount);
-        mav.addObject("username", username);
-        mav.addObject("profilePicture", profilePicture);
+    //show cart page
+    @GetMapping("/cart")
+    public ModelAndView viewCart(@AuthenticationPrincipal User user) {
+        Cart cart = cartService.getUserCart(user);
+        ModelAndView mav = new ModelAndView("cart");
+        mav.addObject("cart", cart);
         return mav;
     }
 
@@ -81,16 +138,6 @@ public class DynamicController {
         ModelAndView mav = new ModelAndView("donatedBooks");
         mav.addObject("books", books);
         return mav;
-    }
-
-    //borrow page
-    @PostMapping("/borrow")
-    public String confirmBorrow(@RequestParam("bookId") Long bookId, Model model) {
-        // Retrieve the book details based on the bookId
-        Book book = bookService.getBookById(bookId);
-        // Pass the book details to the "Confirm Borrow" page
-        model.addAttribute("book", book);
-        return "borrow";
     }
 
     // view list of borrowed books

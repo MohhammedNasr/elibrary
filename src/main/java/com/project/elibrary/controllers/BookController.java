@@ -1,6 +1,8 @@
 package com.project.elibrary.controllers;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +47,13 @@ public class BookController {
         bookService.createBook(book.getTitle(), book.getDescription(), book.getAuthors(), book.getThumbnailUrl(),
                 book.getAvailability(), book.getReviewed(), user);
         return "redirect:/library/profile"; // Redirect to the profile.html page
+    }
+
+    //home page category select
+    @PostMapping("/category")
+    public ResponseEntity<String> updateBookName(@RequestParam("book") String book, HttpSession session) {
+        session.setAttribute("selectedBook", book); // Store the selected book name in a session attribute
+        return ResponseEntity.ok().build();
     }
 
 }
