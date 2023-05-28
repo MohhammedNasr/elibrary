@@ -34,10 +34,10 @@
       <p class="book-page-count p3p" th:text="'Page Count: ' + ${book.pageCount}"></p>
       <p class="book-published-date p3p" th:text="'Published Date: ' + ${book.publishedDate}"></p>
       <p class="book-average-rating p3p" th:text="'Average Rating: ' + ${book.averageRating}"></p>
-      <p name="price" id="price" th:text="${book.price} + ' EGP'" class="price" >Price:</p>
+      <p name="price" id="price" th:text="${book.price}" class="price" >Price:</p>
       
       <button type="button" class="favorite-btn">Favorite</button>
-      <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+      <button type="button" class="add-to-cart-btn">Add to Cart</button>
     </div>
   </div>
 </div>
