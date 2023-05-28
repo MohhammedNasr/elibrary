@@ -49,6 +49,7 @@ public class BookController {
         return "redirect:/library/profile"; // Redirect to the profile.html page
     }
 
+    //home page category select
     @PostMapping("/category")
     public ResponseEntity<String> updateBookName(@RequestParam("book") String book, HttpSession session) {
         session.setAttribute("selectedBook", book); // Store the selected book name in a session attribute

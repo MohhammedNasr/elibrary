@@ -18,20 +18,16 @@ public class BorrowController {
     @Autowired
     private BorrowService borrowService;
 
+    //user borrowing a book
     @PostMapping("/add")
     public String saveBorrow(
             @RequestParam(value = "bookId") Long bookId,
             @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
             @AuthenticationPrincipal User user,
             RedirectAttributes redirectAttributes) {
-
-        // Long userID = user.getId();
         LocalDate startDate = LocalDate.now();
-
         borrowService.saveBorrow(bookId, user, startDate, endDate);
-
-        // Add a redirect attribute to the response
-        redirectAttributes.addFlashAttribute("message", "Borrow saved successfully.");
+        redirectAttributes.addFlashAttribute("message", "Book borrowed successfully.");
 
         return "redirect:/library/borrowed/";
     }

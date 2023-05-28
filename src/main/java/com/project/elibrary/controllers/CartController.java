@@ -6,13 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import com.project.elibrary.models.Cart;
 import com.project.elibrary.models.User;
 import com.project.elibrary.services.CartService;
 
@@ -21,14 +18,6 @@ import com.project.elibrary.services.CartService;
 public class CartController {
     @Autowired
     private CartService cartService;
-
-    @GetMapping("")
-    public ModelAndView viewCart(@AuthenticationPrincipal User user) {
-        Cart cart = cartService.getUserCart(user);
-        ModelAndView mav = new ModelAndView("cart");
-        mav.addObject("cart", cart);
-        return mav;
-    }
 
     @PostMapping("/add")
     public ResponseEntity<Void> addItemToCart(

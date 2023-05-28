@@ -23,6 +23,7 @@ import com.project.elibrary.models.User;
 import com.project.elibrary.repositories.UserRepo;
 import com.project.elibrary.services.BookService;
 import com.project.elibrary.services.BorrowService;
+import com.project.elibrary.services.CartService;
 
 @Controller
 @RequestMapping("/admin")
@@ -34,7 +35,16 @@ public class AdminController {
     private UserRepo userRepo;
 
     @Autowired
+    private CartService cartService; 
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private BookService bookService;
+
+    @Autowired
+    private BorrowService borrowService;
 
     // for viewing all registered users
     @GetMapping("/users")
@@ -45,34 +55,44 @@ public class AdminController {
         return "admin-users-list.html";
     }
 
+    //admin add user page
+    @GetMapping("/add-user")
+    public ModelAndView getAdduser() {
+        ModelAndView mav = new ModelAndView("admin-add-user.html");
+        User user = new User();
+        mav.addObject("user", user);
+        return mav;
+    }
+
+    //adding user
     @PostMapping("save-user")
     public String saveUserAdmin(@ModelAttribute User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         this.userRepo.save(user);
+        cartService.createCartForUser(user);//creates carts for new users 
         return "redirect:/admin/users";
     }
 
-    // for finding a specific user
-    @GetMapping("/users/{name}")
-    public String getUserByName(@PathVariable String name, Model model) {
-        User user = userDao.getUserByName(name);
-        model.addAttribute("user", user);
-        model.addAttribute("isList", false);
-        return "profile.html";
+    //admin add book page
+    @GetMapping("/add-book")
+    public ModelAndView getAddbook() {
+        ModelAndView mav = new ModelAndView("admin-add-book.html");
+        Book book = new Book();
+        mav.addObject("book", book);
+        return mav;
     }
 
-    // for editing/updating specific user's info
-    @GetMapping("/edit-profile/{name}")
-    public String editProfile(@PathVariable String name, Model model) {
-        User user = userDao.getUserByName(name);
-        if (user != null) {
-            model.addAttribute("user", user);
-            return "edit-profile";
-        } else {
-            return "redirect:/";
-        }
+    //adding book
+    @PostMapping("/added")
+    public String createBook(Book book, @AuthenticationPrincipal User user) {
+        book.setAvailability(true); // When any book gets added, it is set to be available
+        book.setReviewed(false); // When any book gets added, it is set to be not reviewed and waiting for admin review
+        bookService.createBook(book.getTitle(), book.getDescription(), book.getAuthors(), book.getThumbnailUrl(),
+                book.getAvailability(), book.getReviewed(), user);
+        return "redirect:/admin/allbooks";
     }
 
+    //admin edit user
     @PostMapping("/edit/{id}")
     public ResponseEntity<String> editUserDetails(@PathVariable("id") Long id,
             @RequestParam(value = "username") String username,
@@ -82,28 +102,22 @@ public class AdminController {
         return ResponseEntity.ok("User details updated successfully.");
     }
 
+    //admin delete user
     @DeleteMapping("/remove/{id}")
     public ResponseEntity<String> removeUser(@PathVariable("id") Long id, @AuthenticationPrincipal User loggedUser) {
         if (loggedUser.getId().equals(id)) {
             return ResponseEntity.badRequest().body("You are not allowed to delete your own account.");
         }
-
         User user = userDao.getUserById(id);
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
-
         userDao.adminRemoveUser(id);
         return ResponseEntity.ok("User details updated successfully.");
     }
 
     //boooooks
-    @Autowired
-    private BookService bookService;
 
-    @Autowired
-    private BorrowService borrowService;
-    
     //view list of uploaded books/donated books
     @GetMapping("/allbooks")
     public ModelAndView showBooks() {
@@ -115,7 +129,7 @@ public class AdminController {
         return mav;
     }
 
-    // edit donated book
+    // edit book
     @PostMapping("/editBook/{bookId}")
     public String editBook(@PathVariable("bookId") Long bookId,
             @RequestParam("thumbnail") String thumbnail,
@@ -131,7 +145,7 @@ public class AdminController {
         return "redirect:/admin/allbooks";
     }
 
-    // delete donated book
+    // delete book
     @DeleteMapping("/removeBook/{bookId}")
     public ResponseEntity<String> removeBook(@PathVariable("bookId") Long bookId) {
         boolean bookDeleted = bookService.adminDeleteBook(bookId);
@@ -156,29 +170,31 @@ public class AdminController {
         return "redirect:/admin/allbooks";
     }
 
-    @GetMapping("/add-book")
-    public ModelAndView getAddbook() {
-        ModelAndView mav = new ModelAndView("admin-add-book.html");
-        Book book = new Book();
-        mav.addObject("book", book);
-        return mav;
-    }
+    
+    
+    
 
-    @PostMapping("/added")
-    public String createBook(Book book, @AuthenticationPrincipal User user) {
-        book.setAvailability(true); // When any book gets added, it is set to be available
-        book.setReviewed(false); // When any book gets added, it is set to be not reviewed and waiting for admin review
-        bookService.createBook(book.getTitle(), book.getDescription(), book.getAuthors(), book.getThumbnailUrl(),
-                book.getAvailability(), book.getReviewed(), user);
-        return "redirect:/admin/allbooks";
-    }
 
-    @GetMapping("/add-user")
-    public ModelAndView getAdduser() {
-        ModelAndView mav = new ModelAndView("admin-add-user.html");
-        User user = new User();
-        mav.addObject("user", user);
-        return mav;
-    }
+    // // for finding a specific user
+    // @GetMapping("/users/{name}")
+    // public String getUserByName(@PathVariable String name, Model model) {
+    //     User user = userDao.getUserByName(name);
+    //     model.addAttribute("user", user);
+    //     model.addAttribute("isList", false);
+    //     return "profile.html";
+    // }
+
+     // // for editing/updating specific user's info
+    // @GetMapping("/edit-profile/{name}")
+    // public String editProfile(@PathVariable String name, Model model) {
+    //     User user = userDao.getUserByName(name);
+    //     if (user != null) {
+    //         model.addAttribute("user", user);
+    //         return "edit-profile";
+    //     } else {
+    //         return "redirect:/";
+    //     }
+    // }
+
 
 }
