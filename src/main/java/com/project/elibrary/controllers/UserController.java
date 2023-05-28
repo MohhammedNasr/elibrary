@@ -38,7 +38,7 @@ public class UserController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private CartService cartService; 
+    private CartService cartService;
 
     @Autowired
     private BookService bookService;
@@ -46,17 +46,17 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-
     @PostMapping("save-user")
     public String saveUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
         String email = user.getEmail();
         User userFinder = this.userRepo.findByEmail(email).orNull();
         if (userFinder != null) {
             redirectAttributes.addAttribute("error", "true");
-            return "redirect:/library"; }
+            return "redirect:/library";
+        }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-       this.userRepo.save(user);
-        cartService.createCartForUser(user);//creates carts for new users 
+        this.userRepo.save(user);
+        cartService.createCartForUser(user);// creates carts for new users
         return "redirect:/library/login";
     }
 
@@ -166,6 +166,7 @@ public class UserController {
         List<Book> books = bookService.getBooksByUserID(userID);
         ModelAndView mav = new ModelAndView("donatedBooks");
         mav.addObject("books", books);
+        mav.addObject("user", user); // Pass the 'user' object as a model attribute
         return mav;
     }
 

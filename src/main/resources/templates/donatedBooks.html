@@ -30,7 +30,7 @@
                         </div>
                     </td>
                     <td th:text="${book.availability == true ? 'Available for borrowing' : 'Not available'}"></td>
-                    <td>
+                    <td th:unless="${book.user.id == user.id}">
                         <form th:action="@{/library/borrow}" method="post">
                             <input type="hidden" name="bookId" th:value="${book.id}" />
                             <button type="submit">Borrow</button>

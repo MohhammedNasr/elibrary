@@ -133,9 +133,10 @@ public class DynamicController {
     // list of donated books that shows available approved by admin books for
     // borrowing
     @GetMapping("/donatedbooks")
-    public ModelAndView getDonatedBooksList(Model model) {
+    public ModelAndView getDonatedBooksList(Model model,@AuthenticationPrincipal User user) {
         List<Book> books = bookService.getReviewedBooks();
         ModelAndView mav = new ModelAndView("donatedBooks");
+        mav.addObject("user", user); // Pass the 'user' object as a model attribute
         mav.addObject("books", books);
         return mav;
     }
