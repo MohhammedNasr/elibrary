@@ -1,6 +1,7 @@
 package com.project.elibrary.controllers;
 
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -35,22 +36,28 @@ public class DynamicController {
     @Autowired
     private BorrowService borrowService;
 
-    //go to search page
+    // go to search page
     @GetMapping("search")
     public ModelAndView getBooks() {
         ModelAndView mav = new ModelAndView("search.html");
         return mav;
     }
 
-    //go to home page thats showing books "curse"
+    // go to home page thats showing books "curse"
     @GetMapping("/homepage")
-    public String getHomePage(Model model) {
-        String bookName = "curse"; //books category that will be shown in homepage
+    public String getHomePage(Model model, HttpSession session) {
+        String bookName = "curse"; // Default book name
+
+        String selectedBook = (String) session.getAttribute("selectedBook");
+        if (selectedBook != null && !selectedBook.isEmpty()) {
+            bookName = selectedBook; // Use the selected book name from the session if available
+        }
+
         bookService.homePageBooks(bookName, model);
         return "homepage";
     }
 
-    //go to admin home page
+    // go to admin home page
     @GetMapping("adminHomePage")
     public ModelAndView getAdminPage(@AuthenticationPrincipal User user) {
         ModelAndView mav = new ModelAndView("admin-home-page.html");
@@ -83,7 +90,7 @@ public class DynamicController {
         return mav;
     }
 
-    //borrow page
+    // borrow page
     @PostMapping("/borrow")
     public String confirmBorrow(@RequestParam("bookId") Long bookId, Model model) {
         // Retrieve the book details based on the bookId
