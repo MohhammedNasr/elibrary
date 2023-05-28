@@ -3,6 +3,8 @@
 <head>
   <title>Book Details</title>
   <link rel="stylesheet" type="text/css" href="/css/bookDetails.css">
+  <link rel="stylesheet" type="text/css" href="/css/user-navbar.css">
+  <link rel="stylesheet" type="text/css" href="/css/footer.css">
   <link href="https://fonts.cdnfonts.com/css/euclid-circular-b" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script th:inline="javascript">
@@ -18,10 +20,10 @@
 </head>
 
 <body class="background-details">
- 
+  <div th:include="user-navbar :: user-navbar" style="margin-bottom: 10px;"></div>
+ <div class="lil-right">
   <h1 class="title-name">Book details</h1>
   <div class="book-details">
-    
     <img th:src="${book.thumbnailUrl}" th:alt="${book.title}" class="book-image" name="book-image" id="book-image" />
     <div class="vertical-line"></div>
     <div class="all-details">
@@ -32,12 +34,14 @@
       <p class="book-page-count p3p" th:text="'Page Count: ' + ${book.pageCount}"></p>
       <p class="book-published-date p3p" th:text="'Published Date: ' + ${book.publishedDate}"></p>
       <p class="book-average-rating p3p" th:text="'Average Rating: ' + ${book.averageRating}"></p>
-      <p name="price" id="price" th:text="${book.price}" class="price" >Price:</p>
+      <p name="price" id="price" th:text="${book.price} + ' EGP'" class="price" >Price:</p>
       
       <button type="button" class="favorite-btn">Favorite</button>
       <button type="submit" class="add-to-cart-btn">Add to Cart</button>
     </div>
   </div>
+</div>
+<div th:include="footer :: footer" style="margin-bottom: -10px; margin-right: -8px;"></div>
   <script>
     $(document).ready(function () {
       $(".favorite-btn").click(function () {
