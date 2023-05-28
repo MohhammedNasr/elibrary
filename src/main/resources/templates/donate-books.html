@@ -8,7 +8,7 @@
   <title>Donate</title>
 </head>
 <div class="donate-bckgrnd"> </div>
-<div th:include="user-navbar :: user-navbar" style="margin-bottom: 10px;"></div>
+<div th:include="user-navbar :: user-navbar" th:with="activePage='donate'" style="margin-bottom: 10px;"></div>
 <body>
   <h1 class="header-title">Donate book</h1>
   <form th:action="@{/books/add}" th:object="${book}" method="post" class="form-container">
