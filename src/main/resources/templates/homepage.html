@@ -10,14 +10,14 @@
 
 	<script th:inline="javascript">
 		function getToken() {
-		  var token = /*[[${_csrf.token}]]*/ 'default';
-		  var header = /*[[${_csrf.headerName}]]*/ 'default';
-		  return {
-			token: token,
-			header: header
-		  };
+			var token = /*[[${_csrf.token}]]*/ 'default';
+			var header = /*[[${_csrf.headerName}]]*/ 'default';
+			return {
+				token: token,
+				header: header
+			};
 		}
-	  </script>
+	</script>
 </head>
 
 <body>
@@ -32,7 +32,8 @@
 			</form>
 			<section class="for-you-section">
 				<h2 class="for-you-title">For you</h2>
-				<button onclick="setBookName('java')">Java</button> <button onclick="setBookName('Sand')">Sand</button>
+				<button onclick="setBookName('scary')">Fiction</button> <button
+					onclick="setBookName('bio')">Biography</button>
 				<script th:inline="javascript">
 					function setBookName(book) {
 						var xhr = new XMLHttpRequest();
@@ -40,7 +41,7 @@
 						var csrfToken = getToken().token;
 						var csrfHeader = getToken().header;
 						xhr.setRequestHeader(csrfHeader, csrfToken);
-						
+
 						xhr.send();
 						location.reload();
 					}

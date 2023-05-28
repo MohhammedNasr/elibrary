@@ -26,16 +26,14 @@ public class PaymentService {
         if (pay.getId() == null) {
             this.restTemplate.postForObject(url, pay, pay.class);
         } else {
-            // url += "/" + post.getId();
-            // HttpEntity<Post> reqEntity = new HttpEntity<Post>(post);
-            // this.restTemplate.put(url, reqEntity);
+            url += "/" + pay.getId();
+            this.restTemplate.put(url, pay);
         }
-
     }
 
-    public pay findById(long payId) {
-        String Url = baseURL + "/" + payId;
-        return restTemplate.getForObject(baseURL, pay.class);
+    // public pay findById(long payId) {
+    // String Url = baseURL + "/" + payId;
+    // return restTemplate.getForObject(baseURL, pay.class);
 
-    }
+    // }
 }

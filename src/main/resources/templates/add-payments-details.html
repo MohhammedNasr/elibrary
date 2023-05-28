@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Payment Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:inline="javascript">
+        function getToken() {
+            var token = /*[[${_csrf.token}]]*/ 'default';
+            var header = /*[[${_csrf.headerName}]]*/ 'default';
+            return {
+                token: token,
+                header: header
+            };
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Payment Form</h1>
+
+    <form id="paymentForm" th:action="@{/library/addPayment}" th:object="${payment}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <label for="fullName">Full Name:</label>
+        <input type="text" th:field="*{fullName}" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" th:field="*{email}" required><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" th:field="*{address}" required><br><br>
+
+        <label for="city">City:</label>
+        <input type="text" th:field="*{city}" required><br><br>
+
+        <label for="state">State:</label>
+        <input type="text" th:field="*{state}" required><br><br>
+
+        <label for="zipCode">Zip Code:</label>
+        <input type="text" th:field="*{zipCode}" required><br><br>
+
+        <label for="paymentMethod">Payment Method:</label>
+        <input type="text" th:field="*{paymentMethod}" required><br><br>
+
+        <input type="submit" value="Save Payment">
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $('#paymentForm').submit(function (event) {
+                event.preventDefault();
+
+                var token = getToken().token;
+                var header = getToken().header;
+                var form = $(this);
+                var url = form.attr('action');
+                var data = form.serialize();
+
+                var jsonData = formToJson(form);
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    contentType: 'application/json',
+                    data: jsonData,
+                    success: function (response) {
+                        alert("Details added");
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Details added");
+
+                    }
+                });
+            });
+
+            // Helper function to convert form data to JSON
+            function formToJson(form) {
+                var jsonData = {};
+                var formData = form.serializeArray();
+                $.each(formData, function (index, obj) {
+                    jsonData[obj.name] = obj.value;
+                });
+                return JSON.stringify(jsonData);
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>
