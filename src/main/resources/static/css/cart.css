@@ -1,35 +1,123 @@
-.cart-table {
-    border-collapse: collapse;
-    width: 100%;
+/* cart.css */
+
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
 }
 
-.cart-table th, .cart-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
-.cart-table th {
-    background-color: #f2f2f2;
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+h1, h2 {
+  margin-bottom: 10px;
+}
+
+/* Cart Styles */
+.cart-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.thumbnail {
+  width: 50px;
+  height: 50px;
 }
 
 .quantity-input {
-    width: 50px;
-    text-align: center;
+  width: 50px;
 }
 
 .update-btn, .remove-btn {
-    background-color: #DDA379;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor:pointer;
-    margin-right:
-    5px;
-    font-weight: bold;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  background-color: #337ab7;
+  color: #fff;
+  cursor: pointer;
 }
 
-.update-btn, .remove-btn:hover {
-    background-color: #B37D5E;
+.update-btn {
+  margin-right: 5px;
+}
+
+.remove-btn {
+  background-color: #d9534f;
+}
+
+.remove-btn:hover, .update-btn:hover {
+  opacity: 0.8;
+}
+
+.total-price {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.checkout-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  background-color: #5cb85c;
+  color: #fff;
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  opacity: 0.8;
+}
+
+.alert {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  .cart-container {
+    padding: 10px;
+  }
+
+  .thumbnail {
+    width: 30px;
+    height: 30px;
+  }
+
+  .quantity-input {
+    width: 40px;
+  }
+
+  .update-btn, .remove-btn {
+    padding: 3px 8px;
+    font-size: 12px;
+  }
+
+  .checkout-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
 }
